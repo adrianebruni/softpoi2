@@ -4,9 +4,15 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 public class JsonCentro {
 
-	public static String readUrl(String urlString) throws Exception {
+	public String readUrl(String urlString) throws Exception {
 	    BufferedReader reader = null;
 	    try {
 	        URL url = new URL(urlString);
@@ -22,6 +28,26 @@ public class JsonCentro {
 	        if (reader != null)
 	            reader.close();
 	    }
+	}	
+	
+	
+	public void dameAlgo(String urlString) throws Exception {
+		
+		String json = this.readUrl(urlString);
+		Gson gson = new Gson();
+		CentroDTO[] gsonCentro = gson.fromJson(json, CentroDTO[].class);	
+		JsonArray arrayCentro = (JsonArray) new JsonParser().parse(json);
+	
+		//JsonElement comuna = ((JsonObject)arrayCentro.get(0)).get("comuna");
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

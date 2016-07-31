@@ -1,6 +1,15 @@
 package json.centro;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class CentroDTO {
 	
@@ -28,7 +37,6 @@ import com.google.gson.stream.JsonReader;
 	// Constructor
 	// ***************************************************************************
 	
-	/*
 	public CentroDTO(int comuna, String zonas, String director, String domicilio, String telefono,
 			ArrayList<ServicioCentro> servicioDTO) {
 		super();
@@ -39,7 +47,6 @@ import com.google.gson.stream.JsonReader;
 		this.telefono = telefono;
 		this.servicioDTO = servicioDTO;
 	}
-	 */
 	
 	// ***************************************************************************
 	// Getters
@@ -109,6 +116,44 @@ import com.google.gson.stream.JsonReader;
 	// Metodos
 	// ***************************************************************************
 	
+	private String readUrl(String urlString) throws Exception {
+	    BufferedReader reader = null;
+	    try {
+	        URL url = new URL(urlString);
+	        reader = new BufferedReader(new InputStreamReader(url.openStream()));
+	        StringBuffer buffer = new StringBuffer();
+	        int read;
+	        char[] chars = new char[1024];
+	        while ((read = reader.read(chars)) != -1)
+	            buffer.append(chars, 0, read); 
+
+	        return buffer.toString();
+	    } finally {
+	        if (reader != null)
+	            reader.close();
+	    }
+	}
+	
+	public ArrayList<CentroDTO> consultarJson(String urlString) throws Exception {
+		
+		String json = this.readUrl(urlString);
+		Gson gson = new Gson();
+		CentroDTO[] gsonCentro = gson.fromJson(json, CentroDTO[].class);	
+		JsonArray arrayCentro = (JsonArray) new JsonParser().parse(json);
+		
+		
+		
+		
+		
+		
+		return null;
+		
+		//JsonElement comuna = ((JsonObject)arrayCentro.get(0)).get("comuna");
+		
+	}
+	
+	
+	
 	/*
 	public static class CentroDeserializer implements JsonDeserializer<CentroDTO>{
 
@@ -120,6 +165,10 @@ import com.google.gson.stream.JsonReader;
 			
 			// Creamos un elemento del tipo Json (indicado en el enunciado del TP)
 			final JsonElement jsonComuna = jsonObject.get("comuna");
+			
+			
+			JsonElement comuna = ((JsonObject)arrayCentro.get(0)).get("comuna");
+			
 			
 			// Creamos una variable del mismo tipo y asignamos su valor
 			final int comuna = jsonComuna.getAsInt();

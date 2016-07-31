@@ -2,7 +2,6 @@ package dds.softpoi;
 import java.util.ArrayList;
 import java.util.Date;
 
-
 public class CGP extends POI{
 	private int altura;
 	private int piso;

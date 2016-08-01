@@ -9,6 +9,7 @@ public class Disponibilidad {
 	private String dia; // "DOMINGO", "LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO"
 	private ArrayList<RangoHorario> horarios = new ArrayList<RangoHorario>();
 	
+	private String[] dias = {"DOMINGO", "LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO"};
 	
 	// ***************************************************************************
 	// Setters
@@ -17,11 +18,21 @@ public class Disponibilidad {
 		this.dia = unDia;
 	}
 	
+	public void setDia(int unDia) {
+		if (unDia > 0 && unDia < 6){
+			this.dia = dias[unDia];
+		}
+	}
+	
 	public void setHorarios(ArrayList<RangoHorario> horarios) {
 		this.horarios = horarios;
 	}
-	
 
+	public void setRangoHorario(RangoHorario objRangoHorario){
+		this.horarios.add(objRangoHorario);
+	}
+
+	
 	// ***************************************************************************
 	// Getters
 	// ***************************************************************************
@@ -32,25 +43,18 @@ public class Disponibilidad {
 	public ArrayList<RangoHorario> getHorarios() {
 		return horarios;
 	}
-
 	
 	// ***************************************************************************
 	// Metodos
 	// ***************************************************************************
-	public void agregarRangoHorario(RangoHorario objRangoHorario){
-		this.horarios.add(objRangoHorario);
-	}
-	
 	
 	private String diaDeLaSemana(Date UnDia){
-		String[] dias = {"DOMINGO", "LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO"};
 		int numeroDia = 0;
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(UnDia);
 		numeroDia = cal.get(Calendar.DAY_OF_WEEK);
 		return dias[numeroDia - 1];
 	}
-		
 	
 	public boolean estaDisponible(Date unDia, String horaActual){
 		boolean existe = false;

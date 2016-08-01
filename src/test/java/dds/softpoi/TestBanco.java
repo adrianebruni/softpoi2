@@ -23,26 +23,26 @@ public class TestBanco {
 		// Creamos el objeto unDia de la clase Disponibilidad y le asignamos valores
 		Disponibilidad unDia = new Disponibilidad();
 		unDia.setDia("VIERNES");
-		unDia.agregarRangoHorario(rango1);
-		unDia.agregarRangoHorario(rango2);
+		unDia.setRangoHorario(rango1);
+		unDia.setRangoHorario(rango2);
 		
 		Disponibilidad otroDia = new Disponibilidad();
 		otroDia.setDia("JUEVES");
-		otroDia.agregarRangoHorario(rango3);
+		otroDia.setRangoHorario(rango3);
 
 		Disponibilidad otroDia1 = new Disponibilidad();
 		otroDia1.setDia("DOMINGO");
-		otroDia1.agregarRangoHorario(rango3);
+		otroDia1.setRangoHorario(rango3);
 		
 		// Creamos un servicio y le asignamos valores.
 		Servicio unServicio = new Servicio();
 		unServicio.setServicio("apertura de cuenta corriente");
-		unServicio.agregarDisponibilidad(otroDia1);
+		unServicio.setDisponibilidad(otroDia1);
 		
 		Servicio otroServicio = new Servicio();
 		otroServicio.setServicio("apertura de caja de ahorro");
-		otroServicio.agregarDisponibilidad(unDia);
-		otroServicio.agregarDisponibilidad(otroDia);
+		otroServicio.setDisponibilidad(unDia);
+		otroServicio.setDisponibilidad(otroDia);
 		
 		// Creamos el objeto bancoFrances de la clase Banco.
 		Banco bancoFrances = new Banco("BANCO FRANCES", -34.603075, -58.381653);

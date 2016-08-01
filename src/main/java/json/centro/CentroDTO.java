@@ -4,27 +4,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
-
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 public class CentroDTO {
-	
-/*
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
-*/	
-	
-	public CentroDTO parent;
 	
 	private int comuna;
 	private String zonas;
@@ -33,9 +16,14 @@ import com.google.gson.stream.JsonReader;
 	private String telefono;		
 	private ArrayList<ServicioCentro> servicioDTO = new ArrayList<ServicioCentro>();
 	
+	private JsonArray arrayCentro;
+	
+	
 	// ***************************************************************************
 	// Constructor
 	// ***************************************************************************
+	
+	public CentroDTO(){}
 	
 	public CentroDTO(int comuna, String zonas, String director, String domicilio, String telefono,
 			ArrayList<ServicioCentro> servicioDTO) {
@@ -76,17 +64,13 @@ import com.google.gson.stream.JsonReader;
 		return servicioDTO;
 	}
 	
-	public CentroDTO getParent() {
-		return parent;
+	public JsonArray getArrayCentro() {
+		return arrayCentro;
 	}
 	
 	// ***************************************************************************
 	// Setters
 	// ***************************************************************************
-	
-	public void setParent(final CentroDTO parent) {
-		this.parent = parent;
-	}
 	
 	public void setComuna(int comuna) {
 		this.comuna = comuna;
@@ -112,10 +96,15 @@ import com.google.gson.stream.JsonReader;
 		this.servicioDTO = servicioDTO;
 	}
 	
+	public void setArrayCentro(JsonArray arrayCentro) {
+		this.arrayCentro = arrayCentro;
+	}
+	
 	// ***************************************************************************
 	// Metodos
 	// ***************************************************************************
 	
+	// Funcion que obtiene todo los datos del parametro enviado por URL a string
 	private String readUrl(String urlString) throws Exception {
 	    BufferedReader reader = null;
 	    try {
@@ -134,23 +123,23 @@ import com.google.gson.stream.JsonReader;
 	    }
 	}
 	
-	public ArrayList<CentroDTO> consultarJson(String urlString) throws Exception {
+	// 
+	public JsonArray consultarJson(String urlString) throws Exception {
 		
 		String json = this.readUrl(urlString);
-		Gson gson = new Gson();
-		CentroDTO[] gsonCentro = gson.fromJson(json, CentroDTO[].class);	
-		JsonArray arrayCentro = (JsonArray) new JsonParser().parse(json);
+		arrayCentro = (JsonArray) new JsonParser().parse(json);
 		
-		
-		
-		
-		
-		
-		return null;
-		
-		//JsonElement comuna = ((JsonObject)arrayCentro.get(0)).get("comuna");
+		if (this.arrayCentro.size() == 0){
+			// No hay elementos
+			return null;
+		}else{
+			return this.arrayCentro;
+			//JsonElement comuna = ((JsonObject)arrayCentro.get(0)).get("comuna");
+		}
 		
 	}
+
+
 	
 	
 	

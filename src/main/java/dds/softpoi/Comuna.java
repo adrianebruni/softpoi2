@@ -2,19 +2,26 @@ package dds.softpoi;
 
 public class Comuna {
 	
-	// ***************************************************************************
-	// Constructor
-	// ***************************************************************************
+	private int id;
 	private double limSur;
 	private double limNorte;
 	private double limEste;
 	private double limOeste;
+	private String zonas;
 	
-	public Comuna(double unLimSur, double unLimNorte, double unLimEste, double unLimOeste) {
+	// ***************************************************************************
+	// Constructor
+	// ***************************************************************************
+	
+	public Comuna(){}
+	
+	public Comuna(int unID, double unLimSur, double unLimNorte, double unLimEste, double unLimOeste, String zonas) {
+		this.id = unID;
 		this.limSur = unLimSur;
 		this.limNorte = unLimNorte;
 		this.limEste = unLimEste;
 		this.limOeste = unLimOeste;
+		this.zonas = zonas;
 	}
 	
 	// ***************************************************************************
@@ -37,6 +44,14 @@ public class Comuna {
 		this.limOeste = unLimOeste;
 	}
 	
+	public void setID(int unid) {
+		this.id = unid;
+	}
+	
+	public void setZonas(String zonas) {
+		this.zonas = zonas;
+	}
+	
 	// ***************************************************************************
 	// Getters
 	// ***************************************************************************
@@ -56,4 +71,13 @@ public class Comuna {
 	public double getLimOeste() {
 		return limOeste;
 	}
+	
+	public int getID() {
+		return id;
+	}
+
+	public String getZonas() {
+		return zonas;
+	}
+	
 }

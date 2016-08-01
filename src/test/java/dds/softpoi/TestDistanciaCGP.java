@@ -16,7 +16,7 @@ public class TestDistanciaCGP {
 		System.out.println("dispositivo: " + dispositivo2.getNombre() + ", latitud: " + dispositivo2.getLatitud() + ", longitud: " + dispositivo2.getLongitud());
 
 		//creo una Comuna para el CGP
-		Comuna comunaFlores = new Comuna (0.350219707, 0.52475748, 0.698131701, 0.715584993);
+		Comuna comunaFlores = new Comuna (1, 0.350219707, 0.52475748, 0.698131701, 0.715584993, "lanus, lomas de zamora");
 		System.out.println("Comuna, limite Sur: " + comunaFlores.getLimSur() + ", Limite Norte: " + comunaFlores.getLimNorte() + ", Limite Este: " + comunaFlores.getLimEste() + ", Limite Oeste: " + comunaFlores.getLimOeste());		
 				
 		//creo un POI CGP de prueba

@@ -15,10 +15,13 @@ public class Servicio {
 		this.servicio = servicio;
 	}
 	
-	public void setDisponibilidad(ArrayList<Disponibilidad> disponibilidad) {
+	public void setDisponibilidades(ArrayList<Disponibilidad> disponibilidad) {
 		this.disponibilidad = disponibilidad;
 	}
 	
+	public void setDisponibilidad(Disponibilidad objDisponibilidad){
+		this.disponibilidad.add(objDisponibilidad);
+	}
 	
 	// ***************************************************************************
 	// Getters
@@ -27,17 +30,14 @@ public class Servicio {
 		return servicio;
 	}
 	
-	public ArrayList<Disponibilidad> getDisponibilidad() {
+	public ArrayList<Disponibilidad> getDisponibilidades() {
 		return disponibilidad;
 	}
-	
 	
 	// ***************************************************************************
 	// Metodos
 	// ***************************************************************************
-	public void agregarDisponibilidad(Disponibilidad objDisponibilidad){
-		this.disponibilidad.add(objDisponibilidad);
-	}
+
 	
 	// Esta disponible el servicio si: atiende el dia "unDia" y en el horario "horaActual"
 	public boolean estaDisponible(Date unDia, String horaActual){

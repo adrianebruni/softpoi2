@@ -8,13 +8,16 @@ public class CGP extends POI{
 	private String departamento;
 	private String unidad;
 	private String codigoPostal;
-	private ArrayList<Servicio> servicios = new ArrayList<Servicio>();
+	private String director;
+	private String telefono;
 	private Comuna comuna;
-
+	//private ArrayList<Servicio> servicios = new ArrayList<Servicio>();
 	
 	// ***************************************************************************
 	// Constructor
 	// ***************************************************************************
+	
+	public CGP(){};
 	
 	public CGP(String nombre, double latitud, double longitud) {
 		super.nombre = nombre;
@@ -26,27 +29,33 @@ public class CGP extends POI{
 	// Setters
 	// ***************************************************************************
 	
-	public void setAltura(int altura){
-		this.altura = altura;
+	public void setAltura(int unaAltura){
+		this.altura = unaAltura;
 	}
 	
-	public void setPiso(int piso){
-		this.piso = piso;
+	public void setPiso(int unPiso){
+		this.piso = unPiso;
 	}
 	
-	public void setDepartamento(String departamento){
-		this.departamento = departamento;
+	public void setDepartamento(String unDepartamento){
+		this.departamento = unDepartamento;
 	}
 	
-	public void setUnidad(String unidad){
-		this.unidad = unidad;
+	public void setUnidad(String unaUnidad){
+		this.unidad = unaUnidad;
 	}
 	
-	public void setCodigoPostal(String codigoPostal){
-		this.codigoPostal= codigoPostal;
+	public void setCodigoPostal(String unCodigoPostal){
+		this.codigoPostal= unCodigoPostal;
 	}
 	
-	// setter de Servicios agrega de a un servicio a la vez a la coleccion
+	public void setDirector(String unDirector) {
+		this.director = unDirector;
+	}
+	
+	public void setTelefono(String unTelefono) {
+		this.telefono = unTelefono;
+	}
 	
 	public void setComuna(Comuna unaComuna){
 		if (latitud  <= unaComuna.getLimNorte() && 
@@ -87,6 +96,14 @@ public class CGP extends POI{
 	
 	public Comuna getComuna(){
 		return comuna;
+	}
+	
+	public String getDirector() {
+		return director;
+	}
+
+	public String getTelefono() {
+		return telefono;
 	}
 	
 	// ***************************************************************************

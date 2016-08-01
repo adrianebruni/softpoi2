@@ -19,10 +19,10 @@ public class TestComercio {
 		RangoHorario rango1 = new RangoHorario("00:00:00", "20:01:08");
 		Disponibilidad unDia = new Disponibilidad();
 		unDia.setDia("LUNES");
-		unDia.agregarRangoHorario(rango1);
+		unDia.setRangoHorario(rango1);
 		Servicio unServicio = new Servicio();
 		unServicio.setServicio("apertura de caja de ahorro");
-		unServicio.agregarDisponibilidad(unDia);
+		unServicio.setDisponibilidad(unDia);
 
 		
 		

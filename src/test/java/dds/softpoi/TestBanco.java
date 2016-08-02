@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class TestBanco {
 
-	@Test
+	@Test  
 	public void testDisponibilidadServicio() {
 		//fail("Not yet implemented");
 		System.out.println("Iniciando testDisponibilidadServicio");

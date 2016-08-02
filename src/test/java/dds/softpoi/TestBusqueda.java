@@ -43,7 +43,7 @@ public class TestBusqueda {
 		servidor.cargarPOI(comercio2);
 		servidor.cargarPOI(cgp1);
 		
-		String cadenaabuscar = new String("cAsaM");
+		String cadenaabuscar = new String("ga");
 		System.out.println("Los POI que machean con la condicion " + cadenaabuscar + " son:" );
 		for(POI unpoi : servidor.buscaPOI(cadenaabuscar)){
 			System.out.println(unpoi.getNombre());

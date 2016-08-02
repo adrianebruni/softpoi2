@@ -12,6 +12,8 @@ public class Banco extends POI {
 	// Constructor
 	// ***************************************************************************
 	
+	public Banco(){}
+	
 	public Banco(String nombre, double latitud, double longitud) {
 		super.nombre = nombre;
 		super.latitud = latitud;

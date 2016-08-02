@@ -5,6 +5,7 @@ import java.util.Date;
 //import maps.java.*; //propiedades-java build path-libraries-add external jars-MapsJavaJar
 	
 public abstract class POI {
+	protected int idpoi;
 	protected String nombre;
 	protected double latitud;              
 	protected double longitud;              

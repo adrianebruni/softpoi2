@@ -7,6 +7,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 
+
 public class Servidor {
 	// Constructor
 	public ArrayList<POI> colPOIs = new ArrayList<POI>();
@@ -82,6 +83,7 @@ public class Servidor {
 		todoslospoi.addAll(getcolPOIsExternos());
 		//luego hago el for sobre la conjuncion de los pois, los del sistema y los externos		
 		for(POI unpoi : todoslospoi){
+//			System.out.println(unpoi.nombre);
 			if (unpoi.getNombre().toUpperCase().indexOf(cadenadebusqueda.toUpperCase()) > -1){
 				poiencontrados.add(unpoi);
 			}else{
@@ -193,6 +195,19 @@ public class Servidor {
 		}
 		return coleccion;
 	
+	}
+	
+	//esta funcion es para obtener el proximo id de poi libre para asignar
+	//se podria pasar en poner en el metodo cargarPOI algo asi como unPOI.setID = proximoIdPOI();
+	//pero hay que ponerlopublico el ID en el poi... pensarlo entre todos
+    public int proximoIdPOI(){
+		int idaux = 1;
+		for(POI unpoi : colPOIs){
+			if( unpoi.idpoi >= idaux ){
+				idaux = unpoi.idpoi + 1;
+			}
+		}
+		return idaux;	
 	}
 	
 }

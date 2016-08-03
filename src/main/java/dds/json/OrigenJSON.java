@@ -3,14 +3,18 @@ package dds.json;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
+import dds.softpoi.POI;
+
 public abstract class OrigenJSON {
 
 	protected JsonArray arrayConsulta;
-
+	protected ArrayList<POI> POIs;
+	
 	// ***************************************************************************
 	// Getters
 	// ***************************************************************************

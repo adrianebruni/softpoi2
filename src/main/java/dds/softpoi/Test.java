@@ -124,6 +124,13 @@ public class Test {
 		}
 		*/
 		
+		/*		
+		String json = this.readUrl("http://trimatek.org/Consultas/centro?zona=Retiro");
+		JsonArray arrayCentro = (JsonArray) new JsonParser().parse(json);
+		JsonElement comuna = ((JsonObject)arrayCentro.get(0)).get("zonas");
+		System.out.println(comuna.toString() + " algo");
+*/
+		
 	}
 
 }

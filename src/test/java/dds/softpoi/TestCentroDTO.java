@@ -1,12 +1,12 @@
 package dds.softpoi;
 
-import json.centro.*;
-
 //import static org.junit.Assert.*;
 import org.junit.Test;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import dds.json.CentroDTO;
 
 public class TestCentroDTO {
 
@@ -99,7 +99,7 @@ public class TestCentroDTO {
 				unCGP.setServicios(unServicio);
 			} // FIN FOR J
 			
-			
+
 			// Aca hay que darle la logica de que queremos hacer con cada CGP
 			System.out.println("COMUNA: " + unCGP.getComuna().getID());
 			System.out.println("ZONAS: " + unCGP.getComuna().getZonas());
@@ -110,6 +110,9 @@ public class TestCentroDTO {
 			System.out.println("------------------------------------------------------------");
 			
 		} // FIN FOR i
+		
+		
+		
 		
 	}
 

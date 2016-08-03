@@ -95,6 +95,35 @@ public class Test {
 		System.out.println("Dia Habil 2 - Apertura: " + bancoFrances.dameUnServicio().getDisponibilidad().get(1).getHorarios().get(0).getApertura());
 		System.out.println("Dia Habil 2 - Cierre: " + bancoFrances.dameUnServicio().getDisponibilidad().get(1).getHorarios().get(0).getCierre());
 		*/
+		
+		/*
+		public static class CentroDeserializer implements JsonDeserializer<CentroDTO>{
+
+			@Override
+			public CentroDTO deserialize(final JsonElement jsonCentro,final Type t, JsonDeserializationContext context) throws JsonParseException {
+				
+				// Creamos un objeto del tipo Json
+				final JsonObject jsonObject = jsonCentro.getAsJsonObject();
+				
+				// Creamos un elemento del tipo Json (indicado en el enunciado del TP)
+				final JsonElement jsonComuna = jsonObject.get("comuna");
+				
+				
+				JsonElement comuna = ((JsonObject)arrayCentro.get(0)).get("comuna");
+				
+				
+				// Creamos una variable del mismo tipo y asignamos su valor
+				final int comuna = jsonComuna.getAsInt();
+				
+				// Creamos un objeto del tipo CentroDTO y le asignamos los valores obtenidos de Json.
+				final CentroDTO unCentroDTO = new CentroDTO();			
+				unCentroDTO.setComuna(comuna);
+
+				return unCentroDTO;
+			}
+		}
+		*/
+		
 	}
 
 }

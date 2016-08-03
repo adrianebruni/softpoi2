@@ -1,14 +1,12 @@
 package dds.softpoi;
 
 import static org.junit.Assert.*;
-import json.centro.BancoDTO;
-import json.centro.CentroDTO;
-
 import org.junit.Test;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import dds.json.BancoDTO;
 
 public class TestBancoDTO {
 

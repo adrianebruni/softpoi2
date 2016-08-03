@@ -1,4 +1,4 @@
-package json.centro;
+package dds.json;
 
 import java.util.ArrayList;
 

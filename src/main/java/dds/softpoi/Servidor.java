@@ -1,12 +1,9 @@
 package dds.softpoi;
+
 import java.util.ArrayList;
-
-import json.centro.BancoDTO;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
-
+import dds.json.BancoDTO;
 
 public class Servidor {
 	// Constructor

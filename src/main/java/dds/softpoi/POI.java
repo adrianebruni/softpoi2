@@ -21,6 +21,10 @@ public abstract class POI {
 	// Setters
 	// ***************************************************************************
 
+	public void setIdpoi(int idpoi){
+		this.idpoi = idpoi;
+	}
+	
 	public void setLatitud(double latitud) {
 		this.latitud = latitud;
 	}
@@ -64,6 +68,10 @@ public abstract class POI {
 	// ***************************************************************************
 	// Getters
 	// ***************************************************************************
+	
+	public int getIdpoi(){
+		return idpoi;
+	}
 	
 	public String getNombre() {
 		return nombre;

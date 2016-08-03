@@ -41,6 +41,8 @@ public class CentroDTO extends OrigenJSON {
 			
 			unCGP.setComuna(unaComuna);
 			
+			unCGP.setNombre("CGP de comuna " + jsonComuna);
+			
 			// Seteamos el director
 			String jsonDirector = ((JsonObject)jsaCentro.get(i)).get("director").getAsString();
 			unCGP.setDirector(jsonDirector);

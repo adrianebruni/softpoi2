@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import dds.json.BancoDTO;
+import dds.json.CentroDTO;
 
 public class Servidor {
 	// Constructor
@@ -20,6 +21,7 @@ public class Servidor {
 		}
 		
 		public void cargarPOI(POI unPOI) {
+			unPOI.setIdpoi(this.proximoIdPOI());
 			this.colPOIs.add(unPOI);
 		}
 	
@@ -68,7 +70,31 @@ public class Servidor {
 		}
 	}	
 	
+	public void eliminarPOI(int idpoi){
+		for(POI unpoi : this.colPOIs){
+			if(unpoi.getIdpoi() == idpoi ){
+				colPOIs.remove(unpoi);
+				break;
+			}
+		}		
+	}	
 
+    //Punto punto=new Punto(20, 30);
+    //Punto pCopia=(Punto)punto.clone();
+	
+	
+	public void modificarPOI(POI poimodificado){
+		for(POI unpoi : this.colPOIs){
+			if(unpoi.getIdpoi() == poimodificado.getIdpoi() ){
+				//aca copio tdos los atributos	
+				//mirar el metodo clone() (hay que implementar implements Cloneable
+				unpoi = poimodificado; 
+				break;
+			}
+		}		
+		
+	}
+	
 	public ArrayList<POI> buscaPOI(String cadenadebusqueda){
 		ArrayList<POI> poiencontrados = new ArrayList<POI>();
 
@@ -80,7 +106,6 @@ public class Servidor {
 		todoslospoi.addAll(getcolPOIsExternos());
 		//luego hago el for sobre la conjuncion de los pois, los del sistema y los externos		
 		for(POI unpoi : todoslospoi){
-//			System.out.println(unpoi.nombre);
 			if (unpoi.getNombre().toUpperCase().indexOf(cadenadebusqueda.toUpperCase()) > -1){
 				poiencontrados.add(unpoi);
 			}else{
@@ -104,99 +129,21 @@ public class Servidor {
 		//boleteo todos los pois de la coleccion de externos...
 		colPOIsExternos.removeAll(colPOIsExternos);
 		//agrego los pois del origen de bancos
-		colPOIsExternos.addAll(obtenerBancosDeOrigenExterno("http://trimatek.org/Consultas/banco"));
+		//colPOIsExternos.addAll(obtenerBancosDeOrigenExterno("http://trimatek.org/Consultas/banco"));
 		//cargarPOIExterno(poiexterno);
 		
+		BancoDTO bancosExternos = new BancoDTO();
+		colPOIsExternos.addAll(bancosExternos.dameDatosExternos("http://trimatek.org/Consultas/banco"));
+		
+		CentroDTO centrosExternos = new CentroDTO();
+		colPOIsExternos.addAll(centrosExternos.dameDatosExternos("http://trimatek.org/Consultas/centro"));
+		
 	}
 	
-	public ArrayList<POI> obtenerBancosDeOrigenExterno(String origenexternobanco){
-		BancoDTO jsonBanco = new BancoDTO();
-		JsonArray jsaBanco = new JsonArray();
-		ArrayList<POI> coleccion = new ArrayList<POI>();
-		try {
-			jsaBanco = jsonBanco.consultarJson(origenexternobanco);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("ocurrio error al obtener origen externo");
-			return null;
-		}	
-		
-		//aca declaro disponibilidades, al no tenerla en origen de datos, asumo que todos
-		//los servicios estan disponibles de lunes a viernes de 10 a 15hs por ser Banco
-		RangoHorario rango = new RangoHorario("10:00:00", "15:00:00");
-		Disponibilidad lunes = new Disponibilidad();
-		Disponibilidad martes = new Disponibilidad();
-		Disponibilidad miercoles = new Disponibilidad();
-		Disponibilidad jueves = new Disponibilidad();
-		Disponibilidad viernes = new Disponibilidad();
-		lunes.setDia("LUNES");
-		lunes.setRangoHorario(rango);
-		martes.setDia("MARTES");
-		martes.setRangoHorario(rango);
-		miercoles.setDia("MIERCOLES");
-		miercoles.setRangoHorario(rango);
-		jueves.setDia("JUEVES");
-		jueves.setRangoHorario(rango);
-		viernes.setDia("VIERNES");
-		viernes.setRangoHorario(rango);
-		
-		for (int i = 0; i <= jsaBanco.size() - 1; i++){
-			
-			// Creamos un objeto del tipo Banco
-			Banco unBanco = new Banco();
-			
-			// Seteamos la comuna (ID, Zonas)
-			String jsonNombreBanco = ((JsonObject)jsaBanco.get(i)).get("banco").getAsString();
-			//System.out.println(jsonNombreBanco);
-			Double jsonX = ((JsonObject)jsaBanco.get(i)).get("x").getAsDouble();
-			//System.out.println(jsonX);
-			Double jsonY = ((JsonObject)jsaBanco.get(i)).get("y").getAsDouble();
-			//String jsonSucursal = ((JsonObject)jsaBanco.get(i)).get("sucursal").getAsString();
-			//String jsonGerente = ((JsonObject)jsaBanco.get(i)).get("gerente").getAsString();
-			
-			// Seteamos los servicios
-			JsonArray jsonServicios = (JsonArray) ((JsonObject)jsaBanco.get(i)).get("servicios");
-			//JsonElement jsonServicios = ((JsonObject)jsaCentro.get(0)).get("servicios");
-			//System.out.println(jsonServicios.toString());	
-			//System.out.println(jsonGerente);
-			for (int j = 0; j <= jsonServicios.size() - 1; j++){
-				// Creamos un objeto del tipo Servicio
-				Servicio unServicio = new Servicio();
-				// nombre del servicio
-				//System.out.println(jsonServicios.get(j).getAsString());
-				String jsonServicioNombre = jsonServicios.get(j).getAsString();
-				//System.out.println(jsonServicioNombre);
-				unServicio.setServicio(jsonServicioNombre);
-				unServicio.setDisponibilidad(lunes);
-				unServicio.setDisponibilidad(martes);
-				unServicio.setDisponibilidad(miercoles);
-				unServicio.setDisponibilidad(jueves);
-				unServicio.setDisponibilidad(viernes);
-				unBanco.setServicios(unServicio);
-		
-			} // FIN FOR J
-			
-			unBanco.setNombre(jsonNombreBanco);
-			unBanco.setLatitud(jsonX);
-			unBanco.setLongitud(jsonY);
-			
-			
-			coleccion.add(unBanco);
-			// Aca hay que darle la logica de que queremos hacer con cada CGP
-			//System.out.println("NOMBRE: " + unBanco.getNombre());
-			//System.out.println("LATI: " + unBanco.getLatitud());
-			//System.out.println("LONGI: " + unBanco.getLongitud());
-			
-			//System.out.println("------------------------------------------------------------");
-		}
-		return coleccion;
+
 	
-	}
-	
-	//esta funcion es para obtener el proximo id de poi libre para asignar
-	//se podria pasar en poner en el metodo cargarPOI algo asi como unPOI.setID = proximoIdPOI();
-	//pero hay que ponerlopublico el ID en el poi... pensarlo entre todos
+	//ver de optimizar con la funcion sort de la coleccion
+	// despues de ordenarlo, obtenemos el maximo idpoi+1  *ver
     public int proximoIdPOI(){
 		int idaux = 1;
 		for(POI unpoi : colPOIs){
@@ -206,5 +153,6 @@ public class Servidor {
 		}
 		return idaux;	
 	}
+    
 	
 }

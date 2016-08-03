@@ -4,7 +4,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import dds.softpoi.Banco;
+import dds.softpoi.Disponibilidad;
 import dds.softpoi.POI;
+import dds.softpoi.RangoHorario;
 import dds.softpoi.Servicio;
 
 import java.util.ArrayList;
@@ -22,7 +24,6 @@ public class BancoDTO extends OrigenJSON{
 			e.printStackTrace();
 		}	
 		
-		System.out.println("Cantidad de ocurrencias en json: " + jsaBanco.size());
 		for (int i = 0; i <= jsaBanco.size() - 1; i++){
 			
 			// Creamos un objeto del tipo Banco
@@ -57,10 +58,19 @@ public class BancoDTO extends OrigenJSON{
 				// Creamos un objeto del tipo Servicio
 				Servicio unServicio = new Servicio();
 				
-				// Nombre del Servicio
+				// Seteamos el Nombre del Servicio
 				String jsonServicioNombre = jsonServicios.get(j).getAsString();
-					
 				unServicio.setServicio(jsonServicioNombre);
+				
+				// Seteamos un rango horario y dia disponible por defecto.
+				RangoHorario objRangoHorario = new RangoHorario("10:00:00", "15:00:00");
+				for (int k = 0; k <= 6; k++){
+					Disponibilidad objDisponibilidad = new Disponibilidad();
+					objDisponibilidad.setDia(k);
+					objDisponibilidad.setRangoHorario(objRangoHorario);
+					unServicio.setDisponibilidad(objDisponibilidad);
+				}	
+				
 				unBanco.setServicios(unServicio);
 				
 			} // FIN FOR J

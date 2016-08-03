@@ -48,6 +48,7 @@ public class Disponibilidad {
 	// Metodos
 	// ***************************************************************************
 	
+	// Se le pasa una fecha DD/MM/YYYY y devuelve el numero del dia de la semana. (Dom=0,Lun=1,...)
 	private String diaDeLaSemana(Date UnDia){
 		int numeroDia = 0;
 		Calendar cal = Calendar.getInstance();

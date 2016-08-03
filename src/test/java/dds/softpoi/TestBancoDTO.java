@@ -1,11 +1,7 @@
 package dds.softpoi;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
 import org.junit.Test;
-import com.google.gson.JsonArray;
-//import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
 import dds.json.BancoDTO;
 
 public class TestBancoDTO {
@@ -13,59 +9,25 @@ public class TestBancoDTO {
 	@Test
 	public void test() throws Exception {
 		
-		JsonArray jsaBanco = new JsonArray();
-		BancoDTO bcoDto = new BancoDTO();
+		BancoDTO jsonCentro = new BancoDTO();
 		
-		try {
-			jsaBanco = bcoDto.consultarJson("http://trimatek.org/Consultas/banco");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}	
+		ArrayList<POI> POIs = jsonCentro.dameDatosExternos("http://trimatek.org/Consultas/banco");
 		
-		System.out.println("Cantidad de ocurrencias en json: " + jsaBanco.size());
-		for (int i = 0; i <= jsaBanco.size() - 1; i++){
+		System.out.println("CANT. POIs: " + POIs.size());
+		System.out.println("************************************************************************************************");
+
+		for (int i = 0; i <= POIs.size() - 1; i++){
 			
-			// Creamos un objeto del tipo Banco
-			Banco unBanco = new Banco();
+			System.out.println("NOMBRE BCO ITEM " + i + ": " + ((Banco) POIs.get(i)).getNombre());
+			System.out.println("LONGITUD ITEM " + i + ": " + ((Banco) POIs.get(i)).getLongitud());
+			System.out.println("LATITUD ITEM " + i + ": " + ((Banco) POIs.get(i)).getLatitud());
+			System.out.println("SUCURSAL ITEM " + i + ": " + ((Banco) POIs.get(i)).getSucursal());
 			
-			// Seteamos en nombre del banco
-			String jsonNombreBanco = ((JsonObject)jsaBanco.get(i)).get("banco").getAsString();
-			unBanco.setNombre(jsonNombreBanco);
+			for (int j = 0; j <= ((Banco) POIs.get(i)).getServicios().size() - 1; j++){
+				System.out.println("SERVICIOS ITEM " + i + ": " + ((Banco) POIs.get(i)).getServicios().get(j).getServicio());
+			}
 			
-			// Seteamos Latitud
-			Double jsonX = ((JsonObject)jsaBanco.get(i)).get("x").getAsDouble();
-			unBanco.setLatitud(jsonX);
-			
-			// Seteamos Longitud
-			Double jsonY = ((JsonObject)jsaBanco.get(i)).get("y").getAsDouble();
-			unBanco.setLongitud(jsonY);
-			
-			// Seteamos la sucursal
-			String jsonSucursal = ((JsonObject)jsaBanco.get(i)).get("sucursal").getAsString();
-			unBanco.setSucursal(jsonSucursal);
-			
-			// Seteamos el gerente
-			String jsonGerente = ((JsonObject)jsaBanco.get(i)).get("gerente").getAsString();
-			unBanco.setGerente(jsonGerente);
-			
-			// Obtenemos el array de servicios
-			JsonArray jsonServicios = (JsonArray) ((JsonObject)jsaBanco.get(i)).get("servicios");
-						
-			// Seteamos los servicios
-			for (int j = 0; j <= jsonServicios.size() - 1; j++){
-				
-				// Creamos un objeto del tipo Servicio
-				Servicio unServicio = new Servicio();
-				
-				// Nombre del Servicio
-				String jsonServicioNombre = jsonServicios.get(j).getAsString();
-					
-				unServicio.setServicio(jsonServicioNombre);
-				unBanco.setServicios(unServicio);
-				
-			} // FIN FOR J
-					
-			System.out.println("------------------------------------------------------------");
+			System.out.println("------------------------------------------------------------------------------------------------");
 			
 		} // FIN FOR i
 		

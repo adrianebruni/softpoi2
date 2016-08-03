@@ -13,8 +13,6 @@ import dds.softpoi.POI;
 import dds.softpoi.RangoHorario;
 import dds.softpoi.Servicio;
 
-//import java.util.ArrayList;
-
 public class CentroDTO extends OrigenJSON {
 	
 	public ArrayList<POI> dameDatosExternos(String sURL) {
@@ -28,7 +26,6 @@ public class CentroDTO extends OrigenJSON {
 			e.printStackTrace();
 		}
 		
-
 		for (int i = 0; i <= jsaCentro.size() - 1; i++){
 			
 			// Creamos un objeto del tipo CGP

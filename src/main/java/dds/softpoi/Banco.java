@@ -87,13 +87,4 @@ public class Banco extends POI {
 		return gerente;
 	}
 	
-	// ***************************************************************************
-	// Metodos
-	// ***************************************************************************
-
-	public Servicio dameUnServicio(String servicio){
-		// esto es de prueba
-		return servicios.get(0);
-	}
-	
 }

@@ -102,7 +102,7 @@ public class Servidor {
 		ArrayList<POI> todoslospoi = new ArrayList<POI>();
 		todoslospoi.addAll(getcolPOIs());
 		//Aca busco en los datos externosa ver que pois hay cargados
-		actualizoDesdeDatosExternos();
+		actualizoDesdeDatosExternos(cadenadebusqueda);
 		todoslospoi.addAll(getcolPOIsExternos());
 		//luego hago el for sobre la conjuncion de los pois, los del sistema y los externos		
 		for(POI unpoi : todoslospoi){
@@ -125,18 +125,30 @@ public class Servidor {
 	}
 	
 	//
-	public void actualizoDesdeDatosExternos() {
+	public void actualizoDesdeDatosExternos(String cadena) {
 		//boleteo todos los pois de la coleccion de externos...
 		colPOIsExternos.removeAll(colPOIsExternos);
 		//agrego los pois del origen de bancos
 		//colPOIsExternos.addAll(obtenerBancosDeOrigenExterno("http://trimatek.org/Consultas/banco"));
 		//cargarPOIExterno(poiexterno);
+		//colPOIsExternos.addAll(bancosExternos.dameDatosExternos("http://trimatek.org/Consultas/banco?banco="+cadena));
+		
+		//BancoDTO bancosExternos1 = new BancoDTO();
+		//colPOIsExternos.addAll(bancosExternos1.dameDatosExternos("http://trimatek.org/Consultas/banco?servidor="+cadena));
 		
 		BancoDTO bancosExternos = new BancoDTO();
-		colPOIsExternos.addAll(bancosExternos.dameDatosExternos("http://trimatek.org/Consultas/banco"));
+		//												     	          http://trimatek.org/Consultas/banco
+		ArrayList<POI> cadenabusqueda = bancosExternos.dameDatosExternos("http://trimatek.org/Consultas/banco?banco="+cadena);
+		
+		if (cadenabusqueda == null) {
+			colPOIsExternos.addAll(bancosExternos.dameDatosExternos("http://trimatek.org/Consultas/banco?servidor="+cadena));
+		}else {
+			colPOIsExternos.addAll(cadenabusqueda);
+		}
 		
 		CentroDTO centrosExternos = new CentroDTO();
-		colPOIsExternos.addAll(centrosExternos.dameDatosExternos("http://trimatek.org/Consultas/centro"));
+		//														  http://trimatek.org/Consultas/centro
+		colPOIsExternos.addAll(centrosExternos.dameDatosExternos("http://trimatek.org/Consultas/centro?zona="+cadena));	
 		
 	}
 	

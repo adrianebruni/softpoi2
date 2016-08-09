@@ -78,21 +78,25 @@ public class Servidor {
 			}
 		}		
 	}	
-
-    //Punto punto=new Punto(20, 30);
-    //Punto pCopia=(Punto)punto.clone();
-	
 	
 	public void modificarPOI(POI poimodificado){
-		for(POI unpoi : this.colPOIs){
-			if(unpoi.getIdpoi() == poimodificado.getIdpoi() ){
-				//aca copio tdos los atributos	
-				//mirar el metodo clone() (hay que implementar implements Cloneable
-				unpoi = poimodificado; 
-				break;
+		if(unpoi.getIdpoi() == poimodificado.getIdpoi()){
+			// copia valores de clase hija
+			Field[] fields = unpoi.getClass().getDeclaredFields();
+			for(Field f : fields){
+				f.setAccessible(true);
+				f.get(poimodificado);
+				f.set(unpoi, f.get(poimodificado));
+			}
+
+			// copia valores de clase padre
+			Field[] fields2 = POI.class.getDeclaredFields();
+			for(Field f : fields2){
+				f.setAccessible(true);
+				f.get(poimodificado);
+				f.set(unpoi, f.get(poimodificado));
 			}
 		}		
-		
 	}
 	
 	public ArrayList<POI> buscaPOI(String cadenadebusqueda){
@@ -103,7 +107,7 @@ public class Servidor {
 		todoslospoi.addAll(getcolPOIs());
 		//Aca busco en los datos externosa ver que pois hay cargados
 		actualizoDesdeDatosExternos(cadenadebusqueda);
-		todoslospoi.addAll(getcolPOIsExternos());
+		todoslospoi.addAll(getcolPOIsExternos(cadenadebusqueda));
 		//luego hago el for sobre la conjuncion de los pois, los del sistema y los externos		
 		for(POI unpoi : todoslospoi){
 			if (unpoi.getNombre().toUpperCase().indexOf(cadenadebusqueda.toUpperCase()) > -1){

@@ -1,5 +1,6 @@
 package dds.softpoi;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -79,24 +80,28 @@ public class Servidor {
 		}		
 	}	
 	
-	public void modificarPOI(POI poimodificado){
-		if(unpoi.getIdpoi() == poimodificado.getIdpoi()){
-			// copia valores de clase hija
-			Field[] fields = unpoi.getClass().getDeclaredFields();
-			for(Field f : fields){
-				f.setAccessible(true);
-				f.get(poimodificado);
-				f.set(unpoi, f.get(poimodificado));
-			}
+	public void modificarPOI(POI poimodificado) throws IllegalArgumentException, IllegalAccessException{
+		for(POI unpoi : this.colPOIs){
 
-			// copia valores de clase padre
-			Field[] fields2 = POI.class.getDeclaredFields();
-			for(Field f : fields2){
-				f.setAccessible(true);
-				f.get(poimodificado);
-				f.set(unpoi, f.get(poimodificado));
-			}
-		}		
+			if(unpoi.getIdpoi() == poimodificado.getIdpoi()){
+				// copia valores de clase hija
+				Field[] fields = unpoi.getClass().getDeclaredFields();
+				for(Field f : fields){
+					f.setAccessible(true);
+					f.get(poimodificado);
+					f.set(unpoi, f.get(poimodificado));
+				}
+	
+				// copia valores de clase padre
+				Field[] fields2 = POI.class.getDeclaredFields();
+				for(Field f : fields2){
+					f.setAccessible(true);
+					f.get(poimodificado);
+					f.set(unpoi, f.get(poimodificado));
+				}
+			}	
+		}
+		
 	}
 	
 	public ArrayList<POI> buscaPOI(String cadenadebusqueda){
@@ -107,7 +112,7 @@ public class Servidor {
 		todoslospoi.addAll(getcolPOIs());
 		//Aca busco en los datos externosa ver que pois hay cargados
 		actualizoDesdeDatosExternos(cadenadebusqueda);
-		todoslospoi.addAll(getcolPOIsExternos(cadenadebusqueda));
+		todoslospoi.addAll(getcolPOIsExternos());
 		//luego hago el for sobre la conjuncion de los pois, los del sistema y los externos		
 		for(POI unpoi : todoslospoi){
 			if (unpoi.getNombre().toUpperCase().indexOf(cadenadebusqueda.toUpperCase()) > -1){
@@ -163,8 +168,8 @@ public class Servidor {
     public int proximoIdPOI(){
 		int idaux = 1;
 		for(POI unpoi : colPOIs){
-			if( unpoi.idpoi >= idaux ){
-				idaux = unpoi.idpoi + 1;
+			if( unpoi.getIdpoi() >= idaux ){
+				idaux = unpoi.getIdpoi() + 1;
 			}
 		}
 		return idaux;	

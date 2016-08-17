@@ -2,8 +2,6 @@ package dds.softpoi;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import dds.json.BancoDTO;
 import dds.json.CentroDTO;
 
@@ -13,7 +11,8 @@ public class Servidor {
 	public ArrayList<Administrador> colAdmins = new ArrayList<Administrador>();
 	//Esta coleccion es para origenes de datos externos
 	public ArrayList<POI> colPOIsExternos = new ArrayList<POI>();
-	
+	//Aca vamos a ir guardando los resultados de la consulta, con el metodo agregoConsulta de clase Estadistica
+	Estadistica estadisticas = new Estadistica();
 	// ***************************************************************************
 	// Setters
 	// ***************************************************************************

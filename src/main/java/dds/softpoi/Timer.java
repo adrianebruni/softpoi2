@@ -1,5 +1,13 @@
 package dds.softpoi;
 
+import java.util.Date;
+
 public class Timer {
-//clase
+
+	int duracion;
+	
+	public void iniciarConsulta(Date fechadeconsulta) {
+//		this.fechadeconsulta = fechadeconsulta;
+	}
+	
 }

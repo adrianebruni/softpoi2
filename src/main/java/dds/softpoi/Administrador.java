@@ -1,7 +1,7 @@
 package dds.softpoi;
 
 
-public class Administrador {
+public class Administrador extends Usuario{
 
 	private String pass;
 	private Servidor serv;
@@ -36,8 +36,8 @@ public class Administrador {
 		serv.cargarPOI(unPOI);
 	}
 	
-	public boolean modificarPOI(POI unPOI){
-	// Pendiente: Hay que ver la logica
+	public boolean modificarPOI(POI unPOI) throws IllegalArgumentException, IllegalAccessException{ 
+	    serv.modificarPOI(unPOI);
 		return true;
 	}
 	
@@ -55,4 +55,6 @@ public class Administrador {
 		serv.loguin(serv.getcolAdmins(), this);
 		return true;
 	}	
+	
+	
 }

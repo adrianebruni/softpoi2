@@ -1,15 +1,14 @@
 package dds.softpoi;
 
-public class Usuario {
-	String nombreUsuario;
-	String clave;
-	String token;
-
-	public String getNombreUsuario(){
-		return this.nombreUsuario;
+public abstract class Usuario {
+	
+	String nombre;
+	
+	public String getNombre(){
+		return this.nombre;
 	}
 	
-	public void setNombreUsuario(String unNombre){
-		nombreUsuario = unNombre;
+	public void setNombre(String unNombre){
+		nombre = unNombre;
 	}
 }

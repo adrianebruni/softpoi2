@@ -24,12 +24,14 @@ public class Timer implements BuscadorAbstracto {
 		this.iniciarConsulta();
 		poisencontrados =  unBuscadorConcreto.consultar(query, unServidor);
 		this.finalizarConsulta();
+		if (this.duracionConsulta() > unServidor.getParametros().getDemoraconsulta() ){
+			this.enviarMail();
+		}
 		return poisencontrados;
 	}
 	
 	public void enviarMail(){
-		//Mail unMail = new Mail();
-		//unMAil.enviarMail();
+		//Aca meterle la logica del envio de mail con clase Mail
 		System.out.println("Mail enviado");
 	}
 	

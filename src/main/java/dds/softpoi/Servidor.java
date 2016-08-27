@@ -13,6 +13,9 @@ public class Servidor {
 	public ArrayList<POI> colPOIsExternos = new ArrayList<POI>();
 	//Aca vamos a ir guardando los resultados de la consulta, con el metodo agregoConsulta de clase Estadistica
 	Estadistica estadisticas = new Estadistica();
+	
+	Parametros parametros = new Parametros();
+	
 	// ***************************************************************************
 	// Setters
 	// ***************************************************************************
@@ -41,6 +44,10 @@ public class Servidor {
 		
 		public ArrayList<POI> getcolPOIsExternos() {
 			return colPOIsExternos;
+		}
+		
+		public Parametros getParametros(){
+			return parametros;
 		}
 		
 	// Metodos
@@ -79,7 +86,8 @@ public class Servidor {
 		}		
 	}	
 	
-	public void modificarPOI(POI poimodificado) throws IllegalArgumentException, IllegalAccessException{
+	public void modificarPOI(POI poimodificado) throws IllegalArgumentException, IllegalAccessException {
+	
 		for(POI unpoi : this.colPOIs){
 
 			if(unpoi.getIdpoi() == poimodificado.getIdpoi()){
@@ -100,6 +108,10 @@ public class Servidor {
 				}
 			}	
 		}
+	
+			
+		
+	
 		
 	}
 	

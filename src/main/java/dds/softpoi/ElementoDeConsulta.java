@@ -6,9 +6,17 @@ public class ElementoDeConsulta {
 
 	Date fechaConsulta;
     String consultaUsuario;
-    float tiempoRespuesta;
+    double tiempoRespuesta;
     String tipoUsuario;
     int totalResultados;
+    
+    public ElementoDeConsulta(Date fechaConsulta,String consultaUsuario,double tiempoRespuesta,String tipoUsuario,int totalResultados) {
+    	this.fechaConsulta = fechaConsulta;
+    	this.consultaUsuario = consultaUsuario;
+    	this.tiempoRespuesta = tiempoRespuesta;
+    	this.tipoUsuario = tipoUsuario;
+    	this.totalResultados = totalResultados;
+    }
     
     // ***************************************************************************
  	// Setters
@@ -43,7 +51,7 @@ public class ElementoDeConsulta {
 	public String getConsultaUsuario() {
 		return consultaUsuario;
 	}
-	public float getTiempoRespuesta() {
+	public Double getTiempoRespuesta() {
 		return tiempoRespuesta;
 	}
 	public String getTipoUsuario() {

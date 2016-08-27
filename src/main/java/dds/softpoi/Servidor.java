@@ -103,7 +103,13 @@ public class Servidor {
 		
 	}
 	
-	public ArrayList<POI> buscaPOI(String cadenadebusqueda){
+	public ArrayList<POI> buscaPOI(String cadenadebusqueda, Usuario unUsuario){
+		HistoricoConsulta histconsulta = new HistoricoConsulta();
+		return histconsulta.consultar(cadenadebusqueda, this,unUsuario);
+	}
+	
+	
+/*	public ArrayList<POI> buscaPOI(String cadenadebusqueda){
 		ArrayList<POI> poiencontrados = new ArrayList<POI>();
 
 		//Esta es la logica que le agrego para considerar los pois de origen de datos externos
@@ -130,7 +136,7 @@ public class Servidor {
 				
 		}
 		return poiencontrados;
-	}
+	}*/
 	
 	//
 	public void actualizoDesdeDatosExternos(String cadena) {

@@ -1,6 +1,6 @@
 package dds.softpoi;
 
-public abstract class BuscadorAbstracto {
+public interface BuscadorAbstracto {
 
 	
 	    // ***************************************************************************

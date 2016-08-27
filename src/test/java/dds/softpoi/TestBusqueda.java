@@ -43,9 +43,20 @@ public class TestBusqueda {
 		servidor.cargarPOI(comercio2);
 		servidor.cargarPOI(cgp1);
 		
-		String cadenaabuscar = new String("ga");
+		
+		Administrador unAdmin = new Administrador();
+		
+//		servidor.loguearme(unAdmin);
+	
+//		unAdmin.cargarPOI(cgp1);
+		
+		
+//		String cadenaabuscar = new String("Naci");
+		Usuario unUsuario = new Administrador();
+//		unUsuario.setNombreUsuario("Rodo");
+		String cadenaabuscar = "Nac";
 		System.out.println("Los POI que machean con la condicion " + cadenaabuscar + " son:" );
-		for(POI unpoi : servidor.buscaPOI(cadenaabuscar)){
+		for(POI unpoi : servidor.buscaPOI(cadenaabuscar,unUsuario)){
 			System.out.println(unpoi.getNombre());
 		}
 		

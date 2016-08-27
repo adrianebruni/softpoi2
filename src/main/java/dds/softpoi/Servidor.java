@@ -13,6 +13,9 @@ public class Servidor {
 	public ArrayList<POI> colPOIsExternos = new ArrayList<POI>();
 	//Aca vamos a ir guardando los resultados de la consulta, con el metodo agregoConsulta de clase Estadistica
 	Estadistica estadisticas = new Estadistica();
+	
+	Parametros parametros = new Parametros();
+	
 	// ***************************************************************************
 	// Setters
 	// ***************************************************************************
@@ -41,6 +44,10 @@ public class Servidor {
 		
 		public ArrayList<POI> getcolPOIsExternos() {
 			return colPOIsExternos;
+		}
+		
+		public Parametros getParametros(){
+			return parametros;
 		}
 		
 	// Metodos
@@ -79,7 +86,8 @@ public class Servidor {
 		}		
 	}	
 	
-	public void modificarPOI(POI poimodificado) throws IllegalArgumentException, IllegalAccessException{
+	public void modificarPOI(POI poimodificado) throws IllegalArgumentException, IllegalAccessException {
+	
 		for(POI unpoi : this.colPOIs){
 
 			if(unpoi.getIdpoi() == poimodificado.getIdpoi()){
@@ -100,10 +108,20 @@ public class Servidor {
 				}
 			}	
 		}
+	
+			
+		
+	
 		
 	}
 	
-	public ArrayList<POI> buscaPOI(String cadenadebusqueda){
+	public ArrayList<POI> buscaPOI(String cadenadebusqueda, Usuario unUsuario){
+		HistoricoConsulta histconsulta = new HistoricoConsulta();
+		return histconsulta.consultar(cadenadebusqueda, this,unUsuario);
+	}
+	
+	
+/*	public ArrayList<POI> buscaPOI(String cadenadebusqueda){
 		ArrayList<POI> poiencontrados = new ArrayList<POI>();
 
 		//Esta es la logica que le agrego para considerar los pois de origen de datos externos
@@ -130,7 +148,7 @@ public class Servidor {
 				
 		}
 		return poiencontrados;
-	}
+	}*/
 	
 	//
 	public void actualizoDesdeDatosExternos(String cadena) {

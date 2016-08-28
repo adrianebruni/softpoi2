@@ -31,7 +31,9 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 	
 	public void cantidadBusquedasPorFecha(Usuario unUsuario){
 		Collections.sort(elementosDeConsulta, ElementoDeConsulta.Comparar_Por_Fecha);
-		//System.out.println("Usuario: Terminal Abasto Fecha: 2016-08-16 CantidadResult: 15");
+		for(ElementoDeConsulta elem: elementosDeConsulta) {
+			System.out.println("Elementos: " + elem);
+		}
 	}
 	
 	public void cantidadBusquedasPorTerminal(){

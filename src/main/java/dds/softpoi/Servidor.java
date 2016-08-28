@@ -7,10 +7,10 @@ import dds.json.CentroDTO;
 
 public class Servidor {
 	// Constructor
-	private ArrayList<POI> colPOIs = new ArrayList<POI>();
-	private ArrayList<Administrador> colAdmins = new ArrayList<Administrador>();
+	public ArrayList<POI> colPOIs = new ArrayList<POI>();
+	public ArrayList<Administrador> colAdmins = new ArrayList<Administrador>();
 	//Esta coleccion es para origenes de datos externos
-	private ArrayList<POI> colPOIsExternos = new ArrayList<POI>();
+	public ArrayList<POI> colPOIsExternos = new ArrayList<POI>();
 	//Aca vamos a ir guardando los resultados de la consulta, con el metodo agregoConsulta de clase Estadistica
 	Estadistica estadisticas = new Estadistica();
 	

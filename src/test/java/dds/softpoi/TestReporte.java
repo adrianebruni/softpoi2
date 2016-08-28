@@ -20,7 +20,19 @@ public class TestReporte {
 		servidorPpal.addAdmin(unAdministrador);
 		
 		RepoPOI colPoisPrueba = new RepoPOI();
-//		servidorPpal.colPOIs = colPoisPrueba.Dame_Bolsa_POI();
+		servidorPpal.cargarPOIs(RepoPOI.Dame_Bolsa_POI());
+		
+		Timer unTimer = new Timer();
+		unTimer.consultar("BANCO", servidorPpal, unAdministrador);
+		HistoricoConsulta unHistorico = new HistoricoConsulta();
+		unHistorico.consultar("BANCO", servidorPpal, unAdministrador);
+		
+		unHistorico.cantidadBusquedasPorFecha(unAdministrador);
+		
+		
+		//para correr el test con algo
+		assertEquals("Verificamos", 3, 3);
+		
 		
 		
 		

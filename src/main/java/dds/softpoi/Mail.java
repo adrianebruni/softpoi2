@@ -2,7 +2,6 @@ package dds.softpoi;
 
 import java.util.Properties;
 
-<<<<<<< HEAD
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -18,8 +17,8 @@ public class Mail {
 	static Session getMailSession;
 	static MimeMessage generateMailMessage;
 	
-	String emailCuenta; //softpoi.notificaciones@gmail.com
-	String emailClave; //pN2f3WOV
+	String emailCuenta;
+	String emailClave;
 	
 	// ***************************************************************************
 	// Constructor
@@ -104,48 +103,4 @@ public class Mail {
 		}
 	}
 	
-=======
-public class Mail {
-/*  // La dirección de envío (to)
-    String para = "aleazzi@gmail.com";
-
-    // La dirección de la cuenta de envío (from)
-    String de = "aleazzi@gmail.com";
-
-    // El servidor (host). En este caso usamos localhost
-    String host = "localhost";
-
-    // Obtenemos las propiedades del sistema
-    Properties propiedades = System.getProperties();
-
-    // Configuramos el servidor de correo
-    propiedades.setProperty("mail.smtp.host", host);
-
-    // Obtenemos la sesión por defecto
-    Session sesion = Session.getDefaultInstance(propiedades);
-
-    try{
-      // Creamos un objeto mensaje tipo MimeMessage por defecto.
-      MimeMessage mensaje = new MimeMessage(sesion);
-
-      // Asignamos el “de o from” al header del correo.
-      mensaje.setFrom(new InternetAddress(de));
-
-      // Asignamos el “para o to” al header del correo.
-      mensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(para));
-
-      // Asignamos el asunto
-      mensaje.setSubject("Primer correo sencillo");
-
-      // Asignamos el mensaje como tal
-      mensaje.setText("El mensaje de nuestro primer correo");
-
-      // Enviamos el correo
-      Transport.send(mensaje);
-      System.out.println("Mensaje enviado");
-    } catch (MessagingException e) {
-      e.printStackTrace();
-    }
-    */
->>>>>>> f96880b9238112df5c4310d9f0b12003322af14a
 }

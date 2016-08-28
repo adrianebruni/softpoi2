@@ -46,8 +46,6 @@ public class RepoPOI {
 		
 		//seguir agregando POIs de distintos tipos para usar en todos los test
 		
-		
-		
-		return null;
+		return bolsapois;
 	}
 }

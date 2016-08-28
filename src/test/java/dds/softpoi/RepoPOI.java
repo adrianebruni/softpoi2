@@ -6,7 +6,7 @@ public class RepoPOI {
 	
 	
 	// aca vamos a cargar el manojo de pois 
-	public static ArrayList<POI> RepoPOI(){
+	public static ArrayList<POI> Dame_Bolsa_POI(){
 		ArrayList<POI> bolsapois = new ArrayList<POI>();
 		// Creamos el objeto rango1 de la clase RangoHorario.
 		RangoHorario rango1 = new RangoHorario("09:00:00", "13:00:00");
@@ -39,6 +39,7 @@ public class RepoPOI {
 		
 		// Creamos el objeto bancoFrances de la clase Banco.
 		Banco bancoFrances = new Banco("BANCO FRANCES", -34.603075, -58.381653);
+		bancoFrances.setIdpoi(1);
 		bancoFrances.setServicios(unServicio);
 		bancoFrances.setServicios(otroServicio);
 		

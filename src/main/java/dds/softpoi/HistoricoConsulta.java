@@ -2,6 +2,7 @@ package dds.softpoi;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Collections;
 
 
 public class HistoricoConsulta implements BuscadorAbstracto{
@@ -28,12 +29,13 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		System.out.println("Banco Frances   35 resultados  tiempo");
 	}
 	
-	public void cantidadBusquedasPorFecha(){
-		System.out.println("Usuario: Terminal Abasto Fecha: 2016-08-16 CantidadResult: 15");
+	public void cantidadBusquedasPorFecha(Usuario unUsuario){
+		Collections.sort(elementosDeConsulta, ElementoDeConsulta.Comparar_Por_Fecha);
+		//System.out.println("Usuario: Terminal Abasto Fecha: 2016-08-16 CantidadResult: 15");
 	}
 	
 	public void cantidadBusquedasPorTerminal(){
-		
+		Collections.sort(elementosDeConsulta, ElementoDeConsulta.Comparar_Por_Usuario);
 	}
 	
 }

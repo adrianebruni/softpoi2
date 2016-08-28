@@ -1,6 +1,7 @@
 package dds.softpoi;
 
 import java.util.Date;
+import java.util.Comparator;
 
 public class ElementoDeConsulta {
 
@@ -60,5 +61,18 @@ public class ElementoDeConsulta {
 	public int getTotalResultados() {
 		return totalResultados;
 	}
+	
+	public static Comparator <ElementoDeConsulta> Comparar_Por_Fecha = new Comparator <ElementoDeConsulta> () {
+		public int compare(ElementoDeConsulta fecha1, ElementoDeConsulta fecha2) {
+			return fecha1.getFechaConsulta().compareTo(fecha2.getFechaConsulta());
+		}
+	};
+	
+	public static Comparator <ElementoDeConsulta> Comparar_Por_Usuario = new Comparator <ElementoDeConsulta> () {
+		public int compare(ElementoDeConsulta usuario1, ElementoDeConsulta usuario2) {
+			return usuario1.getTipoUsuario().compareTo(usuario2.getTipoUsuario());
+		}
+	};
+
 	
 	}

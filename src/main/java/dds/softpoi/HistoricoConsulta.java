@@ -42,6 +42,38 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 	
 	public void cantidadBusquedasPorTerminal(Usuario unUsuario){
 		Collections.sort(elementosDeConsulta, ElementoDeConsulta.Comparar_Por_Usuario);
+		String usuarioAUX = "";
+		int cant = 0;
+		ArrayList<String> usuarios = new ArrayList<String>();
+		ArrayList<Integer> totalresult = new ArrayList<Integer>();
+		
+		System.out.println("Parciales por terminal");
+		System.out.println(" ");
+		
+		for(ElementoDeConsulta elem: elementosDeConsulta){
+			if ( !usuarioAUX.equalsIgnoreCase(elem.tipoUsuario)) {
+				if (!usuarioAUX.isEmpty()){
+					usuarios.add(usuarioAUX);
+					totalresult.add(cant);
+				}
+				usuarioAUX = elem.tipoUsuario;
+				cant = 0;
+				System.out.println("Usuario: " + usuarioAUX);
+				System.out.println(" ");
+				System.out.println("Resultados Parciales");
+			}
+			cant = cant + elem.totalResultados;
+			System.out.println(elem.totalResultados);
+		}
+		usuarios.add(usuarioAUX);
+		totalresult.add(cant);
+		
+		System.out.println(" ");
+		System.out.println(" ");
+		System.out.println("Totales por Usuario");
+		for (int i=0;i<=usuarios.size();i++){
+			System.out.println(usuarios.get(i) + " ---> " + totalresult.get(i));
+		}
 	}
 	
 }

@@ -2,8 +2,8 @@ package dds.softpoi;
 
 public abstract class Usuario {
 	
-	String nombre;
-	String email;
+	private String nombre;
+	private String email;
 	
 	// ***************************************************************************
 	// Getters

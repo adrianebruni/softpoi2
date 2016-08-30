@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import dds.json.BancoDTO;
 import dds.json.CentroDTO;
+import java.security.SecureRandom;
+import java.math.BigInteger;
 
 public class Servidor {
 	// Constructor
@@ -11,14 +13,16 @@ public class Servidor {
 	public ArrayList<Administrador> colAdmins = new ArrayList<Administrador>();
 	//Esta coleccion es para origenes de datos externos
 	public ArrayList<POI> colPOIsExternos = new ArrayList<POI>();
-	HistoricoConsulta histconsulta = new HistoricoConsulta();
 	
+	HistoricoConsulta histconsulta = new HistoricoConsulta();
+	SecureRandom random = new SecureRandom();
 	Parametros parametros = new Parametros();
 	
 	// ***************************************************************************
 	// Setters
 	// ***************************************************************************
 		public void addAdmin(Administrador unAdmin) {
+			unAdmin.setToken(generarToken());
 			this.colAdmins.add(unAdmin);
 		}
 		
@@ -58,6 +62,7 @@ public class Servidor {
 		return true;
 	}
 	
+	/*
 	public boolean loguin(ArrayList<Administrador> colAdmins, Administrador adminBuscado){
 		for (Administrador s: colAdmins)
 		{
@@ -66,7 +71,20 @@ public class Servidor {
 		}
 		return false;
 	}
+	*/
 	
+	public String login(Administrador unAdmin){	
+		 if (colAdmins.contains(unAdmin)){
+			 return unAdmin.getToken();
+		 }else{
+			 return null;
+		 }
+			 
+	}
+	
+	public String generarToken(){
+		return new BigInteger(130,random).toString(32);
+	}
 	
 	public void eliminarAdmin(Administrador unAdmin){
 		if(colAdmins.contains(unAdmin) == true){

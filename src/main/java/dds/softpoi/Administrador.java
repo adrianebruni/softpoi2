@@ -5,10 +5,12 @@ public class Administrador extends Usuario{
 
 	private String pass;
 	private Servidor serv;
+	private String token;
 	
-// ***************************************************************************
-// Setters
-// ***************************************************************************
+	// ***************************************************************************
+	// Setters
+	// ***************************************************************************
+	
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
@@ -17,9 +19,14 @@ public class Administrador extends Usuario{
 		this.serv = elServidor;
 	}
 	
-// ***************************************************************************
-// Getters
-// ***************************************************************************
+	public void setToken (String unToken) {
+		this.token = unToken;
+	}
+	
+	// ***************************************************************************
+	// Getters
+	// ***************************************************************************
+	
 	public String getPass() {
 		return pass;
 	}
@@ -28,33 +35,37 @@ public class Administrador extends Usuario{
 		return serv;
 	}
 	
-// ***************************************************************************
-// Metodos
-// ***************************************************************************
+	public String getToken() {
+		return token;
+	}
+	
+	// ***************************************************************************
+	// Metodos
+	// ***************************************************************************
 						
 	public void cargarPOI(POI unPOI) {
 		serv.cargarPOI(unPOI);
 	}
 	
-	public boolean modificarPOI(POI unPOI) throws IllegalArgumentException, IllegalAccessException{ 
+	
+	
+	// Todo lo que esta hardcodeado como return true, hay que cambiarlo
+	// indicando si el administrador esta logeado (utilizando el token)
+	
+	public void modificarPOI(POI unPOI) throws IllegalArgumentException, IllegalAccessException{ 
 	    serv.modificarPOI(unPOI);
-		return true;
+		
 	}
 	
-	public boolean eliminarPOI(POI unPOI){
+	public void eliminarPOI(POI unPOI){
 		serv.eliminarPOI(unPOI);
-		return true;
+		
 	}
 	
-	public boolean obtenerEstadisticas(){
+	public void obtenerEstadisticas(){
 	// Pendiente: Hay que ver la logica
-		return true;
+		
 	}
-	
-	public boolean loguin(){
-		serv.loguin(serv.getcolAdmins(), this);
-		return true;
-	}	
 	
 	
 }

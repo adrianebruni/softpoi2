@@ -11,8 +11,7 @@ public class Servidor {
 	public ArrayList<Administrador> colAdmins = new ArrayList<Administrador>();
 	//Esta coleccion es para origenes de datos externos
 	public ArrayList<POI> colPOIsExternos = new ArrayList<POI>();
-	//Aca vamos a ir guardando los resultados de la consulta, con el metodo agregoConsulta de clase Estadistica
-	Estadistica estadisticas = new Estadistica();
+	HistoricoConsulta histconsulta = new HistoricoConsulta();
 	
 	Parametros parametros = new Parametros();
 	
@@ -120,7 +119,6 @@ public class Servidor {
 	}
 	
 	public ArrayList<POI> buscaPOI(String cadenadebusqueda, Usuario unUsuario){
-		HistoricoConsulta histconsulta = new HistoricoConsulta();
 		return histconsulta.consultar(cadenadebusqueda, this,unUsuario);
 	}
 	

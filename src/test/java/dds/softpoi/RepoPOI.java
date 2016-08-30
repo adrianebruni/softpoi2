@@ -37,6 +37,28 @@ public class RepoPOI {
 		otroServicio.setDisponibilidad(unDia);
 		otroServicio.setDisponibilidad(otroDia);
 		
+		Servicio servicioCGP = new Servicio ();
+		servicioCGP.setServicio("Cobro de Infracciones");
+		servicioCGP.setDisponibilidad(unDia);
+		
+		Servicio servicioCGP2 = new Servicio();
+		servicioCGP2.setServicio("Registro de Casamientos");
+		servicioCGP2.setDisponibilidad(otroDia);
+		servicioCGP2.setDisponibilidad(otroDia1);
+		
+		Servicio servRestaurant = new Servicio();
+		servRestaurant.setServicio("Servir comidas");
+		servRestaurant.setDisponibilidad(otroDia);
+		
+		Servicio servComercioRopa = new Servicio();
+		servComercioRopa.setServicio("Vender zapatillas");
+		servComercioRopa.setDisponibilidad(otroDia);
+		
+		
+		// ***************************************************************************
+		// Creo POIs
+		// ***************************************************************************
+		
 		// Creamos el objeto bancoFrances de la clase Banco.
 		Banco bancoFrances = new Banco("BANCO FRANCES", -34.603075, -58.381653);
 		bancoFrances.setIdpoi(1);
@@ -45,6 +67,51 @@ public class RepoPOI {
 		
 		bolsapois.add(bancoFrances);
 		
+		// Creamos el objeto bancoSantanderRio de la clase Banco.
+		Banco bancoSantanderRio = new Banco("BANCO SANTANDER RIO",-34.605864, -58.380966);
+		bancoSantanderRio.setIdpoi(2);
+		bancoSantanderRio.setServicios(unServicio);
+		
+		bolsapois.add(bancoSantanderRio);
+		
+		// Creamos el objeto comuna 1 de la clase CGP.
+		CGP comuna1 = new CGP ("COMUNA 1",-34.6001373,-58.3890716);
+		comuna1.setIdpoi(3);
+		comuna1.setServicios(servicioCGP);
+		comuna1.setServicios(servicioCGP2);
+		
+		bolsapois.add(comuna1);
+		
+		// Creamos el objeto comuna 3 de la clase CGP.
+		CGP comuna3 = new CGP ("COMUNA 3",-34.6029359,-58.3990901);
+		comuna3.setIdpoi(4);
+		comuna3.setServicios(servicioCGP);
+		
+		bolsapois.add(comuna3);
+		
+		// Creamos el objeto parada 1 de la clase ParadaColectivo.
+		ParadaColectivo parada1 = new ParadaColectivo("Parada 59 Las Heras y Billingurst", -34.5832488, -58.4042595);
+		parada1.setIdpoi(5);
+		
+		bolsapois.add(parada1);
+		
+		// Creamos el objeto parada 2 de la clase ParadaColectivo.
+		ParadaColectivo parada2 = new ParadaColectivo("Parada 10 Las Heras y Ocampo", -34.5831289, -58.40384);
+		parada2.setIdpoi(6);
+		
+		bolsapois.add(parada2);
+		
+		Comercio comercio1 = new Comercio("McWonalds", -34.6036961,-58.3843145, new Rubro("Restaurante", 900));
+		comercio1.setIdpoi(7);
+		comercio1.setServicios(servRestaurant);
+		
+		bolsapois.add(comercio1);
+		
+		Comercio comercio2 = new Comercio("Adadis", -34.6033166,-58.3774477, new Rubro("Comercio Textil", 900));
+		comercio2.setIdpoi(8);
+		comercio2.setServicios(servComercioRopa);
+		
+		bolsapois.add(comercio2);
 		//seguir agregando POIs de distintos tipos para usar en todos los test
 		
 		return bolsapois;

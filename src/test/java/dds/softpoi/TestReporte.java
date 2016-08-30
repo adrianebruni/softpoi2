@@ -19,6 +19,7 @@ public class TestReporte {
 		unAdministrador.setServidor(servidorPpal);
 		servidorPpal.addAdmin(unAdministrador);
 		
+		//agrego POIs
 		RepoPOI colPoisPrueba = new RepoPOI();
 		servidorPpal.cargarPOIs(RepoPOI.Dame_Bolsa_POI());
 		
@@ -31,7 +32,7 @@ public class TestReporte {
 		
 		
 		//para correr el test con algo
-		assertEquals("Verificamos", 3, 3);
+		//assertEquals("Verificamos", 3, 3);
 		
 		
 		

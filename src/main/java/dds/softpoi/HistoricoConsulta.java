@@ -40,7 +40,7 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		}
 	}
 	
-	public void cantidadBusquedasPorTerminal(Usuario unUsuario){
+	public void cantidadBusquedasPorTerminal(){
 		Collections.sort(elementosDeConsulta, ElementoDeConsulta.Comparar_Por_Usuario);
 		String usuarioAUX = "";
 		int cant = 0;

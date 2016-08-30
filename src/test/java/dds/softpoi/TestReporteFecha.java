@@ -1,13 +1,14 @@
 package dds.softpoi;
 
 import static org.junit.Assert.*;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 
-public class TestReporte {
+public class TestReporteFecha {
 
 	@Test
-	public void testReporte() {
+	public void testReporteFecha() {
 		
 		// Generar la instancia de servidor
 		//crear Servidor
@@ -15,6 +16,7 @@ public class TestReporte {
 				
 		//crear administrador
 		Administrador unAdministrador = new Administrador();
+		unAdministrador.setNombre("Juan");
 		unAdministrador.setPass("passPrueba");
 		unAdministrador.setServidor(servidorPpal);
 		servidorPpal.addAdmin(unAdministrador);
@@ -22,30 +24,20 @@ public class TestReporte {
 		//agrego POIs
 		RepoPOI colPoisPrueba = new RepoPOI();
 		servidorPpal.cargarPOIs(RepoPOI.Dame_Bolsa_POI());
+	
+		//buscamos coincidencias para COMUNA
+		servidorPpal.buscaPOI("COMUNA",unAdministrador);
+
+		//demoro la ejecucion de la segunda consulta a proposito 5 SEG
+		try {Thread.sleep(5000);}
+		catch (InterruptedException e)
+		{e.printStackTrace();}
+
+		//2da busqueda
+		servidorPpal.buscaPOI("FRA",unAdministrador);
 		
-		Timer unTimer = new Timer();
-		unTimer.consultar("BANCO", servidorPpal, unAdministrador);
-		HistoricoConsulta unHistorico = new HistoricoConsulta();
-		unHistorico.consultar("BANCO", servidorPpal, unAdministrador);
-		
-		unHistorico.cantidadBusquedasPorFecha(unAdministrador);
-		
-		
-		//para correr el test con algo
-		//assertEquals("Verificamos", 3, 3);
-		
-		
-		
-		
-		
-		// Generar los POIs
-		
-		// Realizar una consulta
-		
-		// 
-		
-		
-		
+		//consultamos historico por "BANCO"		
+		servidorPpal.cantidadBusquedasPorFecha(unAdministrador);
 		
 		
 		fail("Not yet implemented");

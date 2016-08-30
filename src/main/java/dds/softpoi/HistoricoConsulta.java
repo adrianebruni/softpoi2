@@ -32,11 +32,15 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 	public void cantidadBusquedasPorFecha(Usuario unUsuario){
 		Collections.sort(elementosDeConsulta, ElementoDeConsulta.Comparar_Por_Fecha);
 		for(ElementoDeConsulta elem: elementosDeConsulta) {
-			System.out.println("Elementos: " + elem);
+			System.out.println("Fecha: " + elem.getFechaConsulta());
+			System.out.println("String:" + elem.getConsultaUsuario());
+			System.out.println("Tiempo: " + elem.getTiempoRespuesta());
+			System.out.println("Usuario: " + elem.getTipoUsuario());
+			System.out.println("Rtados: " + elem.getTotalResultados());
 		}
 	}
 	
-	public void cantidadBusquedasPorTerminal(){
+	public void cantidadBusquedasPorTerminal(Usuario unUsuario){
 		Collections.sort(elementosDeConsulta, ElementoDeConsulta.Comparar_Por_Usuario);
 	}
 	

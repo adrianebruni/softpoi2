@@ -37,7 +37,7 @@ public class TestReporteFecha {
 		servidorPpal.buscaPOI("FRA",unAdministrador);
 		
 		//consultamos historico por "BANCO"		
-		servidorPpal.cantidadBusquedasPorFecha(unAdministrador);
+		//servidorPpal.cantidadBusquedasPorFecha(unAdministrador);
 		
 		
 		fail("Not yet implemented");

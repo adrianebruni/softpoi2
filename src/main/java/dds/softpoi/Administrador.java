@@ -1,42 +1,23 @@
 package dds.softpoi;
 
-
 public class Administrador extends Usuario{
 
-	private String pass;
 	private Servidor serv;
-	private String token;
 	
 	// ***************************************************************************
 	// Setters
 	// ***************************************************************************
 	
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
-	
 	public void setServidor (Servidor elServidor) {
 		this.serv = elServidor;
-	}
-	
-	public void setToken (String unToken) {
-		this.token = unToken;
 	}
 	
 	// ***************************************************************************
 	// Getters
 	// ***************************************************************************
-	
-	public String getPass() {
-		return pass;
-	}
-	
+		
 	public Servidor getServidor() {
 		return serv;
-	}
-	
-	public String getToken() {
-		return token;
 	}
 	
 	// ***************************************************************************
@@ -46,6 +27,8 @@ public class Administrador extends Usuario{
 	public void cargarPOI(POI unPOI) {
 		serv.cargarPOI(unPOI);
 	}
+	
+	
 	
 	
 	

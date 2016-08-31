@@ -8,21 +8,21 @@ import java.security.SecureRandom;
 import java.math.BigInteger;
 
 public class Servidor {
-	// Constructor
+	
 	public ArrayList<POI> colPOIs = new ArrayList<POI>();
-	public ArrayList<Administrador> colAdmins = new ArrayList<Administrador>();
-	//Esta coleccion es para origenes de datos externos
-	public ArrayList<POI> colPOIsExternos = new ArrayList<POI>();
+	public ArrayList<Usuario> colAdmins = new ArrayList<Usuario>();
+	public ArrayList<POI> colPOIsExternos = new ArrayList<POI>(); 	//Esta coleccion es para origenes de datos externos
 	
 	HistoricoConsulta histconsulta = new HistoricoConsulta();
 	SecureRandom random = new SecureRandom();
 	Parametros parametros = new Parametros();
+	Seguridad objSeguridad = new Seguridad(this);
 	
 	// ***************************************************************************
 	// Setters
 	// ***************************************************************************
 	
-	public void addAdmin(Administrador unAdmin) {
+	public void addAdmin(Usuario unAdmin) {
 		unAdmin.setToken(generarToken());
 		this.colAdmins.add(unAdmin);
 	}
@@ -44,11 +44,11 @@ public class Servidor {
 	// Getters
 	// ***************************************************************************
 	
-	public ArrayList<POI> getcolPOIs() {
+	public ArrayList<POI> getColPOIs() {
 		return colPOIs;
 	}
 	
-	public ArrayList<Administrador> getcolAdmins() {
+	public ArrayList<Usuario> getColAdmins() {
 		return colAdmins;
 	}
 	
@@ -68,9 +68,9 @@ public class Servidor {
 		return true;
 	}
 	
-	public String login(Administrador unAdmin){	
-		 if (colAdmins.contains(unAdmin)){
-			 return unAdmin.getToken();
+	public String login(Usuario unUsuario){
+		 if (colAdmins.contains(unUsuario)){
+			 return unUsuario.getToken();
 		 }else{
 			 return null;
 		 }
@@ -131,7 +131,8 @@ public class Servidor {
 	}
 	
 	public ArrayList<POI> buscaPOI(String cadenadebusqueda, Usuario unUsuario){
-		return histconsulta.consultar(cadenadebusqueda, this,unUsuario);
+		//objSeguridad.validarUsuario(unUsuario);
+		return histconsulta.consultar(cadenadebusqueda, this, unUsuario);
 	}
 	
 	

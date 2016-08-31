@@ -52,7 +52,7 @@ public class TestBajaPOI {
 		
 		//pruebo que este asignando ids incrementales a los POIs agregados al repositorio
 		System.out.println("IDs y nombres de los POIs que fueron agregados al repositorio");
-				for(POI unpoi : servidorPpal.getcolPOIs()){
+				for(POI unpoi : servidorPpal.getColPOIs()){
 			System.out.println(unpoi.getIdpoi() + ", " + unpoi.getNombre());
 		};
 		

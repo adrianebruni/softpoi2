@@ -2,8 +2,10 @@ package dds.softpoi;
 
 public abstract class Usuario {
 	
-	private String nombre;
-	private String email;
+	protected String nombre;
+	protected String email;
+	protected String clave;
+	protected String token;
 	
 	// ***************************************************************************
 	// Getters
@@ -14,8 +16,15 @@ public abstract class Usuario {
 	}
 	
 	public String getEmail() {
-
 		return this.email;
+	}
+	
+	public String getClave() {
+		return this.clave;
+	}
+	
+	public String getToken() {
+		return this.token;
 	}
 	
 	// ***************************************************************************
@@ -30,4 +39,12 @@ public abstract class Usuario {
 		email = unEmail;
 	}
 
+	public void setPass(String unaClave) {
+		clave = unaClave;
+	}
+	
+	public void setToken (String unToken) {
+		token = unToken;
+	}
+	
 }

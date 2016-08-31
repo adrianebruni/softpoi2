@@ -6,32 +6,32 @@ public class BuscadorConcreto implements BuscadorAbstracto {
 
 	
 	public ArrayList<POI> consultar(String query, Servidor unServidor){
-		ArrayList<POI> poiencontrados = new ArrayList<POI>();
+		ArrayList<POI> poiEncontrados = new ArrayList<POI>();
 
 		//Esta es la logica que le agrego para considerar los pois de origen de datos externos
-		ArrayList<POI> todoslospoi = new ArrayList<POI>();
-		todoslospoi.addAll(unServidor.getcolPOIs());
+		ArrayList<POI> todosLosPoi = new ArrayList<POI>();
+		todosLosPoi.addAll(unServidor.getColPOIs());
 		//Aca busco en los datos externosa ver que pois hay cargados
 //		actualizoDesdeDatosExternos(query);
 //		todoslospoi.addAll(getcolPOIsExternos());
 		//luego hago el for sobre la conjuncion de los pois, los del sistema y los externos		
-		for(POI unpoi : todoslospoi){
-			if (unpoi.getNombre().toUpperCase().indexOf(query.toUpperCase()) > -1){
-				poiencontrados.add(unpoi);
+		for(POI unPoi : todosLosPoi){
+			if (unPoi.getNombre().toUpperCase().indexOf(query.toUpperCase()) > -1){
+				poiEncontrados.add(unPoi);
 			}else{
-				for(Servicio unservicio : unpoi.servicios){
+				for(Servicio unservicio : unPoi.servicios){
 					if (unservicio.getServicio().toUpperCase().indexOf(query.toUpperCase()) > -1){
-						poiencontrados.add(unpoi);
+						poiEncontrados.add(unPoi);
 						break;
 					}
 				}
-				if (unpoi.tipoPOI().equalsIgnoreCase("Comercio"))
-					if (((Comercio)(unpoi)).getRubro().getRubro().toUpperCase().indexOf(query.toUpperCase()) > -1)
-						poiencontrados.add(unpoi);
+				if (unPoi.tipoPOI().equalsIgnoreCase("Comercio"))
+					if (((Comercio)(unPoi)).getRubro().getRubro().toUpperCase().indexOf(query.toUpperCase()) > -1)
+						poiEncontrados.add(unPoi);
 			}
 				
 		}
-		return poiencontrados;
+		return poiEncontrados;
 	}	
 	
 	

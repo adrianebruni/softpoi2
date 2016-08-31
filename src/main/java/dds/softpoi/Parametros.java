@@ -5,6 +5,9 @@ public class Parametros {
 	static double demoraconsulta = 0.003;
 	static String emailCuenta = "softpoi.notificaciones@gmail.com";
 	static String emailClave = "pN2f3WOV";
+	static String urlJsonBanco = "http://trimatek.org/Consultas/banco";
+	static String urlJsonCentro = "http://trimatek.org/Consultas/centro";
+	
 	
 	public double getDemoraConsulta(){
 		return demoraconsulta;
@@ -16,6 +19,14 @@ public class Parametros {
 	
 	public String getEmailClave(){
 		return emailClave;
+	}
+	
+	public String getUrlJsonBanco(){
+		return urlJsonBanco;
+	}
+
+	public String getUrlJsonCentro(){
+		return urlJsonCentro;
 	}
 	
 }

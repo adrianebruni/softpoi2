@@ -21,57 +21,52 @@ public class Servidor {
 	// ***************************************************************************
 	// Setters
 	// ***************************************************************************
-		public void addAdmin(Administrador unAdmin) {
-			unAdmin.setToken(generarToken());
-			this.colAdmins.add(unAdmin);
-		}
-		
-		public void cargarPOI(POI unPOI) {
-			unPOI.setIdpoi(this.proximoIdPOI());
-			this.colPOIs.add(unPOI);
-		}
-		
-		public void cargarPOIs(ArrayList<POI> listaPOIs) {
-			this.colPOIs.addAll(listaPOIs);
-		}
 	
-		public void cargarPOIExterno(POI unPOI) {
-			this.colPOIsExternos.add(unPOI);
-		}
+	public void addAdmin(Administrador unAdmin) {
+		unAdmin.setToken(generarToken());
+		this.colAdmins.add(unAdmin);
+	}
+	
+	public void cargarPOI(POI unPOI) {
+		unPOI.setIdpoi(this.proximoIdPOI());
+		this.colPOIs.add(unPOI);
+	}
+	
+	public void cargarPOIs(ArrayList<POI> listaPOIs) {
+		this.colPOIs.addAll(listaPOIs);
+	}
+
+	public void cargarPOIExterno(POI unPOI) {
+		this.colPOIsExternos.add(unPOI);
+	}
+		
 	// ***************************************************************************
 	// Getters
 	// ***************************************************************************
-		public ArrayList<POI> getcolPOIs() {
-			return colPOIs;
-		}
+	
+	public ArrayList<POI> getcolPOIs() {
+		return colPOIs;
+	}
+	
+	public ArrayList<Administrador> getcolAdmins() {
+		return colAdmins;
+	}
+	
+	public ArrayList<POI> getcolPOIsExternos() {
+		return colPOIsExternos;
+	}
+	
+	public Parametros getParametros(){
+		return parametros;
+	}
 		
-		public ArrayList<Administrador> getcolAdmins() {
-			return colAdmins;
-		}
-		
-		public ArrayList<POI> getcolPOIsExternos() {
-			return colPOIsExternos;
-		}
-		
-		public Parametros getParametros(){
-			return parametros;
-		}
-		
+	// ***************************************************************************
 	// Metodos
+	// ***************************************************************************
+
 	public boolean obtenerEstadisticas(){
 		return true;
 	}
-	
-	/*
-	public boolean loguin(ArrayList<Administrador> colAdmins, Administrador adminBuscado){
-		for (Administrador s: colAdmins)
-		{
-			if(s.equals(adminBuscado))
-				return true;
-		}
-		return false;
-	}
-	*/
 	
 	public String login(Administrador unAdmin){	
 		 if (colAdmins.contains(unAdmin)){
@@ -79,7 +74,6 @@ public class Servidor {
 		 }else{
 			 return null;
 		 }
-			 
 	}
 	
 	public String generarToken(){
@@ -87,13 +81,13 @@ public class Servidor {
 	}
 	
 	public void eliminarAdmin(Administrador unAdmin){
-		if(colAdmins.contains(unAdmin) == true){
+		if(colAdmins.contains(unAdmin)){
 			colAdmins.remove(unAdmin);
 		}
 	}	
 	
 	public void eliminarPOI(POI unPOI){
-		if(colPOIs.contains(unPOI) == true){
+		if(colPOIs.contains(unPOI)){
 			colPOIs.remove(unPOI);
 		}
 	}	
@@ -188,7 +182,7 @@ public class Servidor {
 		
 		if (cadenabusqueda == null) {
 			colPOIsExternos.addAll(bancosExternos.dameDatosExternos("http://trimatek.org/Consultas/banco?servidor="+cadena));
-		}else {
+		}else{
 			colPOIsExternos.addAll(cadenabusqueda);
 		}
 		

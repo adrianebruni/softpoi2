@@ -59,6 +59,10 @@ public class Servidor {
 	public Parametros getParametros(){
 		return parametros;
 	}
+	
+	public HistoricoConsulta getHistoricoConsulta() {
+		return histconsulta;
+	}
 		
 	// ***************************************************************************
 	// Metodos

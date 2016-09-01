@@ -1,15 +1,20 @@
 package dds.softpoi;
 
 import java.util.Date;
+import java.util.Calendar;
 import java.util.Comparator;
 
 public class ElementoDeConsulta {
 
-	Date fechaConsulta;
-    String consultaUsuario;
-    double tiempoRespuesta;
-    String tipoUsuario;
-    int totalResultados;
+	private Date fechaConsulta;
+	private String consultaUsuario;
+	private double tiempoRespuesta;
+	private String tipoUsuario;
+	private int totalResultados;
+    
+    // ***************************************************************************
+ 	// Constructor
+ 	// ***************************************************************************
     
     public ElementoDeConsulta(Date fechaConsulta,String consultaUsuario,double tiempoRespuesta,String tipoUsuario,int totalResultados) {
     	this.fechaConsulta = fechaConsulta;
@@ -42,7 +47,7 @@ public class ElementoDeConsulta {
 	}
 
 
-	//***************************************************************************
+	// ***************************************************************************
 	// Getters
 	// ***************************************************************************
 
@@ -62,6 +67,10 @@ public class ElementoDeConsulta {
 		return totalResultados;
 	}
 	
+	// ***************************************************************************
+	// Metodos
+	// ***************************************************************************
+	
 	public static Comparator <ElementoDeConsulta> Comparar_Por_Fecha = new Comparator <ElementoDeConsulta> () {
 		public int compare(ElementoDeConsulta fecha1, ElementoDeConsulta fecha2) {
 			return fecha1.getFechaConsulta().compareTo(fecha2.getFechaConsulta());
@@ -73,6 +82,11 @@ public class ElementoDeConsulta {
 			return usuario1.getTipoUsuario().compareTo(usuario2.getTipoUsuario());
 		}
 	};
-
 	
+	public String fechaFormateada(){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(this.fechaConsulta);
+		return cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR) ;
 	}
+	
+}

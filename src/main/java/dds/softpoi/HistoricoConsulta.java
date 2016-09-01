@@ -3,6 +3,7 @@ package dds.softpoi;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Collections;
+import java.util.Calendar;
 
 
 public class HistoricoConsulta implements BuscadorAbstracto{
@@ -30,14 +31,25 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 	}
 	
 	public void cantidadBusquedasPorFecha(Usuario unUsuario){
-		Collections.sort(elementosDeConsulta, ElementoDeConsulta.Comparar_Por_Fecha);
+		/*Collections.sort(elementosDeConsulta, ElementoDeConsulta.Comparar_Por_Fecha);
 		for(ElementoDeConsulta elem: elementosDeConsulta) {
 			System.out.println("Fecha: " + elem.getFechaConsulta());
 			System.out.println("String:" + elem.getConsultaUsuario());
 			System.out.println("Tiempo: " + elem.getTiempoRespuesta());
 			System.out.println("Usuario: " + elem.getTipoUsuario());
 			System.out.println("Rtados: " + elem.getTotalResultados());
+		}*/
+		//lista donde voy a poner las fechas de cada consulta en formato de println
+		ArrayList<String> listaConsulta = new ArrayList<String>();
+		//voy guardando en la lista la fecha convertida de cada elementoConsulta
+		for(ElementoDeConsulta elem: elementosDeConsulta) {
+		Date fechaElemento = elem.getFechaConsulta();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(fechaElemento);
+		listaConsulta.add(cal.get(Calendar.YEAR) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.DAY_OF_MONTH));
+		System.out.println(cal.get(Calendar.YEAR) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.DAY_OF_MONTH));
 		}
+		
 	}
 	
 	public void cantidadBusquedasPorTerminal(){

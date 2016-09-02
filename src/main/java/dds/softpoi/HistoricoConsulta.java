@@ -5,9 +5,9 @@ import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Calendar;
-import java.util.Collection;
+//import java.util.List;
+//import java.util.Calendar;
+//import java.util.Collection;
 
 
 public class HistoricoConsulta implements BuscadorAbstracto{
@@ -34,30 +34,46 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		System.out.println("Banco Frances   35 resultados  tiempo");
 	}
 	
-	public void cantidadBusquedasPorFecha(Usuario unUsuario){
+	public ArrayList<ItemReporteFecha> reportePorFecha(Usuario unUsuario){
 		//lista donde voy a poner las fechas de cada consulta en formato de println
 		ArrayList<String> listaConsulta = new ArrayList<String>();
 		
 		//voy guardando en la lista la fecha convertida de cada elementoConsulta
 		for(ElementoDeConsulta elem: elementosDeConsulta) {
-		listaConsulta.add(elem.fechaFormateada());
-		//System.out.println(elem.fechaFormateada());
+			listaConsulta.add(elem.fechaFormateada());
+			//System.out.println(elem.fechaFormateada());
 		}
 		//obtengo una coleccion de fechas sin repetidos
 		Set<String> fechaSinRep = new HashSet<String>();
 		fechaSinRep.addAll(listaConsulta);
 		
+
+		// la lista tiene que ser ordenada
+		ArrayList<ItemReporteFecha> lstItem = new ArrayList<ItemReporteFecha>();
+		
 		//voy recorriendo la lista Sin repetidos y cuento las ocurrencias en la original
-		System.out.println("Fecha\tbusquedas\n");
-		for(String elem: fechaSinRep) {
+		//System.out.println("Fecha\tbusquedas\n");
+		for(String unaFecha: fechaSinRep) {
 			
-			System.out.println(elem + "\t" + elementosDeConsulta.stream()
-	                .filter( p -> p.fechaFormateada().equals(elem) ).collect(Collectors.toList()).size() + "\n");
-					}
+			ItemReporteFecha unItem = new ItemReporteFecha();
+			unItem.setFecha(unaFecha);
+			unItem.setCantidad(elementosDeConsulta.stream()
+	                .filter( p -> p.fechaFormateada().equals(unaFecha) ).collect(Collectors.toList()).size());
+			
+			lstItem.add(unItem);
+		}	
+		
+		return lstItem;
+		/*
+		System.out.println(unaFecha + "\t" + elementosDeConsulta.stream()
+                .filter( p -> p.fechaFormateada().equals(unaFecha) ).collect(Collectors.toList()).size() + "\n");
+				}
+		*/
 		
 	}
 	
 	public void cantidadBusquedasPorTerminal(){
+	/*	
 		Collections.sort(elementosDeConsulta, ElementoDeConsulta.Comparar_Por_Usuario);
 		String usuarioAUX = "";
 		int cant = 0;
@@ -91,6 +107,7 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		for (int i=0;i<=usuarios.size();i++){
 			System.out.println(usuarios.get(i) + " ---> " + totalresult.get(i));
 		}
+	*/
 	}
 	
 }

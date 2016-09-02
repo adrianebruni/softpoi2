@@ -25,8 +25,7 @@ public class Seguridad {
 	}
 	
 	public Boolean validarUsuario(Usuario unUsuario){
-		//Usuario
-		return true;
+		return this.unServidor.colAdmins.contains(unUsuario);
 	}
 	
 }

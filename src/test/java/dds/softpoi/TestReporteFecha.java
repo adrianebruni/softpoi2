@@ -26,7 +26,7 @@ public class TestReporteFecha {
 		
 		//agrego POIs
 		RepoPOI colPoisPrueba = new RepoPOI();
-		servidorPpal.cargarPOIs(RepoPOI.Dame_Bolsa_POI());
+		servidorPpal.cargarPOIs(colPoisPrueba.Dame_Bolsa_POI());
 	
 		//buscamos coincidencias para COMUNA
 		servidorPpal.buscaPOI("COMUNA",unAdministrador);
@@ -49,12 +49,19 @@ public class TestReporteFecha {
 
         ElementoDeConsulta elemB = new ElementoDeConsulta(otroDia, "consultaUsuario2", 0.088, "terminalLanus", 30);
         servidorPpal.getHistoricoConsulta().setelementosDeConsulta(elemB);
+
+        System.out.println("Reporte generado por el administrador...");
+        unAdministrador.reportePorFecha();
+
+		Administrador unUsuario = new Administrador();
+		unUsuario.setNombre("Juan");
+		unUsuario.setPass("passPrueba");
+		unUsuario.setServidor(servidorPpal);
+        
+		System.out.println("Reporte generado por un usuario sin permisos...");
+		unUsuario.reportePorFecha();
 		
-		//consultamos historico por "BANCO"		
-		servidorPpal.getHistoricoConsulta().cantidadBusquedasPorFecha(unAdministrador);
-		
-		
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 }

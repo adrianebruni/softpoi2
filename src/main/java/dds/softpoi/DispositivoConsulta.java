@@ -22,7 +22,7 @@ public class DispositivoConsulta extends Usuario{
 	// ***************************************************************************
 	// Setters
 	// ***************************************************************************
-	
+
 	public void setLatitud(Double latitud) {
 		this.latitud = latitud;
 	}

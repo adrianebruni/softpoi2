@@ -6,7 +6,7 @@ public class RepoPOI {
 	
 	
 	// aca vamos a cargar el manojo de pois 
-	public static ArrayList<POI> Dame_Bolsa_POI(){
+	public ArrayList<POI> Dame_Bolsa_POI(){
 		ArrayList<POI> bolsapois = new ArrayList<POI>();
 		// Creamos el objeto rango1 de la clase RangoHorario.
 		RangoHorario rango1 = new RangoHorario("09:00:00", "13:00:00");

@@ -1,11 +1,15 @@
 package dds.softpoi;
 
+import java.util.ArrayList;
+
 public abstract class Usuario {
-	
+
 	protected String nombre;
 	protected String email;
 	protected String clave;
 	protected String token;
+	protected Servidor serv;
+	protected ArrayList<ItemReporteFecha> lstItemReporteFecha = new ArrayList<ItemReporteFecha>();
 	
 	// ***************************************************************************
 	// Getters
@@ -27,6 +31,10 @@ public abstract class Usuario {
 		return this.token;
 	}
 	
+	public Servidor getServidor() {
+		return serv;
+	}
+	
 	// ***************************************************************************
 	// Setters
 	// ***************************************************************************
@@ -46,5 +54,24 @@ public abstract class Usuario {
 	public void setToken (String unToken) {
 		token = unToken;
 	}
+	
+	public void setServidor (Servidor elServidor) {
+		this.serv = elServidor;
+	}
+	
+	// ***************************************************************************
+	// Metodos (material ver para interfa grafica)
+	// ***************************************************************************
+
+	public void reportePorFecha (){
+		this.lstItemReporteFecha = this.serv.reportePorFecha(this);
+		
+		System.out.println("FECHA \t CANTIDAD");
+		for(ItemReporteFecha unItemReporteFecha: lstItemReporteFecha) {	
+			System.out.println(unItemReporteFecha.getFecha() + "\t  " + unItemReporteFecha.getCantidad());
+		}
+		
+	}
+	
 	
 }

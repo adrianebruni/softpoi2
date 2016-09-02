@@ -67,10 +67,6 @@ public class Servidor {
 	// ***************************************************************************
 	// Metodos
 	// ***************************************************************************
-
-	public boolean obtenerEstadisticas(){
-		return true;
-	}
 	
 	public String login(Usuario unUsuario){
 		 if (colAdmins.contains(unUsuario)){
@@ -127,49 +123,13 @@ public class Servidor {
 				}
 			}	
 		}
-	
-			
-		
-	
-		
 	}
 	
 	public ArrayList<POI> buscaPOI(String cadenadebusqueda, Usuario unUsuario){
-		//objSeguridad.validarUsuario(unUsuario);
 		return histconsulta.consultar(cadenadebusqueda, this, unUsuario);
 	}
 	
-	
-/*	public ArrayList<POI> buscaPOI(String cadenadebusqueda){
-		ArrayList<POI> poiencontrados = new ArrayList<POI>();
 
-		//Esta es la logica que le agrego para considerar los pois de origen de datos externos
-		ArrayList<POI> todoslospoi = new ArrayList<POI>();
-		todoslospoi.addAll(getcolPOIs());
-		//Aca busco en los datos externosa ver que pois hay cargados
-		actualizoDesdeDatosExternos(cadenadebusqueda);
-		todoslospoi.addAll(getcolPOIsExternos());
-		//luego hago el for sobre la conjuncion de los pois, los del sistema y los externos		
-		for(POI unpoi : todoslospoi){
-			if (unpoi.getNombre().toUpperCase().indexOf(cadenadebusqueda.toUpperCase()) > -1){
-				poiencontrados.add(unpoi);
-			}else{
-				for(Servicio unservicio : unpoi.servicios){
-					if (unservicio.getServicio().toUpperCase().indexOf(cadenadebusqueda.toUpperCase()) > -1){
-						poiencontrados.add(unpoi);
-						break;
-					}
-				}
-				if (unpoi.tipoPOI().equalsIgnoreCase("Comercio"))
-					if (((Comercio)(unpoi)).getRubro().getRubro().toUpperCase().indexOf(cadenadebusqueda.toUpperCase()) > -1)
-						poiencontrados.add(unpoi);
-			}
-				
-		}
-		return poiencontrados;
-	}*/
-	
-	//
 	public void actualizoDesdeDatosExternos(String cadena) {
 		//boleteo todos los pois de la coleccion de externos...
 		colPOIsExternos.removeAll(colPOIsExternos);
@@ -197,8 +157,6 @@ public class Servidor {
 		
 	}
 	
-
-	
 	//ver de optimizar con la funcion sort de la coleccion
 	// despues de ordenarlo, obtenemos el maximo idpoi+1  *ver
     public int proximoIdPOI(){
@@ -210,6 +168,16 @@ public class Servidor {
 		}
 		return idaux;	
 	}
+
+    public ArrayList<ItemReporteFecha> reportePorFecha(Usuario unUsuario){
+    	ArrayList<ItemReporteFecha> lstItemReporteFecha = new ArrayList<ItemReporteFecha>();
+    	
+    	if (objSeguridad.validarUsuario(unUsuario)){
+    		return this.histconsulta.reportePorFecha(unUsuario);
+    	}else{
+    		return lstItemReporteFecha;
+    	}
+    }
     
 	
 }

@@ -5,11 +5,8 @@ import org.junit.Test;
 
 public class TestLogin {
 
-	@SuppressWarnings("null")
 	@Test
-	public void test() {
-		
-		
+	public void test() {		
 		
 		// Instanciamos un servidor
 		Servidor unServidor = new Servidor();
@@ -30,11 +27,13 @@ public class TestLogin {
 		unServidor.addAdmin(admin2);
 
 		// Creamos a un usuario que no es administrador	
-		Usuario usuarioComun = new DispositivoConsulta();
+		Usuario usuarioComun;
+		usuarioComun = new DispositivoConsulta();
+		/*
 		usuarioComun.setNombre("usuarioComun");
 		usuarioComun.setEmail("rperal@gmail.com");
 		usuarioComun.setPass("password3");
-		
+		*/
 
 		// Verificamos
 		System.out.println("El usuario 'usuarioComun' no cuenta con permisos de administrador");

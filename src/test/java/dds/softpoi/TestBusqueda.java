@@ -54,7 +54,7 @@ public class TestBusqueda {
 //		String cadenaabuscar = new String("Naci");
 		Usuario unUsuario = new Administrador();
 //		unUsuario.setNombreUsuario("Rodo");
-		String cadenaabuscar = "Nac";
+		String cadenaabuscar = "Gal";
 		System.out.println("Los POI que machean con la condicion " + cadenaabuscar + " son:" );
 		for(POI unpoi : servidor.buscaPOI(cadenaabuscar,unUsuario)){
 			System.out.println(unpoi.getNombre());

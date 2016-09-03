@@ -2,6 +2,9 @@ package dds.softpoi;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import dds.json.BancoDTO;
 import dds.json.CentroDTO;
 import java.security.SecureRandom;
@@ -131,30 +134,37 @@ public class Servidor {
 	
 
 	public void actualizoDesdeDatosExternos(String cadena) {
-		//boleteo todos los pois de la coleccion de externos...
+	
 		colPOIsExternos.removeAll(colPOIsExternos);
-		//agrego los pois del origen de bancos
-		//colPOIsExternos.addAll(obtenerBancosDeOrigenExterno("http://trimatek.org/Consultas/banco"));
-		//cargarPOIExterno(poiexterno);
-		//colPOIsExternos.addAll(bancosExternos.dameDatosExternos("http://trimatek.org/Consultas/banco?banco="+cadena));
-		
-		//BancoDTO bancosExternos1 = new BancoDTO();
-		//colPOIsExternos.addAll(bancosExternos1.dameDatosExternos("http://trimatek.org/Consultas/banco?servidor="+cadena));
+		ArrayList<POI> colAUX = new ArrayList<POI>();
+
 		
 		BancoDTO bancosExternos = new BancoDTO();
-		//												     	          http://trimatek.org/Consultas/banco
-		ArrayList<POI> cadenabusqueda = bancosExternos.dameDatosExternos("http://trimatek.org/Consultas/banco?banco="+cadena);
+		try{
+			colAUX.addAll(bancosExternos.dameDatosExternos(parametros.getUrlJsonBanco() + "?banco="+cadena));
+		}catch (Exception e) {
+			System.out.println("No se encontraron banco.nombre externos");
+		}
 		
-		if (cadenabusqueda == null) {
-			colPOIsExternos.addAll(bancosExternos.dameDatosExternos("http://trimatek.org/Consultas/banco?servidor="+cadena));
-		}else{
-			colPOIsExternos.addAll(cadenabusqueda);
+		try{
+			colAUX.addAll(bancosExternos.dameDatosExternos(parametros.getUrlJsonBanco() + "?servicio="+cadena));
+		}catch (Exception e) {
+			System.out.println("No se encontraron banco.servic externos");
 		}
 		
 		CentroDTO centrosExternos = new CentroDTO();
-		//														  http://trimatek.org/Consultas/centro
-		colPOIsExternos.addAll(centrosExternos.dameDatosExternos("http://trimatek.org/Consultas/centro?zona="+cadena));	
 		
+		try{
+			colAUX.addAll(centrosExternos.dameDatosExternos(parametros.getUrlJsonCentro() + "?zona="+cadena));
+		}catch (Exception e) {
+			System.out.println("No se encontraron centros externos");
+		}
+		
+		
+		Set<POI> datosExternosSinRepetir = new HashSet<POI>();
+		datosExternosSinRepetir.addAll(colAUX);
+		
+		colPOIsExternos.addAll(datosExternosSinRepetir);
 	}
 	
 	//ver de optimizar con la funcion sort de la coleccion

@@ -58,12 +58,12 @@ public class CGP extends POI{
 	}
 	
 	public void setComuna(Comuna unaComuna){
-		if (latitud  <= unaComuna.getLimNorte() && 
-			latitud  >= unaComuna.getLimSur()   && 
-			longitud >= unaComuna.getLimEste()  && 
-			longitud <= unaComuna.getLimOeste()){
+	//	if (latitud  <= unaComuna.getLimNorte() && 
+	//		latitud  >= unaComuna.getLimSur()   && 
+	//		longitud >= unaComuna.getLimEste()  && 
+	//		longitud <= unaComuna.getLimOeste()){
 		this.comuna = unaComuna;
-		}
+	//	}
 	}
 	
 	// ***************************************************************************

@@ -7,7 +7,15 @@ public class TestCGP {
 
 	@Test
 	public void testDisponibilidadServicio() {
-		fail("Not yet implemented");
+		
+
+/*
+ * 	Aca crear un objeto del tipo CGP 
+ *  y probar sus metodos, asi como el 
+ *  de TestBanco  (correccion pendiente entrega 2)
+ */
+		
+		
 	}
 
 }

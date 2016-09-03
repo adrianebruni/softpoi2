@@ -7,14 +7,15 @@ public class BuscadorConcreto implements BuscadorAbstracto {
 	
 	public ArrayList<POI> consultar(String query, Servidor unServidor){
 		ArrayList<POI> poiEncontrados = new ArrayList<POI>();
-
-		//Esta es la logica que le agrego para considerar los pois de origen de datos externos
 		ArrayList<POI> todosLosPoi = new ArrayList<POI>();
 		todosLosPoi.addAll(unServidor.getColPOIs());
-		//Aca busco en los datos externosa ver que pois hay cargados
-//		actualizoDesdeDatosExternos(query);
-//		todoslospoi.addAll(getcolPOIsExternos());
-		//luego hago el for sobre la conjuncion de los pois, los del sistema y los externos		
+		unServidor.actualizoDesdeDatosExternos(query);
+		try{
+			todosLosPoi.addAll(unServidor.getcolPOIsExternos());
+		}catch (Exception e) {
+			System.out.println("no encuentro errores");
+		}
+		
 		for(POI unPoi : todosLosPoi){
 			if (unPoi.getNombre().toUpperCase().indexOf(query.toUpperCase()) > -1){
 				poiEncontrados.add(unPoi);
@@ -28,21 +29,19 @@ public class BuscadorConcreto implements BuscadorAbstracto {
 				if (unPoi.tipoPOI().equalsIgnoreCase("Comercio"))
 					if (((Comercio)(unPoi)).getRubro().getRubro().toUpperCase().indexOf(query.toUpperCase()) > -1)
 						poiEncontrados.add(unPoi);
+				if (unPoi.tipoPOI().equalsIgnoreCase("softpoi.CGP")){
+					if (!(((CGP)unPoi).getComuna() == null)){
+						if(((CGP)unPoi).getComuna().getZonas().toUpperCase().indexOf(query.toUpperCase()) > -1){
+							poiEncontrados.add(unPoi);
+						}
+					}
+					
+				}
+					
 			}
 				
 		}
 		return poiEncontrados;
 	}	
 	
-	
-	
-	
-	
-//	public void buscaPOIs(String cadenadebusqueda){
-//		//timer.start()    metodo de Timer (Flor)
-//		logicaDeBusqueda(cadenadebusqueda);
-//		//timer.stop()     metodo de Timer (Flor)
-//		//tiempodebusqueda = timer.obtenerTiempo()  metodo de Timer (Flor)
-//		//historicoconsulta.guardar(parametros)     metodo historico (Rodo)
-//	}
 }

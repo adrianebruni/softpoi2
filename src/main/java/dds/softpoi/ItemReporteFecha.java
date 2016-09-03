@@ -1,5 +1,7 @@
 package dds.softpoi;
 
+import java.util.Comparator;
+
 public class ItemReporteFecha {
 
 	private String fecha;
@@ -29,6 +31,15 @@ public class ItemReporteFecha {
 		this.cantidad = cantidad;
 	}
 	
+	// ***************************************************************************
+	// Metodos
+	// ***************************************************************************
 	
+	
+	public static Comparator <ItemReporteFecha> Comparar_Por_Fecha = new Comparator <ItemReporteFecha> () {
+		public int compare(ItemReporteFecha item1, ItemReporteFecha item2) {
+			return item1.getFecha().compareTo(item2.getFecha());
+		}
+	};
 	
 }

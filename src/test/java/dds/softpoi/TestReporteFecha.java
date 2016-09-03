@@ -41,7 +41,7 @@ public class TestReporteFecha {
 		
 		//agrego dos busquedas en otro dia forzando la fecha
         Calendar cal = Calendar.getInstance();
-        cal.set(2016, 8, 25, 0, 0, 0);
+        cal.set(2016, 7, 25, 0, 0, 0);
         Date otroDia = cal.getTime();
 
         ElementoDeConsulta elemA = new ElementoDeConsulta(otroDia, "consultaUsuario1", 0.011, "terminalAbasto", 20);

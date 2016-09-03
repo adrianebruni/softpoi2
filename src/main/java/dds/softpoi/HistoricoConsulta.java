@@ -1,8 +1,10 @@
 package dds.softpoi;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.HashSet;
 //import java.util.List;
@@ -72,42 +74,29 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		
 	}
 	
-	public void cantidadBusquedasPorTerminal(){
-	/*	
-		Collections.sort(elementosDeConsulta, ElementoDeConsulta.Comparar_Por_Usuario);
-		String usuarioAUX = "";
-		int cant = 0;
-		ArrayList<String> usuarios = new ArrayList<String>();
-		ArrayList<Integer> totalresult = new ArrayList<Integer>();
+	public ArrayList<ItemReporteTerminal> cantidadBusquedasPorTerminal(){
+		ArrayList<ItemReporteTerminal> colDeItems = new ArrayList<ItemReporteTerminal>();
 		
-		System.out.println("Parciales por terminal");
-		System.out.println(" ");
-		
+		//Genero coleccion de terminales, y las cargo del historico (van a estar repetidas)
+		ArrayList<String> terminales = new ArrayList<String>();
 		for(ElementoDeConsulta elem: elementosDeConsulta){
-			if ( !usuarioAUX.equalsIgnoreCase(elem.tipoUsuario)) {
-				if (!usuarioAUX.isEmpty()){
-					usuarios.add(usuarioAUX);
-					totalresult.add(cant);
-				}
-				usuarioAUX = elem.tipoUsuario;
-				cant = 0;
-				System.out.println("Usuario: " + usuarioAUX);
-				System.out.println(" ");
-				System.out.println("Resultados Parciales");
-			}
-			cant = cant + elem.totalResultados;
-			System.out.println(elem.totalResultados);
+			terminales.add(elem.getTipoUsuario());
 		}
-		usuarios.add(usuarioAUX);
-		totalresult.add(cant);
 		
-		System.out.println(" ");
-		System.out.println(" ");
-		System.out.println("Totales por Usuario");
-		for (int i=0;i<=usuarios.size();i++){
-			System.out.println(usuarios.get(i) + " ---> " + totalresult.get(i));
+		//filtro terminales, para que no haya repetidas
+		Set<String> terminalesSinRepetir = new HashSet<String>();
+		terminalesSinRepetir.addAll(terminales);
+		
+		for(String term: terminalesSinRepetir){
+			ItemReporteTerminal item = new ItemReporteTerminal();
+			item.setNombreTerminal(term);
+			ArrayList<ElementoDeConsulta> colElementosDeUnaTerminal =  (ArrayList<ElementoDeConsulta>) elementosDeConsulta.stream().filter(obj -> obj.getTipoUsuario().equals(term)).collect(Collectors.toList());
+			for(ElementoDeConsulta unElemento : colElementosDeUnaTerminal){
+				item.addCantidadEncontrados(unElemento.getTotalResultados());
+			}
+			colDeItems.add(item);	
 		}
-	*/
+		return colDeItems;
 	}
 	
 }

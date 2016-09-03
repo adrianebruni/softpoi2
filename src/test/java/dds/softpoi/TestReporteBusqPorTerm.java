@@ -2,6 +2,8 @@ package dds.softpoi;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 public class TestReporteBusqPorTerm {
@@ -12,20 +14,20 @@ public class TestReporteBusqPorTerm {
 		Servidor servidorPpal = new Servidor();
 				
 		//crear administrador
-		Administrador unAdministrador = new Administrador();
+		Usuario unAdministrador = new Administrador();
 		unAdministrador.setNombre("alex");
 		unAdministrador.setPass("passPrueba");
 		unAdministrador.setServidor(servidorPpal);
 		servidorPpal.addAdmin(unAdministrador);
 		
-		Administrador dosAdministrador = new Administrador();
+		Usuario dosAdministrador = new Administrador();
 		dosAdministrador.setNombre("sabr");
 		dosAdministrador.setPass("passPrueba");
 		dosAdministrador.setServidor(servidorPpal);
 		servidorPpal.addAdmin(dosAdministrador);
 		
 		
-		Administrador tresAdministrador = new Administrador();
+		Usuario tresAdministrador = new Administrador();
 		tresAdministrador.setNombre("chr");
 		tresAdministrador.setPass("passPrueba");
 		tresAdministrador.setServidor(servidorPpal);
@@ -40,7 +42,7 @@ public class TestReporteBusqPorTerm {
 		
 		unHistorico.consultar("Cab", servidorPpal, dosAdministrador);
 		unHistorico.consultar("Banco", servidorPpal, dosAdministrador);
-		unHistorico.consultar("Cab", servidorPpal, tresAdministrador);
+
 		
 
 		unHistorico.consultar("BANCO", servidorPpal, unAdministrador);
@@ -51,10 +53,26 @@ public class TestReporteBusqPorTerm {
 
 		unHistorico.consultar("nac", servidorPpal, tresAdministrador);
 		unHistorico.consultar("Cab", servidorPpal, tresAdministrador);
+		unHistorico.consultar("Cab", servidorPpal, tresAdministrador);
 		
-		unHistorico.cantidadBusquedasPorTerminal();
+		ArrayList<ItemReporteTerminal> colResult = unHistorico.cantidadBusquedasPorTerminal();
 		
+		System.out.println("Parciales por Terminal");
+		System.out.println("");
 		
+		for(ItemReporteTerminal unitem : colResult){
+			System.out.println("Usuario: " + unitem.getNombreTerminal());
+			for(int i : unitem.getCantidadEncontrados()){
+				System.out.println(i);
+			}
+			System.out.println("");
+		}
+		System.out.println("Totales por Usuarios");
+		System.out.println("");
+		System.out.println("Usuario\tCantidad Resultados Totales");
+		for(ItemReporteTerminal unitem : colResult){
+			System.out.println( unitem.getNombreTerminal() + "\t" + unitem.cantidadResultadosTotales());
+		}
 		assertEquals("Verificamos", 2, 2);
 			
 	}

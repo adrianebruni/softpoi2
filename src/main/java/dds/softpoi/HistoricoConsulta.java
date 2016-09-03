@@ -4,14 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.HashSet;
-//import java.util.List;
-//import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-
 
 public class HistoricoConsulta implements BuscadorAbstracto{
 
@@ -33,10 +27,6 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		
 	}
 	
-	public void fraseMasBuscada(){
-		System.out.println("Banco Frances   35 resultados  tiempo");
-	}
-	
 	public ArrayList<ItemReporteFecha> reportePorFecha(Usuario unUsuario){
 		//lista donde voy a poner las fechas de cada consulta en formato de println
 		ArrayList<String> listaConsulta = new ArrayList<String>();
@@ -44,7 +34,6 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		//voy guardando en la lista la fecha convertida de cada elementoConsulta
 		for(ElementoDeConsulta elem: elementosDeConsulta) {
 			listaConsulta.add(elem.fechaFormateada("yyyy/MM/dd"));
-			//System.out.println(elem.fechaFormateada());
 		}
 		//obtengo una coleccion de fechas sin repetidos
 		Set<String> fechaSinRep = new HashSet<String>();
@@ -53,8 +42,7 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		// la lista tiene que ser ordenada
 		ArrayList<ItemReporteFecha> lstItem = new ArrayList<ItemReporteFecha>();
 		
-		//voy recorriendo la lista Sin repetidos y cuento las ocurrencias en la original
-		//System.out.println("Fecha\tbusquedas\n");
+		//voy recorriendo la lista Sin repetidos y cuento las ocurrencias en la original;
 		for(String unaFecha: fechaSinRep) {
 			
 			ItemReporteFecha unItem = new ItemReporteFecha();
@@ -67,12 +55,7 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		
 		Collections.sort(lstItem, ItemReporteFecha.Comparar_Por_Fecha);
 		return lstItem;
-		
-		/*
-		System.out.println(unaFecha + "\t" + elementosDeConsulta.stream()
-                .filter( p -> p.fechaFormateada().equals(unaFecha) ).collect(Collectors.toList()).size() + "\n");
-				}
-		*/
+
 		
 	}
 	

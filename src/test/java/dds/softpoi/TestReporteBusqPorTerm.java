@@ -36,7 +36,7 @@ public class TestReporteBusqPorTerm {
 		//agrego POIs
 		RepoPOI colPoisPrueba = new RepoPOI();
 		
-		servidorPpal.cargarPOIs(RepoPOI.Dame_Bolsa_POI());
+		servidorPpal.cargarPOIs(colPoisPrueba.Dame_Bolsa_POI());
 	
 		HistoricoConsulta unHistorico = new HistoricoConsulta();
 		

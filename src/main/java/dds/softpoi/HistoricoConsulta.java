@@ -9,7 +9,8 @@ import java.util.stream.Collectors;
 import java.util.HashSet;
 //import java.util.List;
 //import java.util.Calendar;
-//import java.util.Collection;
+import java.util.Collection;
+import java.util.Collections;
 
 
 public class HistoricoConsulta implements BuscadorAbstracto{
@@ -42,13 +43,12 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		
 		//voy guardando en la lista la fecha convertida de cada elementoConsulta
 		for(ElementoDeConsulta elem: elementosDeConsulta) {
-			listaConsulta.add(elem.fechaFormateada());
+			listaConsulta.add(elem.fechaFormateada("yyyy/MM/dd"));
 			//System.out.println(elem.fechaFormateada());
 		}
 		//obtengo una coleccion de fechas sin repetidos
 		Set<String> fechaSinRep = new HashSet<String>();
 		fechaSinRep.addAll(listaConsulta);
-		
 
 		// la lista tiene que ser ordenada
 		ArrayList<ItemReporteFecha> lstItem = new ArrayList<ItemReporteFecha>();
@@ -60,12 +60,14 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 			ItemReporteFecha unItem = new ItemReporteFecha();
 			unItem.setFecha(unaFecha);
 			unItem.setCantidad(elementosDeConsulta.stream()
-	                .filter( p -> p.fechaFormateada().equals(unaFecha) ).collect(Collectors.toList()).size());
+	                .filter( p -> p.fechaFormateada("yyyy/MM/dd").equals(unaFecha) ).collect(Collectors.toList()).size());
 			
 			lstItem.add(unItem);
 		}	
 		
+		Collections.sort(lstItem, ItemReporteFecha.Comparar_Por_Fecha);
 		return lstItem;
+		
 		/*
 		System.out.println(unaFecha + "\t" + elementosDeConsulta.stream()
                 .filter( p -> p.fechaFormateada().equals(unaFecha) ).collect(Collectors.toList()).size() + "\n");

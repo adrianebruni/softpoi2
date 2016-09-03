@@ -1,6 +1,7 @@
 package dds.softpoi;
 
 import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Comparator;
 
@@ -71,22 +72,22 @@ public class ElementoDeConsulta {
 	// Metodos
 	// ***************************************************************************
 	
-	public static Comparator <ElementoDeConsulta> Comparar_Por_Fecha = new Comparator <ElementoDeConsulta> () {
-		public int compare(ElementoDeConsulta fecha1, ElementoDeConsulta fecha2) {
-			return fecha1.getFechaConsulta().compareTo(fecha2.getFechaConsulta());
-		}
-	};
 	
-	public static Comparator <ElementoDeConsulta> Comparar_Por_Usuario = new Comparator <ElementoDeConsulta> () {
-		public int compare(ElementoDeConsulta usuario1, ElementoDeConsulta usuario2) {
-			return usuario1.getTipoUsuario().compareTo(usuario2.getTipoUsuario());
-		}
-	};
-	
-	public String fechaFormateada(){
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(this.fechaConsulta);
-		return cal.get(Calendar.DAY_OF_MONTH) + "/" + (cal.get(Calendar.MONTH) +1) + "/" + cal.get(Calendar.YEAR) ;
+
+	@SuppressWarnings("null")
+	public String fechaFormateada(String formatoElegido){
+		if(formatoElegido != null || formatoElegido.isEmpty()){
+		String DATE_FORMAT = formatoElegido;
+		SimpleDateFormat fechaConformato = new SimpleDateFormat(DATE_FORMAT);
+		return fechaConformato.format(fechaConsulta);
 	}
+		else{
+		String DATE_FORMAT = "yyyy/MM/dd";
+		SimpleDateFormat fechaConformato = new SimpleDateFormat(DATE_FORMAT);
+		return fechaConformato.format(fechaConsulta);
+	}
+		
+		}//fin metodo fechaFormateada
+	
 	
 }

@@ -17,6 +17,8 @@ public class Servidor {
 	public ArrayList<POI> colPOIsExternos = new ArrayList<POI>(); 	//Esta coleccion es para origenes de datos externos
 	
 	HistoricoConsulta histconsulta = new HistoricoConsulta();
+	public Auditoria unaAuditoria = new Auditoria();
+	
 	SecureRandom random = new SecureRandom();
 	Parametros parametros = new Parametros();
 	Seguridad objSeguridad = new Seguridad(this);
@@ -129,7 +131,8 @@ public class Servidor {
 	}
 	
 	public ArrayList<POI> buscaPOI(String cadenadebusqueda, Usuario unUsuario){
-		return histconsulta.consultar(cadenadebusqueda, this, unUsuario);
+		
+		return unaAuditoria.auditarBusquedaPOI(cadenadebusqueda, unUsuario);
 	}
 	
 

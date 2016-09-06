@@ -73,5 +73,9 @@ public abstract class Usuario {
 		
 	}
 	
+	public ArrayList<POI> buscaPOI (String cadenadebusqueda){
+		return serv.buscaPOI(cadenadebusqueda, this);
+		}
+
 	
 }

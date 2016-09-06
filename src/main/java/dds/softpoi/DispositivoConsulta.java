@@ -4,12 +4,14 @@ public class DispositivoConsulta extends Usuario{
 	private double longitud;
 	private double latitud;
 	private String zona;
+
 	// El nombre por ejemplo: terminalAbasto
 
 	// ***************************************************************************
 	// Constructor
 	// ***************************************************************************
 	
+
 	public DispositivoConsulta(){}
 	
 	public DispositivoConsulta(String nombre, double latitud, double longitud, String zona) {
@@ -35,6 +37,7 @@ public class DispositivoConsulta extends Usuario{
 		this.zona= zona;
 	}
 
+
 	// ***************************************************************************
 	// Getters
 	// ***************************************************************************
@@ -50,6 +53,7 @@ public class DispositivoConsulta extends Usuario{
 	public String getZona(){
 		return zona;
 	}
+
 	
 	// ***************************************************************************
 	// Methods

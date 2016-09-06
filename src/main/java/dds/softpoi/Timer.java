@@ -8,6 +8,7 @@ import javax.mail.internet.AddressException;
 public class Timer implements BuscadorAbstracto {
 
 	private double tiempoInicio, tiempoFinal;
+	private BuscadorConcreto unBuscadorConcreto = new BuscadorConcreto();
 	
 	private void iniciarContador() {
 		tiempoInicio = System.nanoTime();
@@ -23,7 +24,6 @@ public class Timer implements BuscadorAbstracto {
 	
 	public ArrayList<POI> consultar(String query, Servidor unServidor, Usuario unUsuario){
 		ArrayList<POI> poisEncontrados;
-		BuscadorConcreto unBuscadorConcreto = new BuscadorConcreto();
 		
 		this.iniciarContador();
 		poisEncontrados =  unBuscadorConcreto.consultar(query, unServidor);

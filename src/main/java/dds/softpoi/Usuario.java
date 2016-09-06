@@ -10,30 +10,8 @@ public abstract class Usuario {
 	protected String token;
 	protected Servidor serv;
 	protected ArrayList<ItemReporteFecha> lstItemReporteFecha = new ArrayList<ItemReporteFecha>();
-	
-	// ***************************************************************************
-	// Getters
-	// ***************************************************************************
-	
-	public String getNombre(){
-		return this.nombre;
-	}
-	
-	public String getEmail() {
-		return this.email;
-	}
-	
-	public String getClave() {
-		return this.clave;
-	}
-	
-	public String getToken() {
-		return this.token;
-	}
-	
-	public Servidor getServidor() {
-		return serv;
-	}
+	private boolean flagAuditoriaBusqueda;
+	private boolean flagNotificaciones;
 	
 	// ***************************************************************************
 	// Setters
@@ -59,6 +37,49 @@ public abstract class Usuario {
 		this.serv = elServidor;
 	}
 	
+	public void setFlagAuditoriaBusqueda(boolean flagAuditoriaBusqueda) {
+		this.flagAuditoriaBusqueda = flagAuditoriaBusqueda;
+	}
+
+	public void setFlagNotificaciones(boolean flagNotificaciones) {
+		this.flagNotificaciones = flagNotificaciones;
+	}
+	
+	// ***************************************************************************
+	// Getters
+	// ***************************************************************************
+	
+	public String getNombre(){
+		return this.nombre;
+	}
+	
+	public String getEmail() {
+		return this.email;
+	}
+	
+	public String getClave() {
+		return this.clave;
+	}
+	
+	public String getToken() {
+		return this.token;
+	}
+	
+	public Servidor getServidor() {
+		return serv;
+	}
+	
+	public boolean getFlagAuditoriaBusqueda() {
+		return flagAuditoriaBusqueda;
+	}
+	
+	public boolean getFlagNotificaciones() {
+		return flagNotificaciones;
+	}	
+
+	
+
+	
 	// ***************************************************************************
 	// Metodos (material ver para interfa grafica)
 	// ***************************************************************************
@@ -74,7 +95,7 @@ public abstract class Usuario {
 	}
 	
 	public ArrayList<POI> buscaPOI (String cadenadebusqueda){
-		return serv.buscaPOI(cadenadebusqueda, this);
+		return this.getServidor().buscaPOI(cadenadebusqueda, this);
 		}
 
 	

@@ -5,6 +5,38 @@ import org.junit.Test;
 public class TestBusqueda {
 
 	@Test
+	public void testBusquedaConAuditoria() {
+	
+		DispositivoConsulta usuarioPepe = new DispositivoConsulta();
+		usuarioPepe.setFlagAuditoriaBusqueda(false);
+		//pendiente setFlagNotificaciones(true)
+		
+		//crear Servidor
+		Servidor servidorPpal = new Servidor();
+		usuarioPepe.setServidor(servidorPpal);
+		
+		//agrego POIs
+		RepoPOI colPoisPrueba = new RepoPOI();
+		servidorPpal.cargarPOIs(colPoisPrueba.Dame_Bolsa_POI());
+		
+		//Auditoria unaAuditoria = new Auditoria();
+		//unaAuditoria.auditarBusquedaPOI("banco", servidorPpal, usuarioPepe);
+		
+		usuarioPepe.buscaPOI("banco");
+		
+		//crear administrador
+		Administrador unAdministrador = new Administrador();
+		unAdministrador.setNombre("Juan");
+		unAdministrador.setPass("passPrueba");
+		unAdministrador.setServidor(servidorPpal);
+		servidorPpal.addAdmin(unAdministrador);
+		
+		unAdministrador.reportePorFecha();
+		
+	}
+	
+	/*
+	@Test
 	public void testBusquedadeString() {
 		System.out.println("Iniciando testBusquedadeString");
 		System.out.println("------------------------------");
@@ -64,5 +96,5 @@ public class TestBusqueda {
 		//assertEquals("Esta Disponible (apertura de cuenta corriente): ", true, bancoFrances.estaDisponible("apertura de cuenta corriente", FechayHora.fechaHoy(), FechayHora.horaHoy()));
 		System.out.println("Test Finalizado !");
 	}
-
+*/
 }

@@ -3,6 +3,8 @@ package dds.softpoi;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.Test;
 
@@ -20,61 +22,65 @@ public class TestReporteBusqPorTerm {
 		unAdministrador.setServidor(servidorPpal);
 		servidorPpal.addAdmin(unAdministrador);
 		
-		Usuario dosAdministrador = new Administrador();
-		dosAdministrador.setNombre("sabr");
-		dosAdministrador.setPass("passPrueba");
-		dosAdministrador.setServidor(servidorPpal);
-		servidorPpal.addAdmin(dosAdministrador);
-		
-		
-		Usuario tresAdministrador = new Administrador();
-		tresAdministrador.setNombre("chr");
-		tresAdministrador.setPass("passPrueba");
-		tresAdministrador.setServidor(servidorPpal);
-		servidorPpal.addAdmin(tresAdministrador);
-		
 		//agrego POIs
 		RepoPOI colPoisPrueba = new RepoPOI();
 		
 		servidorPpal.cargarPOIs(colPoisPrueba.Dame_Bolsa_POI());
 	
-		HistoricoConsulta unHistorico = new HistoricoConsulta();
+        Calendar cal = Calendar.getInstance();
+        cal.set(2016, 7, 25, 0, 0, 0);
+        Date unDia = cal.getTime();
 		
-		unHistorico.consultar("Cab", servidorPpal, dosAdministrador);
-		unHistorico.consultar("Banco", servidorPpal, dosAdministrador);
-
+		ElementoDeConsulta elemA = new ElementoDeConsulta(unDia, "Banco Galicia", 0.91, "terminalAbasto", 20);
+	    servidorPpal.getHistoricoConsulta().setelementosDeConsulta(elemA);
+		ElementoDeConsulta elemB = new ElementoDeConsulta(unDia, "Banco Galicia", 0.90, "terminalAbasto", 20);
+	    servidorPpal.getHistoricoConsulta().setelementosDeConsulta(elemB);
+		ElementoDeConsulta elemC = new ElementoDeConsulta(unDia, "CGP tanto", 0.01, "terminalUTN", 1);
+	    servidorPpal.getHistoricoConsulta().setelementosDeConsulta(elemC);
+		ElementoDeConsulta elemD = new ElementoDeConsulta(unDia, "Bondi 101", 0.99, "terminalUTN", 3);
+	    servidorPpal.getHistoricoConsulta().setelementosDeConsulta(elemD);
+		ElementoDeConsulta elemE = new ElementoDeConsulta(unDia, "Torre Pizza", 0.011, "terminalCentro", 0);
+	    servidorPpal.getHistoricoConsulta().setelementosDeConsulta(elemE);
+		ElementoDeConsulta elemF = new ElementoDeConsulta(unDia, "Pool", 0.01, "terminalAbasto", 100);
+	    servidorPpal.getHistoricoConsulta().setelementosDeConsulta(elemF);
+	    
+	    
+		ArrayList<ItemReporteTerminal> colResult = new ArrayList<ItemReporteTerminal>();
 		
-
-		unHistorico.consultar("BANCO", servidorPpal, unAdministrador);
-		unHistorico.consultar("Cab", servidorPpal, unAdministrador);
-		unHistorico.consultar("BANCO", servidorPpal, unAdministrador);
-		unHistorico.consultar("Cab", servidorPpal, unAdministrador);
+		//ArrayList<ItemReporteTerminal> colResult = servidorPpal.getHistoricoConsulta() unHistorico.cantidadBusquedasPorTerminal();
 		
-
-		unHistorico.consultar("nac", servidorPpal, tresAdministrador);
-		unHistorico.consultar("Cab", servidorPpal, tresAdministrador);
-		unHistorico.consultar("Cab", servidorPpal, tresAdministrador);
+	    Administrador unUsuario = new Administrador();
+		unUsuario.setNombre("Juan");
+		unUsuario.setPass("passPrueba");
+		unUsuario.setServidor(servidorPpal);
+		servidorPpal.addAdmin(unUsuario);
+        
 		
-		ArrayList<ItemReporteTerminal> colResult = unHistorico.cantidadBusquedasPorTerminal();
-		
-		System.out.println("Parciales por Terminal");
-		System.out.println("");
-		
-		for(ItemReporteTerminal unitem : colResult){
-			System.out.println("Usuario: " + unitem.getNombreTerminal());
-			for(int i : unitem.getCantidadEncontrados()){
-				System.out.println(i);
-			}
+		colResult = unUsuario.reportePorTerminal();
+	    if(colResult == null){
+	    	System.out.println("Reporte generado por un usuario sin permisos...\n\n");
+	    	assertEquals("Verificamos", 2, 1);
+	    }else{
+	    	System.out.println("Reporte generado por un usuario con permisos...\n\n");
+	        
+			System.out.println("Parciales por Terminal");
 			System.out.println("");
-		}
-		System.out.println("Totales por Usuarios");
-		System.out.println("");
-		System.out.println("Usuario\tCantidad Resultados Totales");
-		for(ItemReporteTerminal unitem : colResult){
-			System.out.println( unitem.getNombreTerminal() + "\t" + unitem.cantidadResultadosTotales());
-		}
-		assertEquals("Verificamos", 2, 2);
 			
+			for(ItemReporteTerminal unitem : colResult){
+				System.out.println("Usuario: " + unitem.getNombreTerminal());
+				for(int i : unitem.getCantidadEncontrados()){
+					System.out.println(i);
+				}
+				System.out.println("");
+			}
+			System.out.println("Totales por Usuarios");
+			System.out.println("");
+			System.out.println("Usuario\tCantidad Resultados Totales");
+			for(ItemReporteTerminal unitem : colResult){
+				System.out.println( unitem.getNombreTerminal() + "\t" + unitem.cantidadResultadosTotales());
+			}
+			assertEquals("Verificamos", 2, 2);
+	    }	
 	}
 	
 }

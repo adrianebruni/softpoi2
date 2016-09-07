@@ -81,7 +81,7 @@ public abstract class Usuario {
 
 	
 	// ***************************************************************************
-	// Metodos (material ver para interfa grafica)
+	// Metodos
 	// ***************************************************************************
 
 	public void reportePorFecha (){
@@ -93,6 +93,11 @@ public abstract class Usuario {
 		}
 		
 	}
+	
+	public ArrayList<ItemReporteTerminal> reportePorTerminal(){
+		return this.serv.reportePorTerminal(this);
+	}
+	
 	
 	public ArrayList<POI> buscaPOI (String cadenadebusqueda){
 		return this.getServidor().buscaPOI(cadenadebusqueda, this);

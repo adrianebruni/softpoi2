@@ -192,5 +192,15 @@ public class Servidor {
     	}
     }
     
+    public ArrayList<ItemReporteTerminal> reportePorTerminal(Usuario unUsuario){
+    	ArrayList<ItemReporteTerminal> lstItemReporteTerminal = new ArrayList<ItemReporteTerminal>();
+    	
+    	if (objSeguridad.validarUsuario(unUsuario)){
+    		return this.histconsulta.cantidadBusquedasPorTerminal();
+    	}else{
+    		return null;
+    	}
+    }
+    
 	
 }

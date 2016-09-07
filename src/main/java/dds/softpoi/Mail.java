@@ -27,7 +27,8 @@ public class Mail {
 		this.emailCuenta = emailCuenta;
 		this.emailClave = emailClave;	
 	}
-		
+
+/*
 	// ***************************************************************************
 	// Setters
 	// ***************************************************************************
@@ -51,15 +52,15 @@ public class Mail {
 	public String getEmailClave() {
 		return emailClave;
 	}
-	
+*/	
 	// ***************************************************************************
 	// Metodos
 	// ***************************************************************************
 	
-	public void enviarMail(String destinatario) throws AddressException, MessagingException {
+	public void enviarMail(String destinatario, String query, double duracionConsulta) throws AddressException, MessagingException {
 		try{
 			// 1er PASO
-			System.out.println("1er PASO ===> Configurando las propiedades del servidor de correo..");
+			//System.out.println("1er PASO ===> Configurando las propiedades del servidor de correo..");
 			if ( (emailCuenta == "") || (emailClave == "")){
 				System.out.println("1er PASO ===> Configurando las propiedades del servidor de correo.. Falta configurar cuenta de email y clave!");
 			}else{
@@ -68,16 +69,16 @@ public class Mail {
 				mailServerProperties.put("mail.smtp.port", "587");
 				mailServerProperties.put("mail.smtp.auth", "true");
 				mailServerProperties.put("mail.smtp.starttls.enable", "true");
-				System.out.println("1er PASO ===> Configurando las propiedades del servidor de correo.. OK!");
+				//System.out.println("1er PASO ===> Configurando las propiedades del servidor de correo.. OK!");
 		 
 				// 2do PASO
-				System.out.println("2do PASO ===> Creando una Sesion de correo..");
+				//System.out.println("2do PASO ===> Creando una Sesion de correo..");
 				getMailSession = Session.getDefaultInstance(mailServerProperties, null);
 				generateMailMessage = new MimeMessage(getMailSession);
-				System.out.println("2do PASO ===> Creando una Sesion de correo.. OK!");
+				//System.out.println("2do PASO ===> Creando una Sesion de correo.. OK!");
 				
 				// 3er PASO
-				System.out.println("3er PASO ===> Configurando el correo [destinatario, asunto, mensaje]..");
+				//System.out.println("3er PASO ===> Configurando el correo [destinatario, asunto, mensaje]..");
 				
 				// Destinatario
 				generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
@@ -90,16 +91,16 @@ public class Mail {
 				String emailBody = "Mensaje de prueba de <b>SOFTPOI</b><br><br> Gracias, <br>Administrador";
 				generateMailMessage.setContent(emailBody, "text/html");
 				
-				System.out.println("3er PASO ===> Configurando el correo [destinatario, asunto, mensaje].. OK!");
+				//System.out.println("3er PASO ===> Configurando el correo [destinatario, asunto, mensaje].. OK!");
 							
 		 
 				// 4to PASO
-				System.out.println("4to PASO ===> Enviando Correo..");
+				//System.out.println("4to PASO ===> Enviando Correo..");
 				Transport transport = getMailSession.getTransport("smtp");
-				transport.connect("smtp.gmail.com", emailCuenta, emailClave);
+				transport.connect("smtp.gmail.com", this.emailCuenta, this.emailClave);
 				transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
 				transport.close();
-				System.out.println("4to PASO ===> Enviando Correo.. OK!");
+				//System.out.println("4to PASO ===> Enviando Correo.. OK!");
 			}
 		}catch (Exception e) {
 			System.out.println("falló mail");

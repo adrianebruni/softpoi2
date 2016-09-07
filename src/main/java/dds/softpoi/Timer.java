@@ -30,25 +30,26 @@ public class Timer implements BuscadorAbstracto {
 		this.finalizarContador();
 		
 		if (this.duracionConsulta() > unServidor.getParametros().getDemoraConsulta() ){
-			this.enviarMail(unServidor, unUsuario);
+			this.enviarMail(unServidor, query);
 		}
 		return poisEncontrados;
 	}
 	
-	public void enviarMail(Servidor unServidor, Usuario unUsuario){
+	public void enviarMail(Servidor unServidor, String query){
 		
 
 		Mail unMail = new Mail(unServidor.getParametros().getEmailCuenta(), unServidor.getParametros().getEmailClave());
 		
-		try {
-			unMail.enviarMail(unUsuario.getEmail());
-		} catch (AddressException e) {
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		for(Usuario unAdmin: unServidor.getColAdmins()) {
+			try {
+				unMail.enviarMail(unAdmin.getEmail(), query, this.duracionConsulta());
+			} catch (AddressException e) {
+				e.printStackTrace();
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		
 	}
 	
 }

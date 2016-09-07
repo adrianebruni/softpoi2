@@ -84,14 +84,14 @@ public abstract class Usuario {
 	// Metodos
 	// ***************************************************************************
 
-	public void reportePorFecha (){
-		this.lstItemReporteFecha = this.serv.reportePorFecha(this);
-		
-		System.out.println("FECHA \t CANTIDAD");
-		for(ItemReporteFecha unItemReporteFecha: lstItemReporteFecha) {	
-			System.out.println(unItemReporteFecha.getFecha() + "\t  " + unItemReporteFecha.getCantidad());
-		}
-		
+	public ArrayList<ItemReporteFecha> reportePorFecha (){
+//		this.lstItemReporteFecha = this.serv.reportePorFecha(this);
+//		
+//		System.out.println("FECHA \t CANTIDAD");
+//		for(ItemReporteFecha unItemReporteFecha: lstItemReporteFecha) {	
+//			System.out.println(unItemReporteFecha.getFecha() + "\t  " + unItemReporteFecha.getCantidad());
+//		}
+		return this.serv.reportePorFecha(this);
 	}
 	
 	public ArrayList<ItemReporteTerminal> reportePorTerminal(){

@@ -2,6 +2,7 @@ package dds.softpoi;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -32,9 +33,9 @@ public class TestReporteFecha {
 		juanAdmin.buscaPOI("COMUNA");
 
 		//demoro la ejecucion de la segunda consulta a proposito 5 SEG
-		try {Thread.sleep(5000);}
-		catch (InterruptedException e)
-		{e.printStackTrace();}
+		//try {Thread.sleep(5000);}
+		//catch (InterruptedException e)
+		//{e.printStackTrace();}
 
 		//2da busqueda
 		juanAdmin.buscaPOI("FRA");
@@ -49,21 +50,32 @@ public class TestReporteFecha {
 
         ElementoDeConsulta elemB = new ElementoDeConsulta(otroDia, "consultaUsuario2", 0.088, "terminalLanus", 30);
         servidorPpal.getHistoricoConsulta().setelementosDeConsulta(elemB);
-
+        
         //pido un reporte de parte de unAdministrador
-        System.out.println("Reporte generado por el administrador...");
-        juanAdmin.reportePorFecha();
-
+        ArrayList<ItemReporteFecha> colResult = new ArrayList<ItemReporteFecha>();
+        
         //creamos un usuario que no tiene autorizacion para pedir un reporte
 		Administrador unUsuario = new Administrador();
 		unUsuario.setNombre("Juan");
 		unUsuario.setPass("passPrueba");
 		unUsuario.setServidor(servidorPpal);
         
-		System.out.println("Reporte generado por un usuario sin permisos...");
-		unUsuario.reportePorFecha();
+		// Lo agrego o no, depende si queremos que tenga permisos o no para generar reportes
+		servidorPpal.addAdmin(unUsuario);
+        
 		
-		//fail("Not yet implemented");
+		colResult = unUsuario.reportePorFecha();
+	    if(colResult == null){
+	    	System.out.println("Reporte generado por un usuario sin permisos...\n\n");
+	    	assertEquals("Verificamos", 2, 1);
+	    }else{
+	    	System.out.println("Reporte generado por un usuario con permisos...\n\n");
+	    	System.out.println("FECHA \t CANTIDAD");
+	    	for(ItemReporteFecha unItemReporteFecha: colResult) {	
+				System.out.println(unItemReporteFecha.getFecha() + "\t  " + unItemReporteFecha.getCantidad());
+			}
+	    }
+
 	}
 
 }

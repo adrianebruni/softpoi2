@@ -146,13 +146,13 @@ public class Servidor {
 		try{
 			colAUX.addAll(bancosExternos.dameDatosExternos(parametros.getUrlJsonBanco() + "?banco="+cadena));
 		}catch (Exception e) {
-			System.out.println("No se encontraron banco.nombre externos");
+			//System.out.println("No se encontraron banco.nombre externos");
 		}
 		
 		try{
 			colAUX.addAll(bancosExternos.dameDatosExternos(parametros.getUrlJsonBanco() + "?servicio="+cadena));
 		}catch (Exception e) {
-			System.out.println("No se encontraron banco.servic externos");
+			//System.out.println("No se encontraron banco.servic externos");
 		}
 		
 		CentroDTO centrosExternos = new CentroDTO();
@@ -160,7 +160,7 @@ public class Servidor {
 		try{
 			colAUX.addAll(centrosExternos.dameDatosExternos(parametros.getUrlJsonCentro() + "?zona="+cadena));
 		}catch (Exception e) {
-			System.out.println("No se encontraron centros externos");
+			//System.out.println("No se encontraron centros externos");
 		}
 		
 		
@@ -183,18 +183,14 @@ public class Servidor {
 	}
 
     public ArrayList<ItemReporteFecha> reportePorFecha(Usuario unUsuario){
-    	ArrayList<ItemReporteFecha> lstItemReporteFecha = new ArrayList<ItemReporteFecha>();
-    	
-    	if (objSeguridad.validarUsuario(unUsuario)){
+     	if (objSeguridad.validarUsuario(unUsuario)){
     		return this.histconsulta.reportePorFecha(unUsuario);
     	}else{
-    		return lstItemReporteFecha;
+    		return null;
     	}
     }
     
-    public ArrayList<ItemReporteTerminal> reportePorTerminal(Usuario unUsuario){
-    	ArrayList<ItemReporteTerminal> lstItemReporteTerminal = new ArrayList<ItemReporteTerminal>();
-    	
+    public ArrayList<ItemReporteTerminal> reportePorTerminal(Usuario unUsuario){	
     	if (objSeguridad.validarUsuario(unUsuario)){
     		return this.histconsulta.cantidadBusquedasPorTerminal();
     	}else{

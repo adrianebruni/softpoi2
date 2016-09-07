@@ -15,13 +15,6 @@ public class TestReporteBusqPorTerm {
 
 		Servidor servidorPpal = new Servidor();
 				
-		//crear administrador
-		Usuario unAdministrador = new Administrador();
-		unAdministrador.setNombre("alex");
-		unAdministrador.setPass("passPrueba");
-		unAdministrador.setServidor(servidorPpal);
-		servidorPpal.addAdmin(unAdministrador);
-		
 		//agrego POIs
 		RepoPOI colPoisPrueba = new RepoPOI();
 		
@@ -46,13 +39,13 @@ public class TestReporteBusqPorTerm {
 	    
 	    
 		ArrayList<ItemReporteTerminal> colResult = new ArrayList<ItemReporteTerminal>();
-		
-		//ArrayList<ItemReporteTerminal> colResult = servidorPpal.getHistoricoConsulta() unHistorico.cantidadBusquedasPorTerminal();
-		
+			
 	    Administrador unUsuario = new Administrador();
 		unUsuario.setNombre("Juan");
 		unUsuario.setPass("passPrueba");
 		unUsuario.setServidor(servidorPpal);
+		
+		// Lo agrego o no, depende si queremos que tenga permisos o no para generar reportes
 		servidorPpal.addAdmin(unUsuario);
         
 		

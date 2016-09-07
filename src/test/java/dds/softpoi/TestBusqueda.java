@@ -22,7 +22,7 @@ public class TestBusqueda {
 		//Auditoria unaAuditoria = new Auditoria();
 		//unaAuditoria.auditarBusquedaPOI("banco", servidorPpal, usuarioPepe);
 		
-		usuarioPepe.buscaPOI("banco");
+		usuarioPepe.buscaPOI("Banco");
 		
 		//crear administrador
 		Administrador unAdministrador = new Administrador();
@@ -30,6 +30,10 @@ public class TestBusqueda {
 		unAdministrador.setPass("passPrueba");
 		unAdministrador.setServidor(servidorPpal);
 		servidorPpal.addAdmin(unAdministrador);
+		unAdministrador.setFlagAuditoriaBusqueda(true);
+		
+		unAdministrador.buscaPOI("Banco");
+		unAdministrador.buscaPOI("Banco");
 		
 		unAdministrador.reportePorFecha();
 		

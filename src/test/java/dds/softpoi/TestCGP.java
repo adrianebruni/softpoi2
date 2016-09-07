@@ -24,15 +24,31 @@ public class TestCGP {
 			Disponibilidad unDia = new Disponibilidad();
 			unDia.setDia("VIERNES");
 			unDia.setRangoHorario(rango1);
-			unDia.setRangoHorario(rango2);
+			unDia.setRangoHorario(rango3);
 			
 			Disponibilidad otroDia = new Disponibilidad();
 			otroDia.setDia("JUEVES");
 			otroDia.setRangoHorario(rango3);
 
 			Disponibilidad otroDia1 = new Disponibilidad();
-			otroDia1.setDia("DOMINGO");
+			otroDia1.setDia("MIERCOLES");
 			otroDia1.setRangoHorario(rango3);
+			
+			Disponibilidad otroDia2 = new Disponibilidad();
+			otroDia2.setDia("MARTES");
+			otroDia2.setRangoHorario(rango3);
+			
+			Disponibilidad otroDia3 = new Disponibilidad();
+			otroDia3.setDia("LUNES");
+			otroDia3.setRangoHorario(rango3);
+			
+			Disponibilidad otroDia4 = new Disponibilidad();
+			otroDia4.setDia("SABADO");
+			otroDia4.setRangoHorario(rango3);
+			
+			Disponibilidad otroDia5 = new Disponibilidad();
+			otroDia5.setDia("DOMINGO");
+			otroDia5.setRangoHorario(rango3);
 			
 			// Creamos un servicio y le asignamos valores.
 			Servicio unServicio = new Servicio();
@@ -42,7 +58,11 @@ public class TestCGP {
 			Servicio otroServicio = new Servicio();
 			otroServicio.setServicio("Casamientos");
 			otroServicio.setDisponibilidad(unDia);
-			otroServicio.setDisponibilidad(otroDia);
+			otroServicio.setDisponibilidad(otroDia1);
+			otroServicio.setDisponibilidad(otroDia2);
+			otroServicio.setDisponibilidad(otroDia3);
+			otroServicio.setDisponibilidad(otroDia4);
+			otroServicio.setDisponibilidad(otroDia5);
 			
 			// Creamos el objeto comuna 12 de la clase cgp.
 			CGP comuna12 = new CGP("Comuna 12", -34.603075, -58.381653);

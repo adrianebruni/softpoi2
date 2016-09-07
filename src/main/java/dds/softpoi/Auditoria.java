@@ -14,7 +14,7 @@ public class Auditoria {
 	public ArrayList<POI> auditarBusquedaPOI(String query, Usuario unUsuario){
 		
 		if(unUsuario.getFlagAuditoriaBusqueda()){
-			return unUsuario.getServidor().getHistoricoConsulta().consultar(query, unUsuario.getServidor(), unUsuario);
+			return unUsuario.getServidor().getHistoricoConsulta().consultar(query, unUsuario);
 		}else{
 			return unBuscadorConcreto.consultar(query, unUsuario.getServidor());
 		}

@@ -18,18 +18,18 @@ public class TestReporteFecha {
 		Servidor servidorPpal = new Servidor();
 				
 		//crear administrador
-		Administrador unAdministrador = new Administrador();
-		unAdministrador.setNombre("Juan");
-		unAdministrador.setPass("passPrueba");
-		unAdministrador.setServidor(servidorPpal);
-		servidorPpal.addAdmin(unAdministrador);
+		Administrador juanAdmin = new Administrador();
+		juanAdmin.setNombre("Juan");
+		juanAdmin.setPass("passPrueba");
+		juanAdmin.setServidor(servidorPpal);
+		servidorPpal.addAdmin(juanAdmin);
 		
 		//agrego POIs
 		RepoPOI colPoisPrueba = new RepoPOI();
 		servidorPpal.cargarPOIs(colPoisPrueba.Dame_Bolsa_POI());
 	
 		//buscamos coincidencias para COMUNA
-		servidorPpal.buscaPOI("COMUNA",unAdministrador);
+		juanAdmin.buscaPOI("COMUNA");
 
 		//demoro la ejecucion de la segunda consulta a proposito 5 SEG
 		try {Thread.sleep(5000);}
@@ -37,7 +37,7 @@ public class TestReporteFecha {
 		{e.printStackTrace();}
 
 		//2da busqueda
-		servidorPpal.buscaPOI("FRA",unAdministrador);
+		juanAdmin.buscaPOI("FRA");
 		
 		//agrego dos busquedas en otro dia forzando la fecha
         Calendar cal = Calendar.getInstance();
@@ -50,9 +50,11 @@ public class TestReporteFecha {
         ElementoDeConsulta elemB = new ElementoDeConsulta(otroDia, "consultaUsuario2", 0.088, "terminalLanus", 30);
         servidorPpal.getHistoricoConsulta().setelementosDeConsulta(elemB);
 
+        //pido un reporte de parte de unAdministrador
         System.out.println("Reporte generado por el administrador...");
-        unAdministrador.reportePorFecha();
+        juanAdmin.reportePorFecha();
 
+        //creamos un usuario que no tiene autorizacion para pedir un reporte
 		Administrador unUsuario = new Administrador();
 		unUsuario.setNombre("Juan");
 		unUsuario.setPass("passPrueba");

@@ -37,8 +37,8 @@ public class Timer implements BuscadorAbstracto {
 	
 	public void enviarMail(Servidor unServidor, String query){
 		
-
-		Mail unMail = new Mail(unServidor.getParametros().getEmailCuenta(), unServidor.getParametros().getEmailClave());
+		Parametros losParametros = unServidor.getParametros();
+		Mail unMail = new Mail(losParametros.getEmailCuenta(), losParametros.getEmailClave(), losParametros.getEmailPuerto(), losParametros.getEmailAutenticacion(),losParametros.getEmailCifradoTLS(), losParametros.getEmailMetodoEnvio(),losParametros.getEmailHostEnvio());
 		
 		for(Usuario unAdmin: unServidor.getColAdmins()) {
 			try {

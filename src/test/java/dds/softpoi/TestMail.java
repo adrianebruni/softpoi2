@@ -12,10 +12,12 @@ public class TestMail {
 		
 		System.out.println("Iniciando TestMail");
 		
-		Mail unMail = new Mail("softpoi.notificaciones@gmail.com","pN2f3WOV");
-		
+		Servidor unServidor = new Servidor();
+		Parametros losParametros = unServidor.getParametros();
+		Mail unMail = new Mail(losParametros.getEmailCuenta(), losParametros.getEmailClave(), losParametros.getEmailPuerto(), losParametros.getEmailAutenticacion(),losParametros.getEmailCifradoTLS(), losParametros.getEmailMetodoEnvio(),losParametros.getEmailHostEnvio());
+			
 		try {
-			unMail.enviarMail("adrianebruni@hotmail.com");
+			unMail.enviarMail("adrianebruni@hotmail.com","Alguna consulta",3.14);
 		} catch (AddressException e) {
 
 			e.printStackTrace();

@@ -19,23 +19,23 @@ public class Parametros {
 	static String emailMetodoEnvio = "smtp";
 	static String emailHostEnvio = "smtp.gmail.com";
 	
-	public static String getEmailPuerto() {
+	public String getEmailPuerto() {
 		return emailPuerto;
 	}
 
-	public static String getEmailAutenticacion() {
+	public String getEmailAutenticacion() {
 		return emailAutenticacion;
 	}
 
-	public static String getEmailCifradoTLS() {
+	public String getEmailCifradoTLS() {
 		return emailCifradoTLS;
 	}
 
-	public static String getEmailMetodoEnvio() {
+	public String getEmailMetodoEnvio() {
 		return emailMetodoEnvio;
 	}
 
-	public static String getEmailHostEnvio() {
+	public String getEmailHostEnvio() {
 		return emailHostEnvio;
 	}	
 	

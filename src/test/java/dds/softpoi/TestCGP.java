@@ -28,6 +28,7 @@ public class TestCGP {
 			
 			Disponibilidad otroDia = new Disponibilidad();
 			otroDia.setDia("JUEVES");
+			otroDia.setRangoHorario(rango2);
 			otroDia.setRangoHorario(rango3);
 
 			Disponibilidad otroDia1 = new Disponibilidad();

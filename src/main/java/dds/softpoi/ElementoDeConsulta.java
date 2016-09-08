@@ -2,8 +2,6 @@ package dds.softpoi;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Comparator;
 
 public class ElementoDeConsulta {
 

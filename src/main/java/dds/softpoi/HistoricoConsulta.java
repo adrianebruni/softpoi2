@@ -60,6 +60,9 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		}	
 		
 		Collections.sort(lstItem, ItemReporteFecha.Comparar_Por_Fecha);
+		
+		
+		
 		return lstItem;
 
 		

@@ -48,32 +48,13 @@ public class TestReporteBusqPorTerm {
 		// Lo agrego o no, depende si queremos que tenga permisos o no para generar reportes
 		servidorPpal.addAdmin(unUsuario);
         
-		
+		//genero reporte por terminal
 		colResult = unUsuario.reportePorTerminal();
-	    if(colResult == null){
-	    	System.out.println("Reporte generado por un usuario sin permisos...\n\n");
-	    	assertEquals("Verificamos", 2, 1);
-	    }else{
-	    	System.out.println("Reporte generado por un usuario con permisos...\n\n");
-	        
-			System.out.println("Parciales por Terminal");
-			System.out.println("");
-			
-			for(ItemReporteTerminal unitem : colResult){
-				System.out.println("Usuario: " + unitem.getNombreTerminal());
-				for(int i : unitem.getCantidadEncontrados()){
-					System.out.println(i);
-				}
-				System.out.println("");
-			}
-			System.out.println("Totales por Usuarios");
-			System.out.println("");
-			System.out.println("Usuario\tCantidad Resultados Totales");
-			for(ItemReporteTerminal unitem : colResult){
-				System.out.println( unitem.getNombreTerminal() + "\t" + unitem.cantidadResultadosTotales());
-			}
-			assertEquals("Verificamos", 2, 2);
-	    }	
+		
+		//le indico el display a utilizar para el reporte
+		ReporteHistorico unReportePorTerminal = new ReporteHistorico();
+		unReportePorTerminal.displayReportePorTerminal(colResult);
+		
 	}
 	
 }

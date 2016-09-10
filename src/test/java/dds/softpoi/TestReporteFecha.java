@@ -62,18 +62,12 @@ public class TestReporteFecha {
 		// Lo agrego o no, depende si queremos que tenga permisos o no para generar reportes
 		servidorPpal.addAdmin(unUsuario);
         
-		
+		//armamos el reporte por Fecha
 		colResult = unUsuario.reportePorFecha();
-	    if(colResult == null){
-	    	System.out.println("Reporte generado por un usuario sin permisos...\n\n");
-	    	assertEquals("Verificamos", 2, 1);
-	    }else{
-	    	System.out.println("Reporte generado por un usuario con permisos...\n\n");
-	    	System.out.println("FECHA \t CANTIDAD");
-	    	for(ItemReporteFecha unItemReporteFecha: colResult) {	
-				System.out.println(unItemReporteFecha.getFecha() + "\t  " + unItemReporteFecha.getCantidad());
-			}
-	    }
+		
+		//elegimos el display a hacer del reporte -> imprimir por pantalla
+		ReporteHistorico unReportePorFecha = new ReporteHistorico();
+		unReportePorFecha.displayReportePorFecha(colResult);
 
 	}
 

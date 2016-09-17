@@ -1,9 +1,15 @@
 package dds.softpoi;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.hamcrest.core.SubstringMatcher;
 
 import dds.json.BancoDTO;
 import dds.json.CentroDTO;
@@ -198,5 +204,40 @@ public class Servidor {
     	}
     }
     
-	
+
+  
+    public void actualizarLocalesComerciales(String rutaArchivo) throws FileNotFoundException, IOException {
+    	String cadena;
+    	String comercio,palabrasClave;
+    	int pos;
+    	FileReader f = new FileReader(rutaArchivo);
+    	BufferedReader b = new BufferedReader(f);
+    	boolean encontroPois;
+    	
+        while((cadena = b.readLine())!=null) {
+            //System.out.println(cadena);
+
+            pos = cadena.indexOf(";");
+            comercio = cadena.substring(0, pos-1);
+            palabrasClave = cadena.substring(pos + 1,cadena.length());
+            encontroPois = false;
+    		for(POI unPoi : colPOIs){
+    			if (unPoi.getNombre().toUpperCase().indexOf(comercio.toUpperCase()) > -1){
+    				encontroPois = true;
+    				System.out.println("Se modifica el POI " + unPoi.getNombre() + " " + unPoi.getPalabrasClave());
+    				unPoi.setPalabrasClave(palabrasClave);
+    				System.out.println("Nuevas palabras clave " + unPoi.getPalabrasClave());
+    			}
+    		}
+    		if(encontroPois == false){
+    			System.out.println("POI no encontrado, se da de alta : " + comercio + " " + palabrasClave);
+    			POI poiNuevo = new Comercio(comercio, 0, 0, null);
+    			poiNuevo.setPalabrasClave(palabrasClave);
+    			this.cargarPOI(poiNuevo);
+    		}
+        }
+        b.close();
+    }
+
+    
 }

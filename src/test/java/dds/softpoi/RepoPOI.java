@@ -102,6 +102,7 @@ public class RepoPOI {
 		bolsapois.add(parada2);
 		
 		Comercio comercio1 = new Comercio("McWonalds", -34.6036961,-58.3843145, new Rubro("Restaurante", 900));
+		comercio1.setPalabrasClave("Hamburguesas Patitas Gusanos");
 		comercio1.setIdpoi(7);
 		comercio1.setServicios(servRestaurant);
 		

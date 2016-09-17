@@ -1,5 +1,8 @@
 package dds.softpoi;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class Administrador extends Usuario{
 
 	// ***************************************************************************
@@ -29,5 +32,19 @@ public class Administrador extends Usuario{
 		serv.eliminarPOI(unPOI);
 		
 	}	
+	
+	public void actualizarLocalesComerciales(String rutaArchivo){
+		try {
+			serv.actualizarLocalesComerciales(rutaArchivo);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 	
 }

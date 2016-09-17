@@ -16,6 +16,8 @@ public abstract class POI {
 	protected String calle;
 	protected String calle_interseccion;
 	protected ArrayList<Servicio> servicios = new ArrayList<Servicio>();
+	protected Date fecha_baja;
+	protected String palabras_clave;
 	
 	// ***************************************************************************
 	// Setters
@@ -65,6 +67,14 @@ public abstract class POI {
 		this.servicios.add(unServicio);
 	}
 	
+	public void setPalabrasClave(String palabras){
+		this.palabras_clave = palabras;
+	}
+	
+	public void setFechaBaja(Date fechabaja){
+		this.fecha_baja = fechabaja;
+	}
+	
 	// ***************************************************************************
 	// Getters
 	// ***************************************************************************
@@ -111,6 +121,14 @@ public abstract class POI {
 	
 	public ArrayList<Servicio> getServicios() {
 		return servicios;
+	}
+	
+	public String getPalabrasClave(){
+		return this.palabras_clave;
+	}
+	
+	public Date getFechaBaja(){
+		return this.fecha_baja;
 	}
 	
 	// ***************************************************************************

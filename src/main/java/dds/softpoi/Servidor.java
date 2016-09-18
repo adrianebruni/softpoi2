@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.hamcrest.core.SubstringMatcher;
-
 import dds.json.BancoDTO;
 import dds.json.CentroDTO;
 import java.security.SecureRandom;
@@ -19,6 +17,7 @@ import java.math.BigInteger;
 public class Servidor {
 	
 	public ArrayList<POI> colPOIs = new ArrayList<POI>();
+	public ArrayList<POI> colPOIsBorrados = new ArrayList<POI>();
 	public ArrayList<Usuario> colAdmins = new ArrayList<Usuario>();
 	public ArrayList<POI> colPOIsExternos = new ArrayList<POI>(); 	//Esta coleccion es para origenes de datos externos
 	
@@ -50,7 +49,11 @@ public class Servidor {
 	public void cargarPOIExterno(POI unPOI) {
 		this.colPOIsExternos.add(unPOI);
 	}
-		
+	
+	public void cargarPOIEnBorrados(POI unPOI) {
+		this.colPOIsBorrados.add(unPOI);
+	}
+
 	// ***************************************************************************
 	// Getters
 	// ***************************************************************************

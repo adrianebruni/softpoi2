@@ -1,0 +1,18 @@
+<pois>
+  <tipoPOI clase="Comun">
+    <campo>
+      <nombre>BBVA</nombre>
+      <fechaBaja>20160218</fechaBaja>
+    </campo>
+    <campo>
+      <nombre>BNA</nombre>
+      <fechaBaja>19890218</fechaBaja>
+    </campo>
+  </tipoPOI>
+  <tipoPOI clase="Comercio">
+    <campo>
+      <nombre>campo</nombre>
+      <fechaBaja>20153101</fechaBaja>
+    </campo>
+  </tipoPOI>
+</pois>

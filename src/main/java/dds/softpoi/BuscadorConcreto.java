@@ -44,4 +44,27 @@ public class BuscadorConcreto implements BuscadorAbstracto {
 		return poiEncontrados;
 	}	
 	
+
+
+	public ArrayList<POI> consultarPOIporNombreExacto(String query, Servidor unServidor){
+		ArrayList<POI> poiEncontrados = new ArrayList<POI>();
+		ArrayList<POI> todosLosPoi = new ArrayList<POI>();
+		todosLosPoi.addAll(unServidor.getColPOIs());
+		unServidor.actualizoDesdeDatosExternos(query);
+		
+		try{
+			todosLosPoi.addAll(unServidor.getcolPOIsExternos());
+		}catch (Exception e) {
+			System.out.println("no encuentro errores");
+		}
+		
+		for(POI unPoi : todosLosPoi){
+			if (unPoi.getNombre().equals(query)){
+			poiEncontrados.add(unPoi);
+		}
+			
+	}
+	return poiEncontrados;
+}	
+
 }

@@ -1,9 +1,15 @@
 package dds.softpoi;
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class DispositivoConsulta extends Usuario{
 
 	private double longitud;
 	private double latitud;
 	private String zona;
+	private Set<PermisosTerminal> permisosPrevios = new HashSet<PermisosTerminal>();
+	private Set<PermisosTerminal> permisosActuales = new HashSet<PermisosTerminal>();
 
 	// El nombre por ejemplo: terminalAbasto
 
@@ -37,6 +43,14 @@ public class DispositivoConsulta extends Usuario{
 		this.zona= zona;
 	}
 
+	public void setPermisosPrevios(Set<PermisosTerminal> permisos){
+		this.permisosPrevios= permisos;
+	}
+	
+	public void setPermisosActuales(Set<PermisosTerminal> permisos){
+		this.permisosActuales= permisos;
+	}
+	
 
 	// ***************************************************************************
 	// Getters
@@ -52,6 +66,14 @@ public class DispositivoConsulta extends Usuario{
 	
 	public String getZona(){
 		return zona;
+	}
+	
+	public Set<PermisosTerminal> getPermisosPrevios(){
+		return permisosPrevios;
+	}
+	
+	public Set<PermisosTerminal> getPermisosActuales(){
+		return permisosActuales;
 	}
 
 	

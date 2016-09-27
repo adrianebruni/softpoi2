@@ -2,9 +2,13 @@ package dds.softpoi;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Administrador extends Usuario{
 
+	private Set<PermisosTerminal> permisosAsetear = new HashSet<PermisosTerminal>();
+	
 	// ***************************************************************************
 	// Setters
 	// ***************************************************************************
@@ -45,6 +49,16 @@ public class Administrador extends Usuario{
 		}
 		
 		
+	}
+	
+	public void agregarPermiso(PermisosTerminal unPermiso){
+		permisosAsetear.add(unPermiso);
+	}
+	
+	public void commitPermisos(DispositivoConsulta unDispositivo){
+		//piso los permisos viejos con los actuales, haciendo un backup
+		unDispositivo.setPermisosPrevios(unDispositivo.getPermisosActuales());
+		unDispositivo.setPermisosActuales(permisosAsetear);
 	}
 	
 }

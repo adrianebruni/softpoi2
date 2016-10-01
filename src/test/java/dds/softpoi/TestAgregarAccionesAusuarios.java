@@ -27,6 +27,7 @@ public class TestAgregarAccionesAusuarios {
 		//TESTEO CERCANIA
 		
 		unAdministrador.agregarPermiso(PermisoCercania.getpermisoCercaniaSingleton());
+		unAdministrador.agregarPermiso(PermisoCercania.getpermisoCercaniaSingleton());
 		unAdministrador.commitPermisos(dispositivo2);
 		
 		//imprimo permisos

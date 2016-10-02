@@ -10,10 +10,4 @@ public class PermisoCercania extends PermisosTerminal{
 		}	
 
 	
-	//METODO
-	
-	public boolean estaCercaMio(POI unPoi, DispositivoConsulta unDispCons){
-		return unPoi.estaCercaDe(unDispCons);
-	}
-	
 }

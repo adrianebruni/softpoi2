@@ -1,13 +1,12 @@
 package dds.softpoi;
 
-import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 public class TestAgregarAccionesAusuarios {
 
 	@Test
-	public void testBusquedaConAuditoria() {
+	public void testAgregarAccionesAusuarios() {
 	
 		
 		//crear Servidor
@@ -17,42 +16,31 @@ public class TestAgregarAccionesAusuarios {
 		dispositivo2.setFlagAuditoriaBusqueda(true);
 		dispositivo2.setFlagNotificaciones(true);
 		dispositivo2.setServidor(servidorPpal);
-		
+				
 		//crear administrador
 		Administrador unAdministrador = new Administrador();
 		unAdministrador.setPass("passPrueba");
 		unAdministrador.setServidor(servidorPpal);
 		servidorPpal.addAdmin(unAdministrador);
 		
-		//TESTEO CERCANIA
 		
-		unAdministrador.agregarPermiso(PermisoCercania.getpermisoCercaniaSingleton());
+		//TESTEO agregado de permisos
 		unAdministrador.agregarPermiso(PermisoCercania.getpermisoCercaniaSingleton());
 		unAdministrador.commitPermisos(dispositivo2);
 		
-		//imprimo permisos
-		if(dispositivo2.getPermisosActuales() == null){
-	    	System.out.println("Terminal Sin Permisos\n\n");
-	    }else{
-	    	System.out.println("Terminal con permisos...\n\n");
-	    	for(PermisosTerminal unPermiso: dispositivo2.getPermisosActuales()) {	
-				System.out.println(unPermiso.tipoPermiso());
-			}
-	    }
+		//imprimo permisos de dispositivo2
+		System.out.println("Agrego permisos:");
+		dispositivo2.imprimirPermisos();
 		
-		//creo DispositivoConsulta
-System.out.println("dispositivo: " + dispositivo2.getNombre() + ", latitud: " + dispositivo2.getLatitud() + ", longitud: " + dispositivo2.getLongitud());
-
-		//creo una Comuna para el CGP
-		Comuna comunaFlores = new Comuna (1, 0.350219707, 0.52475748, 0.698131701, 0.715584993, "lanus, lomas de zamora");
-		System.out.println("Comuna, limite Sur: " + comunaFlores.getLimSur() + ", Limite Norte: " + comunaFlores.getLimNorte() + ", Limite Este: " + comunaFlores.getLimEste() + ", Limite Oeste: " + comunaFlores.getLimOeste());		
-				
-		//creo un POI CGP de prueba
-		CGP cgpFlores = new CGP("CGP Flores",0.36,0.70);
-		cgpFlores.setComuna(comunaFlores);
-		System.out.println(cgpFlores.tipoPOI()+ ": " + cgpFlores.getNombre() + ", latitud: " + cgpFlores.getLatitud() + ", longitud: " + cgpFlores.getLongitud());		
 		
-		assertEquals("Verificamos que el CGP este cerca del dispositivo", true, dispositivo2.estaCercaMio(cgpFlores));
+		//TESTEO modificado de permisos
+		unAdministrador.agregarPermiso(PermisoCercania.getpermisoCercaniaSingleton());
+		unAdministrador.agregarPermiso(PermisoDisponibilidad.getpermisoDisponibilidadSingleton());
+		unAdministrador.commitPermisos(dispositivo2);
+		
+		//imprimo NUEVOS permisos de dispositivo2
+		System.out.println("\nModificacion de permisos: ");
+		dispositivo2.imprimirPermisos();
 	
 	}
 }

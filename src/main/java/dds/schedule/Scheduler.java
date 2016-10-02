@@ -1,17 +1,26 @@
 package dds.schedule;
 import java.util.ArrayList;
 
+import dds.softpoi.POI;
+
 public class Scheduler extends Thread {
 	private ArrayList<Job> cola_jobs;
 	private ArrayList<EstadoJob> cola_estados;
 	private Boolean estado_escheduler;
 	private ArrayList<Ejecuciones> cola_ejecuciones;
+	//variables para el RollBack
+	private Boolean begin_RollBack;
+	private ArrayList<POI> pois_activos_RollBack;
+	private ArrayList<POI> pois_borrados_RollBack;
 	
 	public Scheduler(){
 		cola_jobs = new ArrayList<Job>();
 		cola_estados = new ArrayList<EstadoJob>();
 		cola_ejecuciones = new ArrayList<Ejecuciones>();
 		estado_escheduler = false;
+		begin_RollBack = false;
+		pois_activos_RollBack = new ArrayList<POI>();
+		pois_borrados_RollBack = new ArrayList<POI>();
 	}
 	
 	public Boolean getEstado_escheduler() {
@@ -120,6 +129,32 @@ public class Scheduler extends Thread {
 		}
 //		jobFinal.setNombre_job("Finalizador de Scheduler");
 		this.agregarJob(jobFinal);
+	}
+
+	public ArrayList<POI> getPois_Activos_RollBack() {
+		return pois_activos_RollBack;
+	}
+	
+	public ArrayList<POI> getPois_Borrados_RollBack() {
+		return pois_borrados_RollBack;
+	}
+
+	public void setPois_Activos_RollBack(ArrayList<POI> pois_activos) {
+		this.pois_activos_RollBack.clear();
+		this.pois_activos_RollBack.addAll(pois_activos);
+	}
+	
+	public void setPois_Borrados_RollBack(ArrayList<POI> pois_borrados) {
+		this.pois_borrados_RollBack.clear();
+		this.pois_borrados_RollBack.addAll(pois_borrados);
+	}
+
+	public Boolean getBegin_RollBack() {
+		return begin_RollBack;
+	}
+
+	public void setBegin_RollBack(Boolean begin_RollBack) {
+		this.begin_RollBack = begin_RollBack;
 	}
 	
 	

@@ -123,6 +123,9 @@ public abstract class Job extends Thread{
 		this.predecesores_job.add(idPredecesor);
 		Collections.sort(this.predecesores_job);
 	}
+	public void agregarPredecesor(Job unJob){
+		this.agregarPredecesor(unJob.getId_job());
+	}
 	
 	
 	

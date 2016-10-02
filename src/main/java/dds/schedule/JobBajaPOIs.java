@@ -13,7 +13,7 @@ import org.jdom.input.SAXBuilder;
 
 import dds.softpoi.POI;
 import dds.softpoi.Servidor;
-import dds.softpoi.Usuario;
+
 
 public class JobBajaPOIs extends Job{
 	private Servidor unServidor;
@@ -40,12 +40,12 @@ public class JobBajaPOIs extends Job{
 	    {
 	        Document document = (Document) builder.build( xmlFile );
 	        Element rootNode = document.getRootElement();
-	        List list = rootNode.getChildren( "tipoPOI" );
+	        List<?> list = rootNode.getChildren( "tipoPOI" );
 	        for ( int i = 0; i < list.size(); i++ )
 	        {
 	            Element tabla = (Element) list.get(i);
-	            String clasePOI = tabla.getAttributeValue("clase");
-	            List lista_campos = tabla.getChildren();
+//	            String clasePOI = tabla.getAttributeValue("clase");
+	            List<?> lista_campos = tabla.getChildren();
 	            for ( int j = 0; j < lista_campos.size(); j++ )
 	            {
 	                Element campo = (Element)lista_campos.get( j );
@@ -64,6 +64,7 @@ public class JobBajaPOIs extends Job{
 	        
 	                for (POI unPoi : listaParaBajar) {
 						unPoi.setIdpoi(0);
+						@SuppressWarnings("deprecation")
 						Date fechaBaja = new Date(añoBaja,mesBaja,diaBaja);
 						unPoi.setFechaBaja(fechaBaja);
 						servidor.eliminarPOI(unPoi);

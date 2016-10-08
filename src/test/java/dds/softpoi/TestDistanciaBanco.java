@@ -11,15 +11,37 @@ public class TestDistanciaBanco {
 	
 		System.out.println("Iniciando testDistancia Dispositivo - POI tipo Banco");
 		
+		//Creamos Servidor
+		Servidor servidorPpal = new Servidor();
+		//Agregamos Terminal Consulta
+		DispositivoConsulta dispositivoConsulta = new DispositivoConsulta("disp Flores2", 0.350219708, 0.715584992, "Flores Norte");
+		dispositivoConsulta.setFlagAuditoriaBusqueda(true);
+		dispositivoConsulta.setFlagNotificaciones(true);
+		dispositivoConsulta.setServidor(servidorPpal);
+		//Agregamos Administrador
+		Administrador unAdministrador = new Administrador();
+		unAdministrador.setPass("passPrueba");
+		unAdministrador.setServidor(servidorPpal);
+		servidorPpal.addAdmin(unAdministrador);
+		//Asignamos permiso a Terminal
+		unAdministrador.agregarPermiso(PermisoCercania.getpermisoCercaniaSingleton());
+		unAdministrador.commitPermisos(dispositivoConsulta);
+		
+		
+		
+		
 		//creo DispositivoConsulta
-		DispositivoConsulta dispositivo4 = new DispositivoConsulta("disp Flores2", 0.350219708, 0.715584992, "Flores Norte");
-		System.out.println("dispositivo: " + dispositivo4.getNombre() + ", latitud: " + dispositivo4.getLatitud() + ", longitud: " + dispositivo4.getLongitud());
+//		DispositivoConsulta dispositivoConsulta = new DispositivoConsulta("disp Flores2", 0.350219708, 0.715584992, "Flores Norte");
+
+		System.out.println("dispositivoConsulta: " + dispositivoConsulta.getNombre() + ", latitud: " + dispositivoConsulta.getLatitud() + ", longitud: " + dispositivoConsulta.getLongitud());
+		
+
 		
 		//creo un POI Banco de prueba
 		Banco bancoNacion1 = new Banco("Banco Nacion microcentro",0.350219708,0.715484992);
 		System.out.println(bancoNacion1.tipoPOI() + ": " + bancoNacion1.getNombre() + ", latitud: " + bancoNacion1.getLatitud() + ", longitud: " + bancoNacion1.getLongitud());		
 		
-		assertEquals("Verificamos que el Banco este cerca del dispositivo", true, dispositivo4.estaCercaMio(bancoNacion1));
+		assertEquals("Verificamos que el Banco este cerca del dispositivo", true, dispositivoConsulta.estaCercaMio(bancoNacion1));
 		
 		
 	}

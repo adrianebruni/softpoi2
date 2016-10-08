@@ -10,18 +10,33 @@ public class TestDistanciaParadaCol {
 	public void methDistanciaParada() {
 		System.out.println("Iniciando testDistancia Dispositivo - POI");
 	
-		//creo DispositivoConsulta
-		DispositivoConsulta dispositivo1 = new DispositivoConsulta("disp Palermo1", 0.873823331, 0.87408513, "Palermo soho");
-		System.out.println("dispositivo: " + dispositivo1.getNombre() + ", latitud: " + dispositivo1.getLatitud() + ", longitud: " + dispositivo1.getLongitud());
+	
+		//Creamos Servidor
+		Servidor servidorPpal = new Servidor();
+		//Agregamos Terminal Consulta
+		DispositivoConsulta dispositivoConsulta = new DispositivoConsulta("Cabildo y Juramento", -34.562073, -58.456817, "Flores Norte");
+		dispositivoConsulta.setFlagAuditoriaBusqueda(true);
+		dispositivoConsulta.setFlagNotificaciones(true);
+		dispositivoConsulta.setServidor(servidorPpal);
+		//Agregamos Administrador
+		Administrador unAdministrador = new Administrador();
+		unAdministrador.setPass("passPrueba");
+		unAdministrador.setServidor(servidorPpal);
+		servidorPpal.addAdmin(unAdministrador);
+		//Asignamos permiso a Terminal
+		unAdministrador.agregarPermiso(PermisoCercania.getpermisoCercaniaSingleton());
+		unAdministrador.commitPermisos(dispositivoConsulta);
 		
+		System.out.println("dispositivo: " + dispositivoConsulta.getNombre() + ", latitud: " + dispositivoConsulta.getLatitud() + ", longitud: " + dispositivoConsulta.getLongitud());
+
 		//creo un POI Parada de Colectivo de prueba
-		ParadaColectivo callaoCordoba132 = new ParadaColectivo("132 Callao Cordoba",0.873818483, 0.874080282);
+		ParadaColectivo callaoCordoba132 = new ParadaColectivo("64 Cabildo y Juramento",-34.562471,-58.4566566);
 		callaoCordoba132.setEmpresa("Nuevos Rumbos S.A.");
 		callaoCordoba132.setNumeroDeLinea(132);
 		//System.out.println("tipo de POI:" + callaoCordoba132.tipoPOI());
 		System.out.println(callaoCordoba132.tipoPOI() + ": " + callaoCordoba132.getNombre() + ", latitud: " + callaoCordoba132.getLatitud() + ", longitud: " + callaoCordoba132.getLongitud());		
 
-		assertEquals("Verificamos que la parada este cerca del dispositivo", true, dispositivo1.estaCercaMio(callaoCordoba132));
+		assertEquals("Verificamos que la parada este cerca del dispositivo", true, dispositivoConsulta.estaCercaMio(callaoCordoba132));
 		
 	}
 	

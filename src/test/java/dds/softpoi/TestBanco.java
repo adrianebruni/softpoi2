@@ -30,14 +30,40 @@ public class TestBanco {
 		otroDia.setDia("JUEVES");
 		otroDia.setRangoHorario(rango3);
 
-		Disponibilidad otroDia1 = new Disponibilidad();
-		otroDia1.setDia("DOMINGO");
-		otroDia1.setRangoHorario(rango3);
+		Disponibilidad diaLunes = new Disponibilidad();
+		diaLunes.setDia("LUNES");
+		diaLunes.setRangoHorario(rango3);
+		Disponibilidad diaMartes = new Disponibilidad();
+		diaMartes.setDia("MARTES");
+		diaMartes.setRangoHorario(rango3);
+		Disponibilidad diaMiercoles = new Disponibilidad();
+		diaMiercoles.setDia("MIERCOLES");
+		diaMiercoles.setRangoHorario(rango3);
+		Disponibilidad diaJueves = new Disponibilidad();
+		diaJueves.setDia("JUEVES");
+		diaJueves.setRangoHorario(rango3);
+		Disponibilidad diaViernes = new Disponibilidad();
+		diaViernes.setDia("VIERNES");
+		diaViernes.setRangoHorario(rango3);
+		Disponibilidad diaSabado = new Disponibilidad();
+		diaSabado.setDia("SABADO");
+		diaSabado.setRangoHorario(rango3);
+		Disponibilidad diaDomingo = new Disponibilidad();
+		diaDomingo.setDia("DOMINGO");
+		diaDomingo.setRangoHorario(rango3);
+		
+		
 		
 		// Creamos un servicio y le asignamos valores.
 		Servicio unServicio = new Servicio();
 		unServicio.setServicio("apertura de cuenta corriente");
-		unServicio.setDisponibilidad(otroDia1);
+		unServicio.setDisponibilidad(diaLunes);
+		unServicio.setDisponibilidad(diaMartes);
+		unServicio.setDisponibilidad(diaMiercoles);
+		unServicio.setDisponibilidad(diaJueves);
+		unServicio.setDisponibilidad(diaViernes);
+		unServicio.setDisponibilidad(diaSabado);
+		unServicio.setDisponibilidad(diaDomingo);
 		
 		Servicio otroServicio = new Servicio();
 		otroServicio.setServicio("apertura de caja de ahorro");
@@ -55,6 +81,9 @@ public class TestBanco {
 		//System.out.println("Longitud: " + bancoFrances.longitud);
 		//System.out.println("Latitud: " + bancoFrances.latitud);
 	
+		bancoFrances.estaDisponible("apertura de cuenta corriente", FechayHora.fechaHoy(), FechayHora.horaHoy());
+		bancoFrances.estaDisponible("apertura de cuenta corriente", FechayHora.fechaHoy(), FechayHora.horaHoy());
+		
 		System.out.println("Esta Disponible (apertura de cuenta corriente): " + bancoFrances.estaDisponible("apertura de cuenta corriente", FechayHora.fechaHoy(), FechayHora.horaHoy()));
 		assertEquals("Esta Disponible (apertura de cuenta corriente): ", true, bancoFrances.estaDisponible("apertura de cuenta corriente", FechayHora.fechaHoy(), FechayHora.horaHoy()));
 		System.out.println("Test Finalizado !");

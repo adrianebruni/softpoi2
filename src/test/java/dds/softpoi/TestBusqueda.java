@@ -6,23 +6,10 @@ public class TestBusqueda {
 
 	@Test
 	public void testBusquedaConAuditoria() {
-	
-		DispositivoConsulta usuarioPepe = new DispositivoConsulta();
-		usuarioPepe.setFlagAuditoriaBusqueda(false);
-		//pendiente setFlagNotificaciones(true)
+		
 		
 		//crear Servidor
 		Servidor servidorPpal = new Servidor();
-		usuarioPepe.setServidor(servidorPpal);
-		
-		//agrego POIs
-		RepoPOI colPoisPrueba = new RepoPOI();
-		servidorPpal.cargarPOIs(colPoisPrueba.Dame_Bolsa_POI());
-		
-		//Auditoria unaAuditoria = new Auditoria();
-		//unaAuditoria.auditarBusquedaPOI("banco", servidorPpal, usuarioPepe);
-		
-		usuarioPepe.buscaPOI("Banco");
 		
 		//crear administrador
 		Administrador unAdministrador = new Administrador();
@@ -32,10 +19,28 @@ public class TestBusqueda {
 		servidorPpal.addAdmin(unAdministrador);
 		unAdministrador.setFlagAuditoriaBusqueda(true);
 		
-		unAdministrador.buscaPOI("Banco");
-		unAdministrador.buscaPOI("Banco");
 		
-		unAdministrador.reportePorFecha();
+		DispositivoConsulta usuarioPepe = new DispositivoConsulta();
+		usuarioPepe.setFlagAuditoriaBusqueda(false);
+		usuarioPepe.setServidor(servidorPpal);
+		
+		//agrego POIs
+		RepoPOI colPoisPrueba = new RepoPOI();
+		servidorPpal.cargarPOIs(colPoisPrueba.Dame_Bolsa_POI());
+		
+		//Auditoria unaAuditoria = new Auditoria();
+		//unaAuditoria.auditarBusquedaPOI("banco", servidorPpal, usuarioPepe);
+	
+		System.out.println("Cantidad de busquedas devueltas: " + servidorPpal.buscaPOI("Banco", usuarioPepe).size());
+		
+		//usuarioPepe.buscaPOI("Banco");
+		//System.out.println("Cantidad de busquedas devueltas: " + dispositivoConsulta.buscaPOI("Banco").size());
+
+		
+		//unAdministrador.buscaPOI("Banco");
+		//unAdministrador.buscaPOI("Banco");
+		
+		//unAdministrador.reportePorFecha();
 		
 	}
 	

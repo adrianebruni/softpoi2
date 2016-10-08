@@ -11,8 +11,8 @@ public class TestBancoDTO {
 		
 		BancoDTO jsonCentro = new BancoDTO();
 		
-		//ArrayList<POI> POIs = jsonCentro.dameDatosExternos("http://trimatek.org/Consultas/banco");
-		ArrayList<POI> POIs = jsonCentro.dameDatosExternos("http://localhost:8080/Consultas/banco");	
+		ArrayList<POI> POIs = jsonCentro.dameDatosExternos("http://trimatek.org/Consultas/banco");
+		//ArrayList<POI> POIs = jsonCentro.dameDatosExternos("http://localhost:8080/Consultas/banco");	
 		
 		System.out.println("CANT. POIs: " + POIs.size());
 		System.out.println("************************************************************************************************");

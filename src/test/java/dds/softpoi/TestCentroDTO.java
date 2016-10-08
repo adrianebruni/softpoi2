@@ -14,8 +14,8 @@ public class TestCentroDTO {
 
 		CentroDTO jsonCentro = new CentroDTO();
 		
-		//ArrayList<POI> POIs = jsonCentro.dameDatosExternos("http://trimatek.org/Consultas/centro");
-		ArrayList<POI> POIs = jsonCentro.dameDatosExternos("http://localhost:8080/Consultas/centro");
+		ArrayList<POI> POIs = jsonCentro.dameDatosExternos("http://trimatek.org/Consultas/centro");
+		//ArrayList<POI> POIs = jsonCentro.dameDatosExternos("http://localhost:8080/Consultas/centro");
 		
 		
 		System.out.println("CANT. POIs: " + POIs.size());

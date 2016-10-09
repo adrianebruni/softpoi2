@@ -15,7 +15,7 @@ public class TestJobActualizarLocalesComerciales {
 		//agrego POIs
 		RepoPOI colPoisPrueba = new RepoPOI();
 		servidorPpal.cargarPOIs(colPoisPrueba.Dame_Bolsa_POI());
-		String rutaActualizar1 = "/home/alexis/work/softpoi2/src/test/java/dds/softpoi/ComerciosPalabrasClave";
+		String rutaActualizar1 = servidorPpal.getParametros().getRutaComerciosPalabrasClave1();
 		
 		int cantidadPois = servidorPpal.getColPOIs().size();
 		int cantidadBorrados = servidorPpal.colPOIsBorrados.size();		

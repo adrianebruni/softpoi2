@@ -16,6 +16,7 @@ public class TestSchedule {
 	public void testScheduler(){
 
 		System.out.println("Inicia testSchedule");
+		System.out.println("Ejecutar test --> /softpoi2/src/main/java/dds/schedule/Test.java");
 		System.out.println("/////***** OJO , los theads deben tirar a otra consola los msjs desde JUnit *****/////");
 		Scheduler sched = new Scheduler();
 	

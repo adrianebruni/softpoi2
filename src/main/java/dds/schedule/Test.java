@@ -28,9 +28,9 @@ public class Test {
 		servidorPpal.cargarPOI(new Comercio("Caballito", -34.6036075,-58.3843653, new Rubro("Restaurante", 900)));
 		servidorPpal.cargarPOIEnBorrados(new Comercio("KFC", -34.6036961,-58.3843145, new Rubro("Restaurante", 900)));
 		System.out.println("Cantidad de POIs del Servidor : " + servidorPpal.colPOIs.size() + " y tiene Borrados: " + servidorPpal.colPOIsBorrados.size());
-		String ruta1 = "/home/alexis/work/softpoi2/src/test/java/dds/softpoi/ComerciosPalabrasClave";
-		String ruta2 = "/home/alexis/work/softpoi2/src/test/java/dds/softpoi/ComerciosPalabrasClave2";
-		String rutaBajas = "/home/alexis/work/softpoi2/src/test/java/dds/softpoi/archivobajas.xml";
+		String ruta1 = servidorPpal.getParametros().getRutaComerciosPalabrasClave1();
+		String ruta2 = servidorPpal.getParametros().getRutaComerciosPalabrasClave2();
+		String rutaBajas = servidorPpal.getParametros().getRutaXMLBajas();
 		
 		Scheduler sched = new Scheduler();
 		

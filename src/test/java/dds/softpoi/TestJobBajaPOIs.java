@@ -14,7 +14,7 @@ public class TestJobBajaPOIs {
 		//agrego POIs
 		RepoPOI colPoisPrueba = new RepoPOI();
 		servidorPpal.cargarPOIs(colPoisPrueba.Dame_Bolsa_POI());
-		String rutaBajas = "/home/alexis/work/softpoi2/src/test/java/dds/softpoi/archivobajas.xml";
+		String rutaBajas = servidorPpal.getParametros().getRutaXMLBajas();
 		int cantidadPois = servidorPpal.getColPOIs().size();
 		int cantidadBorrados = servidorPpal.colPOIsBorrados.size();		
 		System.out.println("Antes de JobBajaPOIs, el servidor tiene en su coleccion: " + cantidadPois + " y borrados: " + cantidadBorrados);

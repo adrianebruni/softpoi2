@@ -61,4 +61,9 @@ public class Administrador extends Usuario{
 		unDispositivo.setPermisosActuales(permisosAsetear);
 	}
 	
+	public void undoCommitPermisos(DispositivoConsulta unDispositivo){
+		//piso los permisos actuales con los viejos, revirtiendo el ultimo cambio
+		unDispositivo.setPermisosActuales(unDispositivo.getPermisosPrevios());
+	}
+	
 }

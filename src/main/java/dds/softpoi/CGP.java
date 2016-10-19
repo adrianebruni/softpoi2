@@ -139,4 +139,18 @@ public class CGP extends POI{
 		}
 	}
 	
+	public String getDireccion(){
+		String direccion;
+		direccion= this.getCalle() +" "+ this.getAltura() +" "+ this.getPiso() +"° "+ this.getDepartamento() +" "+ this.getUnidad();
+		return direccion;
+	}
+	
+	public String getZona(){
+		return this.getComuna().getZonas();
+	}
+	
+	/*public String getListaServiciosyHorarios(){
+		
+	}*/
+	
 }

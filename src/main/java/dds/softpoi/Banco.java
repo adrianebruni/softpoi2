@@ -86,5 +86,15 @@ public class Banco extends POI {
 	public String getGerente() {
 		return gerente;
 	}
+
+	// ***************************************************************************
+	// Metodos
+	// ***************************************************************************
+	
+	public String getDireccion(){
+		String direccion;
+		direccion= this.getCalle() +" "+ this.getAltura() +" "+ this.getPiso() +"° "+ this.getDepartamento() +" "+ this.getUnidad();
+		return direccion;
+	}
 	
 }

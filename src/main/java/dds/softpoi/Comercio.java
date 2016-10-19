@@ -81,4 +81,10 @@ public class Comercio extends POI{
 			}
 		}
 
+		public String getDireccion(){
+			String direccion;
+			direccion= this.getCalle() +" "+ this.getAltura() +" "+ this.getPiso() +"° "+ this.getDepartamento() +" "+ this.getUnidad();
+			return direccion;
+		}
+		
 }

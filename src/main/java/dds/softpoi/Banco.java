@@ -9,6 +9,7 @@ public class Banco extends POI {
 	private String codigoPostal;
 	private String sucursal;
 	private String gerente;
+	private String zona;
 	
 	// ***************************************************************************
 	// Constructor
@@ -55,6 +56,10 @@ public class Banco extends POI {
 		this.gerente = gerente;
 	}
 	
+	public void setZona(String zona) {
+		this.zona = zona;
+	}
+	
 	// ***************************************************************************
 	// Getters
 	// ***************************************************************************
@@ -86,7 +91,11 @@ public class Banco extends POI {
 	public String getGerente() {
 		return gerente;
 	}
-
+	
+	public String getZona() {
+		return zona;
+	}
+	
 	// ***************************************************************************
 	// Metodos
 	// ***************************************************************************
@@ -96,5 +105,6 @@ public class Banco extends POI {
 		direccion= this.getCalle() +" "+ this.getAltura() +" "+ this.getPiso() +"° "+ this.getDepartamento() +" "+ this.getUnidad();
 		return direccion;
 	}
+
 	
 }

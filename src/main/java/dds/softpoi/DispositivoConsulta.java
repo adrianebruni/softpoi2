@@ -133,7 +133,7 @@ public class DispositivoConsulta extends Usuario{
 	
 	// esta funcion es para usarla desde la ventana (grafico)
 	// ver si buscaPOI no tiene permiso que pasa... tal vez hay que chequear antes.
-	public void ArrayList<POI> buscaMultiplePOI(ArrayList<String> colCadenas){
+	public Set<POI> buscaMultiplePOI(ArrayList<String> colCadenas){
 		Set<POI> busqueda = new HashSet<POI>();
 		for(String unaCadena : colCadenas){
 			busqueda.addAll(this.buscaPOI(unaCadena));

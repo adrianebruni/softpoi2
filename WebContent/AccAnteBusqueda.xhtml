@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+			<title>
+				<ui:insert name="title">Acciones ante la búsqueda</ui:insert>
+			</title>
+			<meta content="text/html; charset=UTF-8" http-equiv="Content-type" />
+		</h:head>
+<h:body>	
+<h:form>
+<p:messages autoUpdate="true" />
+    <h:panelGrid columns="3" cellpadding="5">
+        <h:outputLabel for="menu" value="Acciones:" />
+        <p:selectCheckboxMenu id="menu" value="#{accAnteBusqueda.accionesElegidas}" label="Elegir Accion"
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:300px">
+            <f:selectItems value="#{accAnteBusqueda.acciones}" />
+        </p:selectCheckboxMenu>
+        <p:commandLink value="Agregar" update="display" />
+    </h:panelGrid>
+ 
+     <p:panel header="Acciones" style="margin-bottom:5px;width:400px">
+
+	        <p:outputPanel id="display" style="width:300px;padding-left:5px;margin-top:10px">
+        <p:dataList value="#{accAnteBusqueda.accionesElegidas}" var="accion" emptyMessage="No hay acciones seleccionadas">
+            #{accion}
+        </p:dataList>
+    </p:outputPanel>
+        
+    </p:panel>
+    <p:separator />
+ 		    <p:commandButton value="OK" />
+ 		<p:commandButton value="Cancelar"/>
+    
+</h:form>
+</h:body>
+</html>
+
+

@@ -114,7 +114,7 @@ public class RepoPOI {
 		
 		bolsapois.add(comercio2);
 		//seguir agregando POIs de distintos tipos para usar en todos los test
-		
+			
 		return bolsapois;
 	}
 }

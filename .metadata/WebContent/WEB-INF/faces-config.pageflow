@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14769179892380" configfile="/softpoi2/WebContent/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14769179892380" configfile="/softpoi2/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="36" y="156" id="pf14769213898950" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14769213898961" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="principal.xhtml" x="216" y="156" id="pf14769213898962" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14769463830885" inlinks="pf14769213898961" path="/principal.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="busqueda.xhtml" x="432" y="60" id="pf14769223695014" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" path="/busqueda.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Basic.xhtml" x="436" y="252" id="pf14769463830896" inlinks="pf14769463830885" path="/Basic.xhtml"/>
+  <links id="pf14769213898961" target="pf14769213898962" source="pf14769213898950" outcome="login"/>
+  <links id="pf14769463830885" target="pf14769463830896" source="pf14769213898962" outcome="buscar"/>
+</pageflow:Pageflow>

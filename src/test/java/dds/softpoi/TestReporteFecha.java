@@ -20,7 +20,7 @@ public class TestReporteFecha {
 		//crear administrador
 		Administrador juanAdmin = new Administrador();
 		juanAdmin.setNombre("Juan");
-		juanAdmin.setPass("passPrueba");
+		juanAdmin.setClave("passPrueba");
 		juanAdmin.setServidor(servidorPpal);
 		servidorPpal.addAdmin(juanAdmin);
 		
@@ -56,7 +56,7 @@ public class TestReporteFecha {
         //creamos un usuario que no tiene autorizacion para pedir un reporte
 		Administrador unUsuario = new Administrador();
 		unUsuario.setNombre("Juan");
-		unUsuario.setPass("passPrueba");
+		unUsuario.setClave("passPrueba");
 		unUsuario.setServidor(servidorPpal);
         
 		// Lo agrego o no, depende si queremos que tenga permisos o no para generar reportes

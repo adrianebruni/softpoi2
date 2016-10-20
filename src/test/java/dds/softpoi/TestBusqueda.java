@@ -14,7 +14,7 @@ public class TestBusqueda {
 		//crear administrador
 		Administrador unAdministrador = new Administrador();
 		unAdministrador.setNombre("Juan");
-		unAdministrador.setPass("passPrueba");
+		unAdministrador.setClave("passPrueba");
 		unAdministrador.setServidor(servidorPpal);
 		servidorPpal.addAdmin(unAdministrador);
 		unAdministrador.setFlagAuditoriaBusqueda(true);

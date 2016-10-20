@@ -1,10 +1,12 @@
 package dds.softpoi;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
 //import maps.java.*; //propiedades-java build path-libraries-add external jars-MapsJavaJar
 	
-public abstract class POI {
+public abstract class POI implements Serializable{
 	protected int idpoi;
 	protected String nombre;
 	protected double latitud;              
@@ -129,6 +131,10 @@ public abstract class POI {
 	
 	public Date getFechaBaja(){
 		return this.fecha_baja;
+	}
+	
+	public String getDireccion(){
+		return this.getCalle();
 	}
 	
 	// ***************************************************************************

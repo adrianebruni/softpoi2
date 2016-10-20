@@ -25,7 +25,7 @@ public abstract class Usuario {
 		email = unEmail;
 	}
 
-	public void setPass(String unaClave) {
+	public void setClave(String unaClave) {
 		clave = unaClave;
 	}
 	

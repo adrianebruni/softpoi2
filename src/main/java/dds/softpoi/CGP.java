@@ -11,7 +11,7 @@ public class CGP extends POI{
 	private String director;
 	private String telefono;
 	private Comuna comuna;
-	//private ArrayList<Servicio> servicios = new ArrayList<Servicio>();
+	private ArrayList<Servicio> servicios = new ArrayList<Servicio>();
 	
 	// ***************************************************************************
 	// Constructor
@@ -66,6 +66,10 @@ public class CGP extends POI{
 	//	}
 	}
 	
+	/*public void setServicios(Servicio unServicio) {
+		this.servicios.add(unServicio);
+	}*/
+	
 	// ***************************************************************************
 	// Getters
 	// ***************************************************************************
@@ -90,9 +94,9 @@ public class CGP extends POI{
 		return codigoPostal;
 	}
 	
-	public ArrayList<Servicio> getServicios() {
+	/*public ArrayList<Servicio> getServicios() {
 		return servicios;
-	}
+	}*/
 	
 	public Comuna getComuna(){
 		return comuna;
@@ -113,7 +117,7 @@ public class CGP extends POI{
 	public boolean estaDisponible(String unServicio, Date unDia, String unaHora){		
 		boolean existe = false;
  	
-		for(Servicio unServicioDisponible : servicios)
+		for(Servicio unServicioDisponible : this.getServicios())
 		{
 		    if(unServicioDisponible.getServicio().equals(unServicio)){
 		    	if (unServicioDisponible.estaDisponible(unDia, unaHora)){
@@ -149,8 +153,19 @@ public class CGP extends POI{
 		return this.getComuna().getZonas();
 	}
 	
-	/*public String getListaServiciosyHorarios(){
-		
-	}*/
+	public String getListaServiciosyHorarios(){
+		String cadenaServicioDisponibilidad="";
+		for(Servicio unServicio : this.getServicios())
+		{				
+			if(cadenaServicioDisponibilidad.equals("")){
+				cadenaServicioDisponibilidad = unServicio.getCadenaDisponibilidad();
+		    }
+			else{
+				cadenaServicioDisponibilidad = 
+						cadenaServicioDisponibilidad + "\n" + unServicio.getCadenaDisponibilidad();
+			}
+		}
+		return cadenaServicioDisponibilidad;
+	}
 	
 }

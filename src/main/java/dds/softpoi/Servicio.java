@@ -54,4 +54,18 @@ public class Servicio {
 		return existe;
 	}
 	
+	public String getCadenaDisponibilidad(){
+		String cadenaDisponibilidad="";
+		for(Disponibilidad unaDisponibilidad : disponibilidad)
+		{				
+			if(cadenaDisponibilidad.equals("")){
+				cadenaDisponibilidad = this.getServicio() + "-> " + unaDisponibilidad.getCadenaDiasHorarios();
+		    }
+			else{
+				cadenaDisponibilidad = cadenaDisponibilidad + "; " + unaDisponibilidad.getCadenaDiasHorarios();
+			}
+		}
+		return cadenaDisponibilidad;
+	}
+	
 }

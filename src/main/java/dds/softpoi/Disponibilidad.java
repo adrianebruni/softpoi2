@@ -73,4 +73,26 @@ public class Disponibilidad {
 		return existe;
 	}
 	
+	// devuelve los horarios en una linea
+	public String getCadenaHorarios(){
+		String cadenaHorarios="";
+		for(RangoHorario unRangoHorario : horarios)
+		{				
+			if(cadenaHorarios.equals("")){
+		    	cadenaHorarios = unRangoHorario.getApertura() + " a " + unRangoHorario.getCierre();
+		    }
+			else{
+				cadenaHorarios = cadenaHorarios + ", " + unRangoHorario.getApertura() + " a " + unRangoHorario.getCierre();
+			}
+		}
+		return cadenaHorarios;
+	}
+	
+	//devuelve en una linea el dia con sus horarios
+	public String getCadenaDiasHorarios(){
+		String cadenaDiaHorarios="";
+		cadenaDiaHorarios = this.getDia() + ": " + this.getCadenaHorarios();
+		return cadenaDiaHorarios;
+	}
+	
 }

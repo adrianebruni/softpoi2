@@ -30,12 +30,20 @@ public class TestPermisoDisponibilidad {
 		//creo rubro, servicio, comercio
 		Rubro restaurante = new Rubro("Restaurante", 15);
 		RangoHorario rango1 = new RangoHorario("00:00:00", "23:01:08");
+		RangoHorario rango2 = new RangoHorario("01:00:00", "02:01:08");
 		Disponibilidad unDia = new Disponibilidad();
 		unDia.setDia("SABADO");
 		unDia.setRangoHorario(rango1);
+		unDia.setRangoHorario(rango2);
 		Servicio unServicio = new Servicio();
+		Servicio otroServicio = new Servicio();
 		unServicio.setServicio("apertura de caja de ahorro");
 		unServicio.setDisponibilidad(unDia);
+		otroServicio.setServicio("consultas varias");
+		otroServicio.setDisponibilidad(unDia);
+		System.out.println(unDia.getCadenaDiasHorarios());
+		System.out.println(unServicio.getCadenaDisponibilidad());
+		
 		
 		Comercio comercio1 = new Comercio("Mc Donalls", -34.5836168,-58.4060661, restaurante);		
 		comercio1.setServicios(unServicio);

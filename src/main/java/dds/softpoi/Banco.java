@@ -106,5 +106,19 @@ public class Banco extends POI {
 		return direccion;
 	}
 
+	public String getListaServicios(){
+		String cadenaServicio="";
+		for(Servicio unServicio : this.getServicios())
+		{				
+			if(cadenaServicio.equals("")){
+				cadenaServicio = unServicio.getServicio();
+		    }
+			else{
+				cadenaServicio = 
+						cadenaServicio + "\n" + unServicio.getServicio();
+			}
+		}
+		return cadenaServicio;
+	}
 	
 }

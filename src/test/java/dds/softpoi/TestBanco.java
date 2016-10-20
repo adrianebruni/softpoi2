@@ -74,6 +74,7 @@ public class TestBanco {
 		Banco bancoFrances = new Banco("BANCO FRANCES", -34.603075, -58.381653);
 		bancoFrances.setServicios(unServicio);
 		bancoFrances.setServicios(otroServicio);
+		System.out.println(bancoFrances.getListaServicios());
 		
 		// Mostramos los datos cargados
 		//System.out.println("TipoPOI: " + bancoFrances.tipoPOI());

@@ -7,8 +7,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-//import org.primefaces.showcase.domain.Car;
-//import org.primefaces.showcase.service.CarService;
+
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import dds.softpoi.Administrador;
 import dds.softpoi.POI;
@@ -24,7 +25,7 @@ public class BasicView implements Serializable {
 	private String text;
 	
 	private List<String> colBusqueda = new ArrayList<String>();
-	
+	private Administrador unAdmin = new Administrador();
 	
 	/*
     @ManagedProperty("#{carService}")
@@ -43,30 +44,11 @@ public class BasicView implements Serializable {
     	servidorPpal.cargarPOIs(colPoisPrueba.Dame_Bolsa_POI());
     	
 		//crear administrador
-		Administrador unAdmin = new Administrador();
+		//Administrador unAdmin = new Administrador();
 		unAdmin.setNombre("Juan");
 		unAdmin.setClave("passPrueba");
 		unAdmin.setServidor(servidorPpal);
 		servidorPpal.addAdmin(unAdmin);
-    	
-		//ArrayList<POI> colPOIs = new ArrayList<POI>();
-		//colPOIs.addAll(servidorPpal.buscaPOI("banco", unAdmin));
-		
-		//List<POI> POIs = new ArrayList<POI>();
-		
-		POIs = servidorPpal.buscaPOI("banco", unAdmin);
-		
-		/*
-		for(POI unPoi : colPOIs){
-			try{
-				POIs.add(unPoi);
-			}catch (Exception e) {
-				System.out.println("no encuentro errores" + e.getMessage().toString() + e.toString());
-			}
-		}
-		*/
-		//POIs.addAll(colPOIs);
-		//List<String> usuarios = new ArrayList<String>();
     }
     
     public List<POI> getPOIs() {
@@ -82,7 +64,6 @@ public class BasicView implements Serializable {
         this.servidorPpal = unServidor;
     }
     
-    
     public List<String> getUsuario(){
     	return colBusqueda;
     }
@@ -93,6 +74,25 @@ public class BasicView implements Serializable {
     
     public void setText(String text){
     	colBusqueda.add(text);
+    }
+    
+    public List<POI> getPoisEncontrados() {
+    	    	
+    	List<POI> auxPOIs = new ArrayList<POI>();
+    	
+    	// aca tiene que recorrer la coleccion colBusqueda y por cada uno de ellos buscar poi segun el criterio de busqueda.
+    	for(String unCriterio : colBusqueda){
+    		
+    		// el resultado de cada busqueda se debe almacenar en una coleccion sin repetidos
+    		auxPOIs.addAll(servidorPpal.buscaPOI(unCriterio, unAdmin));
+
+    	}
+    	
+    	POIs = auxPOIs;
+    	
+    	// se debe mostrar la coleccion de POIs (sin repetidos)
+		return POIs;
+    	
     }
     
 }

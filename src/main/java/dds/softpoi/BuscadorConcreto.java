@@ -9,12 +9,17 @@ public class BuscadorConcreto implements BuscadorAbstracto {
 		ArrayList<POI> poiEncontrados = new ArrayList<POI>();
 		ArrayList<POI> todosLosPoi = new ArrayList<POI>();
 		todosLosPoi.addAll(unServidor.getColPOIs());
+		
+		/*
+		 * Las siguiente lineas las comento porque tira error cuando se quiere mostrar por primefaces los datos POI
+		 * 
 		unServidor.actualizoDesdeDatosExternos(query);
 		try{
 			todosLosPoi.addAll(unServidor.getcolPOIsExternos());
 		}catch (Exception e) {
 			System.out.println("no encuentro errores");
 		}
+		*/
 		
 		for(POI unPoi : todosLosPoi){
 			if (unPoi.getNombre().toUpperCase().indexOf(query.toUpperCase()) > -1){

@@ -13,13 +13,19 @@
 	
 		<ui:define name="content">
 			<h:form id="form">
+				<h:outputLabel for="name" value="Cadena de busqueda: " />
 				
-				<p:dataList value="#{miVista.cars}" var="car" type="ordered">
-			        <f:facet name="header">
-			            Basic
-			        </f:facet>
-			        #{cars}, #{cars}
-			    </p:dataList>
+				<h:panelGrid columns="2" cellpadding="2">
+					<p:inputText id="name" value="#{dtBasicView.text}"  />
+					<p:commandButton value="Agregar" update="display" />
+				</h:panelGrid>
+				
+				<h:panelGrid columns="1" cellpadding="2">
+					<p:dataList id="display" value="#{dtBasicView.usuario}" var="unUsuario" type="ordered" >
+				        <f:facet name="header">Criterios de Busqueda</f:facet>
+				        #{unUsuario}
+				    </p:dataList>
+				</h:panelGrid>
 				
 			</h:form>
 		</ui:define>

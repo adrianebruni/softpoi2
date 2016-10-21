@@ -9,11 +9,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+
 import dds.json.BancoDTO;
 import dds.json.CentroDTO;
 import java.security.SecureRandom;
 import java.math.BigInteger;
 
+@ManagedBean(name = "servidor")
+@ApplicationScoped
 public class Servidor {
 	
 	public ArrayList<POI> colPOIs = new ArrayList<POI>();

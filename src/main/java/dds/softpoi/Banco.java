@@ -1,5 +1,8 @@
 package dds.softpoi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Banco extends POI {
 	
 	private int altura;
@@ -11,6 +14,7 @@ public class Banco extends POI {
 	private String gerente;
 	private String zona;
 	
+
 	// ***************************************************************************
 	// Constructor
 	// ***************************************************************************
@@ -121,4 +125,15 @@ public class Banco extends POI {
 		return cadenaServicio;
 	}
 	
+	public List<String> getInfo(){	
+		List<String> listaInfo = new ArrayList<String>();
+		listaInfo.add("Direccion: " + this.getDireccion());
+		listaInfo.add("Zona: " + this.getZona());
+		for(Servicio unServicioDisponible : servicios){
+			listaInfo.add("Servicio: " + unServicioDisponible.getServicio());
+		}	
+		return listaInfo;
+	}
+	
 }
+

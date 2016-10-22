@@ -11,6 +11,10 @@ public class Parametros {
 	static String rutaComerciosPalabrasClave1 = "./src/test/java/dds/softpoi/ComerciosPalabrasClave";
 	static String rutaComerciosPalabrasClave2 = "./src/test/java/dds/softpoi/ComerciosPalabrasClave2";
 	
+	// ./softpoi2/WebContent/WEB-INF/img/
+	// ./WebContent/WEB-INF/img/
+	static String rutaImagenesIconos = "/img/";
+	static String rutaImagenesIconosAbsoluta = "/home/usuario/dds/Proyectos-Java/softpoi2/WebContent/img/";
 	
 	// Parametros de configuracion JSON
 	static String urlJsonBanco = "http://trimatek.org/Consultas/banco";
@@ -24,6 +28,14 @@ public class Parametros {
 	static String emailCifradoTLS = "true";
 	static String emailMetodoEnvio = "smtp";
 	static String emailHostEnvio = "smtp.gmail.com";
+	
+	public String getRutaImagenesIconosAbsoluta(){
+		return rutaImagenesIconosAbsoluta;
+	}
+	
+	public String getRutaImagenesIconos(){
+		return rutaImagenesIconos;
+	}
 	
 	public String getEmailPuerto() {
 		return emailPuerto;

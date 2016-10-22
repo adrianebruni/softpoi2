@@ -1,12 +1,14 @@
 package dds.softpoi;
 
-import java.io.Serializable;
+import java.io.File;
+//import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 //import maps.java.*; //propiedades-java build path-libraries-add external jars-MapsJavaJar
 	
-public abstract class POI implements Serializable{
+public abstract class POI{
 	protected int idpoi;
 	protected String nombre;
 	protected double latitud;              
@@ -20,6 +22,10 @@ public abstract class POI implements Serializable{
 	protected ArrayList<Servicio> servicios = new ArrayList<Servicio>();
 	protected Date fecha_baja;
 	protected String palabras_clave;
+	
+	
+	public abstract List<String> getInfo();
+	
 	
 	// ***************************************************************************
 	// Setters
@@ -135,6 +141,22 @@ public abstract class POI implements Serializable{
 	
 	public String getDireccion(){
 		return this.getCalle();
+	}
+	
+	public String getImagenIcon(){	
+		Parametros objParametro = new Parametros();
+		
+		String unArchivo = objParametro.getRutaImagenesIconosAbsoluta()+ idpoi + ".gif";
+		
+		File arch = new File(unArchivo);
+		
+		if (arch.exists()){
+			return objParametro.getRutaImagenesIconos() + idpoi + ".gif";
+		}else{
+			return objParametro.getRutaImagenesIconos() + "no_img.gif";
+		}
+		
+		
 	}
 	
 	// ***************************************************************************

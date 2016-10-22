@@ -1,11 +1,13 @@
 package dds.softpoi;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ParadaColectivo extends POI {
 	private String empresa;
 	private int numeroDeLinea;
-	
+		
 	// Constructor
 	public ParadaColectivo(String nombre, double latitud, double longitud) {
 		super.nombre = nombre;
@@ -52,6 +54,12 @@ public class ParadaColectivo extends POI {
 		}else{
 			return false;
 		}
+	}
+	
+	public List<String> getInfo(){	
+		List<String> listaInfo = new ArrayList<String>();
+		listaInfo.add("Numero de Linea: " + numeroDeLinea);
+		return listaInfo;
 	}
 	
 }

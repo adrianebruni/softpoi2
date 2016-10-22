@@ -1,6 +1,7 @@
 package dds.softpoi;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class CGP extends POI{
 	private int altura;
@@ -12,6 +13,8 @@ public class CGP extends POI{
 	private String telefono;
 	private Comuna comuna;
 	private ArrayList<Servicio> servicios = new ArrayList<Servicio>();
+	
+	
 	
 	// ***************************************************************************
 	// Constructor
@@ -150,7 +153,12 @@ public class CGP extends POI{
 	}
 	
 	public String getZona(){
-		return this.getComuna().getZonas();
+		if (this.getComuna() == null){
+			return "<< SIN ZONA >>";
+		}else{
+			return this.getComuna().getZonas();
+		}
+		
 	}
 	
 	public String getListaServiciosyHorarios(){
@@ -166,6 +174,27 @@ public class CGP extends POI{
 			}
 		}
 		return cadenaServicioDisponibilidad;
+	}
+	
+	public List<String> getInfo(){	
+		List<String> listaInfo = new ArrayList<String>();
+		listaInfo.add("Direccion: " + this.getDireccion());
+		listaInfo.add("Zona: " + this.getZona());
+		
+		if (servicios.size() == 0 ){
+			listaInfo.add("Servicio: << SIN SERVICIOS >>");
+		}
+		
+		for(Servicio unServicioDisponible : servicios){
+			
+			/*for(Servicio unServicioDisponible : servicios){
+				
+			}*/
+			
+			listaInfo.add("Servicio: " + unServicioDisponible.getServicio() + "<< FALTA IMPLEMENTAR HORARIO >>");
+			
+		}	
+		return listaInfo;
 	}
 	
 }

@@ -1,4 +1,8 @@
 package dds.softpoi;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Comercio extends POI{
 	
 	private int altura;
@@ -68,9 +72,9 @@ public class Comercio extends POI{
 			return rubro;
 		}
 		
-	// ***************************************************************************
-	// Metodos
-	// ***************************************************************************
+		// ***************************************************************************
+		// Metodos
+		// ***************************************************************************
 		
 		public boolean estaCercaDe(DispositivoConsulta unDispositivo){
 			
@@ -85,6 +89,14 @@ public class Comercio extends POI{
 			String direccion;
 			direccion= this.getCalle() +" "+ this.getAltura() +" "+ this.getPiso() +"° "+ this.getDepartamento() +" "+ this.getUnidad();
 			return direccion;
+		}
+		
+		public List<String> getInfo(){	
+			List<String> listaInfo = new ArrayList<String>();
+			listaInfo.add("Direccion: " + this.getDireccion());
+			listaInfo.add("Nombre de Comercio: " + super.getNombre());
+			listaInfo.add("Rubro: " + this.getRubro().getRubro());
+			return listaInfo;
 		}
 		
 }

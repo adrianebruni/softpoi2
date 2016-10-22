@@ -67,8 +67,11 @@ public class TestCGP {
 			
 			// Creamos el objeto comuna 12 de la clase cgp.
 			CGP comuna12 = new CGP("Comuna 12", -34.603075, -58.381653);
+			CGP comunaSinServ = new CGP("Comuna 12", -34.603075, -58.381653);
+			comunaSinServ.setCalle("callao");
 			comuna12.setServicios(unServicio);
 			comuna12.setServicios(otroServicio);
+			System.out.println(comunaSinServ.getDireccion());
 			
 			System.out.println("Esta Disponible (Casamientos): " + comuna12.estaDisponible("Casamientos", FechayHora.fechaHoy(), FechayHora.horaHoy()));
 			assertEquals("Esta Disponible (Casamientos): ", true, comuna12.estaDisponible("Casamientos", FechayHora.fechaHoy(), FechayHora.horaHoy()));

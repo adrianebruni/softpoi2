@@ -148,8 +148,17 @@ public class CGP extends POI{
 	
 	public String getDireccion(){
 		String direccion;
-		direccion= this.getCalle() +" "+ this.getAltura() +" "+ this.getPiso() +"° "+ this.getDepartamento() +" "+ this.getUnidad();
-		return direccion;
+		if (this.getCalle() == null){
+			return "<< SIN DIRECCION >>";
+		}else{
+			if(this.getPiso() == 0){
+			direccion= this.getCalle() +" "+ this.getAltura();
+			return direccion;
+			}else{
+				direccion= this.getCalle() +" "+ this.getAltura() +" "+ this.getPiso() +"° "+ this.getDepartamento() +" "+ this.getUnidad();
+				return direccion;
+				}
+			}
 	}
 	
 	public String getZona(){

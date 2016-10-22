@@ -12,7 +12,7 @@ public class TestPermisoDisponibilidad {
 		
 		//crear administrador
 		Administrador unAdministrador = new Administrador();
-		unAdministrador.setPass("passPrueba");
+		unAdministrador.setClave("passPrueba");
 		unAdministrador.setServidor(servidorPpal);
 		servidorPpal.addAdmin(unAdministrador);
 

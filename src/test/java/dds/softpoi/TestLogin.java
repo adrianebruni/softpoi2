@@ -15,12 +15,12 @@ public class TestLogin {
 		Usuario admin1 = new Administrador();
 		admin1.setNombre("admin1");
 		admin1.setEmail("adrianebruni@hotmail.com");
-		admin1.setPass("password1");
+		admin1.setClave("password1");
 		
 		Usuario admin2 = new Administrador();
 		admin2.setNombre("admin2");
 		admin2.setEmail("aleazzi@gmail.com");
-		admin2.setPass("password2");
+		admin2.setClave("password2");
 		
 		// Agregamos a los administradores dentro del servidor
 		unServidor.addAdmin(admin1);

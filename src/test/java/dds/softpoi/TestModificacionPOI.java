@@ -13,7 +13,7 @@ public class TestModificacionPOI {
 		
 		//crear administrador
 		Administrador unAdministrador = new Administrador();
-		unAdministrador.setPass("passPrueba");
+		unAdministrador.setClave("passPrueba");
 		unAdministrador.setServidor(servidorPpal);
 		servidorPpal.addAdmin(unAdministrador);
 		

@@ -20,7 +20,7 @@ public class TestDistanciaComercio {
 		dispositivoConsulta.setServidor(servidorPpal);
 		//Agregamos Administrador
 		Administrador unAdministrador = new Administrador();
-		unAdministrador.setPass("passPrueba");
+		unAdministrador.setClave("passPrueba");
 		unAdministrador.setServidor(servidorPpal);
 		servidorPpal.addAdmin(unAdministrador);
 		//Asignamos permiso a Terminal

@@ -19,7 +19,7 @@ public class TestActualizacionCentrosComerciales {
 		
 	    Administrador unUsuario = new Administrador();
 		unUsuario.setNombre("Juan");
-		unUsuario.setPass("passPrueba");
+		unUsuario.setClave("passPrueba");
 		unUsuario.setServidor(servidorPpal);
 		
 		unUsuario.actualizarLocalesComerciales("/home/alexis/work/softpoi2/src/test/java/dds/softpoi/ComerciosPalabrasClave");

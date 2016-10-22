@@ -42,7 +42,7 @@ public class TestReporteBusqPorTerm {
 			
 	    Administrador unUsuario = new Administrador();
 		unUsuario.setNombre("Juan");
-		unUsuario.setPass("passPrueba");
+		unUsuario.setClave("passPrueba");
 		unUsuario.setServidor(servidorPpal);
 		
 		// Lo agrego o no, depende si queremos que tenga permisos o no para generar reportes

@@ -143,7 +143,7 @@ public abstract class POI{
 		return this.getCalle();
 	}
 	
-	public String getImagenIcon(){	
+	public String getImagenIcon(String tipoPOI){	
 		Parametros objParametro = new Parametros();
 		
 		String unArchivo = objParametro.getRutaImagenesIconosAbsoluta()+ idpoi + ".gif";
@@ -153,7 +153,7 @@ public abstract class POI{
 		if (arch.exists()){
 			return objParametro.getRutaImagenesIconos() + idpoi + ".gif";
 		}else{
-			return objParametro.getRutaImagenesIconos() + "no_img.gif";
+			return objParametro.getRutaImagenesIconos() + tipoPOI + ".png";
 		}
 		
 		

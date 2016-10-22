@@ -62,4 +62,8 @@ public class ParadaColectivo extends POI {
 		return listaInfo;
 	}
 	
+	public String getImagenIcon(){
+		return super.getImagenIcon("paradacolectivo");
+	}
+	
 }

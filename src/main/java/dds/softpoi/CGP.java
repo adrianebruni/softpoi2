@@ -197,4 +197,8 @@ public class CGP extends POI{
 		return listaInfo;
 	}
 	
+	public String getImagenIcon(){
+		return super.getImagenIcon("cgp");
+	}
+	
 }

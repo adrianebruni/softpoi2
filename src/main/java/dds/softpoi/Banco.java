@@ -135,5 +135,8 @@ public class Banco extends POI {
 		return listaInfo;
 	}
 	
+	public String getImagenIcon(){
+		return super.getImagenIcon("banco");
+	}
 }
 

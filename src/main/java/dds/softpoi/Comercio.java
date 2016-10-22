@@ -99,4 +99,7 @@ public class Comercio extends POI{
 			return listaInfo;
 		}
 		
+		public String getImagenIcon(){
+			return super.getImagenIcon("comercio");
+		}
 }

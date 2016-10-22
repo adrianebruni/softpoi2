@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/WEB-INF/template/BasicTemplate.xhtml">
+	
+		<ui:define name="content">
+
+			<h:form id="form">
+				<p:panel id="panel" header="Criterio de Busqueda" style="margin-bottom:10px;">
+					<h:panelGrid columns="6" cellpadding="2" border="1">
+						
+						<p:outputLabel value="Usuario"  />
+						<p:outputLabel value=""  />
+						<p:outputLabel value="Fecha Desde"  />
+						<p:outputLabel value="Fecha Hasta"  />
+						<p:outputLabel value=""  />
+						<p:outputLabel value=""  />
+						
+						<p:inputText id="usuario" value="#{bnHistorialBusqueda.usuario}"/>
+						<p:outputLabel value=""  />
+						<p:calendar id="fechaDesde" value="#{bnHistorialBusqueda.fechaDesde}" pattern="dd-MM-yyyy" mask="true" />
+						<p:calendar id="fechaHasta" value="#{bnHistorialBusqueda.fechaHasta}" pattern="dd-MM-yyyy" mask="true" />
+						<p:outputLabel value=""  />
+						<p:commandButton id="cmbBuscar" value="Buscar" update=":formBusqueda:mostrarBusqueda" />
+						
+					</h:panelGrid>			
+				</p:panel>
+			</h:form>		
+			
+			<br/><br/>
+			
+			<h:form id="formBusqueda">
+				<p:dataTable id="mostrarBusqueda" var="unaBusqueda" value="#{bnHistorialBusqueda.resultadoBusqueda}" type="ordered">
+					
+					<f:facet name="header">Resultados</f:facet>
+					
+					<p:column headerText="Fecha">
+						<h:outputText value="#{unaBusqueda.fecha}" />
+					</p:column>
+					
+					<p:column headerText="Usuario">
+						<h:outputText value="#{unaBusqueda.usuario}" />
+					</p:column>
+					
+					<p:column headerText="Parámetros">
+						<h:outputText value="#{unaBusqueda.parametro}" />
+					</p:column>
+
+					<p:column headerText="POIs">
+						<h:outputText value="#{unaBusqueda.cantResultados}" />
+					</p:column>
+
+					<p:column style="width:32px;text-align: center">
+						<p:commandButton id="cmbDetalle" update=":formBusqueda:detallePOI" oncomplete="PF('poiDialog').show()" icon="ui-icon-search" title="ver">
+							<f:setPropertyActionListener value="#{unaBusqueda}"	target="#{bnHistorialBusqueda.elemSeleccionado}" />
+						</p:commandButton>
+					</p:column>
+					
+				</p:dataTable>
+				
+				
+			    <p:dialog header="Detalle de POIs" widgetVar="poiDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+			    	<p:outputPanel id="detallePOI" style="text-align:center;">
+	                	
+	                	<ui:repeat value="#{bnHistorialBusqueda.detallesPOIs}" var="unPOI">
+	                	
+	                		<p:panelGrid  columns="2" columnClasses="label,value" style="width:500px">
+								
+								<p:dataTable>
+									<p:column>
+										<p:graphicImage url="#{unPOI.imagenIcon}" style="width:32px"/>
+									</p:column>
+								    <p:column>
+								        <h:outputText value="#{unPOI.nombre}" />
+								    </p:column>
+							    </p:dataTable>
+				               			                
+				            </p:panelGrid>
+				            
+			            </ui:repeat>
+	                	
+	                </p:outputPanel>
+			    </p:dialog>
+    
+			</h:form>
+			
+		</ui:define>
+	
+	</ui:composition>
+
+</html>

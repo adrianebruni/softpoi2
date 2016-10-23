@@ -115,10 +115,7 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		//voy quitando en la lista los elementos segun filtro fecha inicial
 		if(fechaInicial == null){
 			colItemBusqHist2.addAll(colItemBusqHist);
-			System.out.println("trae todo, no filtra FECHA INICIAL");
 		}else{
-			System.out.println("NO mete todo, verifica por FECHA INICIAL "+ fechaStringAdate(fechaInicial));
-			
 			for(ElementoDeConsulta elem: colItemBusqHist) {
 				if(fechaStringAdate(fechaInicial).compareTo(elem.getFechaConsulta())<=0){
 					colItemBusqHist2.add(elem);

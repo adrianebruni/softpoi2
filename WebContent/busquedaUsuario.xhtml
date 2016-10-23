@@ -9,9 +9,15 @@
 
 
 
-	<ui:composition template="/WEB-INF/template/BasicTemplate.xhtml">
+	<f:view>
+		<h:head>
+			<title><ui:insert name="title">SOFTPOI v1.0</ui:insert></title>
+			<meta content="text/html; charset=UTF-8" http-equiv="Content-type" />
+		</h:head>
 	
-		<ui:define name="content">
+		<body>
+			<div id="header"></div>
+			<div id="content">
 			
 			<h:form id="form">
 				<p:panel id="panel" header="Cadena de Busqueda" style="margin-bottom:10px;">
@@ -93,9 +99,11 @@
 			
 			
 			
-			
-		</ui:define>
-	
-	</ui:composition>
-
+			</div>
+			<div id="footer">
+				<br></br><br></br><br></br>
+				<p:menubar></p:menubar>
+			</div>
+		</body>
+	</f:view>
 </html>

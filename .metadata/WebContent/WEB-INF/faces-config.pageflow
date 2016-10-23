@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14769179892380" configfile="/softpoi2/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="36" y="156" id="pf14769213898950" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14769213898961" path="/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="principal.xhtml" x="216" y="156" id="pf14769213898962" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf14769463830885 pf14770046446640 pf14771508358740" inlinks="pf14769213898961" path="/principal.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="busqueda.xhtml" x="432" y="60" id="pf14769223695014" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf14769463830885" path="/busqueda.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="AccAnteBusqueda.xhtml" x="516" y="192" id="pf14770046446651" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf14770046446640" path="/AccAnteBusqueda.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="historialBusqueda.xhtml" x="348" y="324" id="pf14771508358751" inlinks="pf14771508358740" path="/historialBusqueda.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="216" y="144" id="pf14769213898950" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14769213898961" inlinks="pf14771745205070" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="principal.xhtml" x="396" y="144" id="pf14769213898962" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf14769463830885 pf14770046446640 pf14771508358740" inlinks="pf14769213898961" path="/principal.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="busqueda.xhtml" x="580" y="36" id="pf14769223695014" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf14769463830885" path="/busqueda.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="AccAnteBusqueda.xhtml" x="672" y="144" id="pf14770046446651" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf14770046446640" path="/AccAnteBusqueda.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="historialBusqueda.xhtml" x="552" y="252" id="pf14771508358751" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf14771508358740" path="/historialBusqueda.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="24" y="144" id="pf14771745205071" outlinks="pf14771745205070 pf14771745482922" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="busquedaUsuario.xhtml" x="264" y="24" id="pf14771771994365" inlinks="pf14771745482922" path="/busquedaUsuario.xhtml"/>
   <links id="pf14769213898961" target="pf14769213898962" source="pf14769213898950" outcome="login"/>
   <links id="pf14769463830885" target="pf14769223695014" source="pf14769213898962" outcome="buscar"/>
   <links id="pf14770046446640" target="pf14770046446651" source="pf14769213898962" outcome="accionBusqueda"/>
   <links id="pf14771508358740" target="pf14771508358751" source="pf14769213898962" outcome="historico"/>
+  <links id="pf14771745205070" target="pf14769213898950" source="pf14771745205071" outcome="admin"/>
+  <links id="pf14771745482922" target="pf14771771994365" source="pf14771745205071" outcome="user"/>
 </pageflow:Pageflow>

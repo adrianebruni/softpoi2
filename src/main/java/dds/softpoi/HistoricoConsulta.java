@@ -1,5 +1,8 @@
 package dds.softpoi;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -27,7 +30,7 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		
 		Timer unTimer = new Timer();
 		ArrayList<POI> poisEncontrados =  unTimer.consultar(query, unUsuario.getServidor(), unUsuario);
-		ElementoDeConsulta unaConsulta = new ElementoDeConsulta(new Date(), query, unTimer.duracionConsulta(), unUsuario.getNombre() , poisEncontrados.size());
+		ElementoDeConsulta unaConsulta = new ElementoDeConsulta(new Date(), query, unTimer.duracionConsulta(), unUsuario.getNombre() , poisEncontrados.size(), poisEncontrados);
 		elementosDeConsulta.add(unaConsulta);
 		return poisEncontrados;
 		
@@ -91,6 +94,63 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 			colDeItems.add(item);	
 		}
 		return colDeItems;
+	}
+	
+	public ArrayList<ElementoDeConsulta> coleccItemsHistorialBusqPantalla(String unUsuario, String fechaInicial, String fechaFinal){
+		ArrayList<ElementoDeConsulta> colItemBusqHist = new ArrayList<ElementoDeConsulta>();	
+		ArrayList<ElementoDeConsulta> colItemBusqHist2 = new ArrayList<ElementoDeConsulta>();
+		ArrayList<ElementoDeConsulta> colItemBusqHist3 = new ArrayList<ElementoDeConsulta>();
+		
+		//voy guardando en la lista los elementos segun filtro de usuario
+		if(unUsuario == null){
+			colItemBusqHist.addAll(elementosDeConsulta);
+		}else{
+			for(ElementoDeConsulta elem: elementosDeConsulta) {
+				if(unUsuario == elem.getTipoUsuario()){
+					colItemBusqHist.add(elem);
+				}
+			}
+		}
+		
+		//voy quitando en la lista los elementos segun filtro fecha inicial
+		if(fechaInicial == null){
+			colItemBusqHist2.addAll(colItemBusqHist);
+			System.out.println("trae todo, no filtra FECHA INICIAL");
+		}else{
+			System.out.println("NO mete todo, verifica por FECHA INICIAL "+ fechaStringAdate(fechaInicial));
+			
+			for(ElementoDeConsulta elem: colItemBusqHist) {
+				if(fechaStringAdate(fechaInicial).compareTo(elem.getFechaConsulta())<=0){
+					colItemBusqHist2.add(elem);
+				}
+			}
+		}
+	
+		//voy guardando en la lista los elementos segun filtro fecha final
+		if(fechaFinal == null){
+			colItemBusqHist3.addAll(colItemBusqHist2);
+		}else{
+			for(ElementoDeConsulta elem: colItemBusqHist2) {
+				if(fechaStringAdate(fechaFinal).compareTo(elem.getFechaConsulta())>=0){
+					colItemBusqHist3.add(elem);
+				}
+			}
+		}	
+
+		return colItemBusqHist3;
+	}
+
+
+	public Date fechaStringAdate(String unaFecha){
+		DateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		Date fecha = null;
+		try {
+			fecha = format.parse(unaFecha);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return fecha;
 	}
 	
 }

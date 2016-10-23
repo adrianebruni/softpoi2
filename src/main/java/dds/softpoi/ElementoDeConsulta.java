@@ -1,5 +1,6 @@
 package dds.softpoi;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -10,17 +11,19 @@ public class ElementoDeConsulta {
 	private double tiempoRespuesta;
 	private String tipoUsuario;
 	private int totalResultados;
+	private ArrayList<POI> colPOIs;
     
     // ***************************************************************************
  	// Constructor
  	// ***************************************************************************
     
-    public ElementoDeConsulta(Date fechaConsulta,String consultaUsuario,double tiempoRespuesta,String tipoUsuario,int totalResultados) {
+    public ElementoDeConsulta(Date fechaConsulta,String consultaUsuario,double tiempoRespuesta,String tipoUsuario,int totalResultados,ArrayList<POI> colPOIs) {
     	this.fechaConsulta = fechaConsulta;
     	this.consultaUsuario = consultaUsuario;
     	this.tiempoRespuesta = tiempoRespuesta;
     	this.tipoUsuario = tipoUsuario;
     	this.totalResultados = totalResultados;
+    	this.colPOIs= colPOIs;
     }
     
     // ***************************************************************************
@@ -45,6 +48,9 @@ public class ElementoDeConsulta {
 		this.totalResultados = totalResultados;
 	}
 
+	public void setColPOIs(ArrayList<POI> colPOIs) {
+		this.colPOIs = colPOIs;
+	}
 
 	// ***************************************************************************
 	// Getters
@@ -64,6 +70,9 @@ public class ElementoDeConsulta {
 	}
 	public int getTotalResultados() {
 		return totalResultados;
+	}
+	public ArrayList<POI> getColPOIs() {
+		return colPOIs;
 	}
 	
 	// ***************************************************************************

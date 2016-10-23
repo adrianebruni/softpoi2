@@ -247,5 +247,10 @@ public class Servidor {
         b.close();
     }
 
+    public ArrayList<ElementoDeConsulta> historialBusquedaPantalla(String unUsuario, String fechaInicial, String fechaFinal){	
+ 
+    	return this.histconsulta.coleccItemsHistorialBusqPantalla(unUsuario,fechaInicial,fechaFinal);
+
+    }
     
 }

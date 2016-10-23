@@ -2,6 +2,7 @@ package dds.softpoi;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -64,6 +65,14 @@ public class Administrador extends Usuario{
 	public void undoCommitPermisos(DispositivoConsulta unDispositivo){
 		//piso los permisos actuales con los viejos, revirtiendo el ultimo cambio
 		unDispositivo.setPermisosActuales(unDispositivo.getPermisosPrevios());
+	}
+	
+	public ArrayList<ElementoDeConsulta> historialBusquedaPantalla(String unUsuario, String fechaInicial, String fechaFinal){
+
+		ArrayList<ElementoDeConsulta> poiEncontradosHist = new ArrayList<ElementoDeConsulta>();
+		
+		poiEncontradosHist.addAll(this.getServidor().historialBusquedaPantalla(unUsuario,fechaInicial,fechaFinal));
+		return poiEncontradosHist;
 	}
 	
 }

@@ -44,14 +44,15 @@ public class TestReporteFecha {
         cal.set(2016, 7, 25, 0, 0, 0);
         Date otroDia = cal.getTime();
 
-        ElementoDeConsulta elemA = new ElementoDeConsulta(otroDia, "consultaUsuario1", 0.011, "terminalAbasto", 20);
+        ElementoDeConsulta elemA = new ElementoDeConsulta(otroDia, "consultaUsuario1", 0.011, "terminalAbasto", 20, colPoisPrueba.Dame_Bolsa_POI());
         servidorPpal.getHistoricoConsulta().setelementosDeConsulta(elemA);
-
+/*
         ElementoDeConsulta elemB = new ElementoDeConsulta(otroDia, "consultaUsuario2", 0.088, "terminalLanus", 30);
         servidorPpal.getHistoricoConsulta().setelementosDeConsulta(elemB);
-        
+        */
         //pido un reporte de parte de unAdministrador
         ArrayList<ItemReporteFecha> colResult = new ArrayList<ItemReporteFecha>();
+        
         
         //creamos un usuario que no tiene autorizacion para pedir un reporte
 		Administrador unUsuario = new Administrador();

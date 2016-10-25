@@ -22,14 +22,14 @@
 			<h:form id="form">
 				<p:panel id="panel" header="Cadena de Busqueda" style="margin-bottom:10px;">
 					<h:panelGrid columns="2" cellpadding="2">
-						<p:inputText id="criterios" value="#{dtBasicView.text}"  />
+						<p:inputText id="criterios" value="#{bnVistaBusqueda.text}"  />
 						
 						<p:commandButton value="Agregar" update="mostrarCriterios" >
 						    <p:confirm header="Confirmacion" message="¿Desea agregar el criterio de búsqueda?" icon="ui-icon-alert" />
 						    
 						</p:commandButton>
 
-						<p:dataList id="mostrarCriterios" value="#{dtBasicView.usuario}" var="unCriterio" type="ordered" >
+						<p:dataList id="mostrarCriterios" value="#{bnVistaBusqueda.criterios}" var="unCriterio" type="ordered" >
 				        	<f:facet name="header">Criterios de Busqueda</f:facet>
 				        	#{unCriterio}
 				    	</p:dataList>
@@ -50,7 +50,7 @@
 			<h:form id="formBusqueda">
 				
 				<p:commandButton id="cmb2" value="Buscar" update=":formBusqueda:mostrarBusqueda" />
-				<p:dataTable id="mostrarBusqueda" var="unPOI" value="#{dtBasicView.poisEncontrados}" type="ordered">
+				<p:dataTable id="mostrarBusqueda" var="unPOI" value="#{bnVistaBusqueda.poisEncontrados}" type="ordered">
 					
 					<f:facet name="header">POIs Encontrados</f:facet>
 					
@@ -64,7 +64,7 @@
 					
 					<p:column style="width:32px;text-align: center">
 						<p:commandButton update=":formBusqueda:propiedadesPOI" oncomplete="PF('poiDialog').show()" icon="ui-icon-search" title="ver">
-							<f:setPropertyActionListener value="#{unPOI}"	target="#{dtBasicView.POISeleccionado}" />
+							<f:setPropertyActionListener value="#{unPOI}"	target="#{bnVistaBusqueda.POISeleccionado}" />
 						</p:commandButton>
 					</p:column>
 					
@@ -73,7 +73,7 @@
 			    <p:dialog header="Propiedades POI" widgetVar="poiDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 			    	<p:outputPanel id="propiedadesPOI" style="text-align:center;">
 	                	
-	                	<ui:repeat value="#{dtBasicView.POISeleccionado}" var="unPOI">
+	                	<ui:repeat value="#{bnVistaBusqueda.POISeleccionado}" var="unPOI">
 	                	
 	                		<p:panelGrid  columns="2" columnClasses="label,value" style="width:500px">
 	                		    
@@ -81,7 +81,7 @@
 									<p:graphicImage url="#{unPOI.imagenIcon}" style="width:120px"/>
 		                		</f:facet>
 								
-								<p:dataTable var="datoPOI" value="#{dtBasicView.infoPOI}">
+								<p:dataTable var="datoPOI" value="#{bnVistaBusqueda.infoPOI}">
 								    <p:column>
 								        <h:outputText value="#{datoPOI}" />
 								    </p:column>

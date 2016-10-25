@@ -8,6 +8,8 @@ public class Seguridad {
 	// Constructor
 	// ***************************************************************************
 	
+	public Seguridad(){};
+	
 	public Seguridad(Servidor unServidor){
 		this.unServidor = unServidor;
 	}
@@ -16,15 +18,21 @@ public class Seguridad {
 	// Metodos
 	// ***************************************************************************	
 	
-	public Boolean login(Usuario unUsuario) {
-		if (unServidor.login(unUsuario) != null){
-			return true;
-		}else{
-			return false;
-		}
+	public Usuario login(String nombreUsuario, String claveUsuario) {
+		return unServidor.login(nombreUsuario, claveUsuario);
 	}
 	
-	public Boolean validarUsuario(Usuario unUsuario){
+	public Boolean validarUsuarioAdmin(Usuario unUsuario){
+		
+		// FALTA DIFERENCIAR SI ES "ADMINISTRADOR" o "TERMINAL"
+		/*
+		for(Usuario unTipoDeUsuario : unServidor.colAdmins){
+			unTipoDeUsuario.getClass().getName().substring(4);
+			
+			
+		}
+		*/
+		
 		return this.unServidor.colAdmins.contains(unUsuario);
 	}
 	

@@ -10,22 +10,20 @@
 	<f:view>
 		<h:head>
 			<title><ui:insert name="title">SOFTPOI v1.0</ui:insert></title>
-			<meta content="text/html; charset=UTF-8" http-equiv="Content-type" />
+			<meta http-equiv="refresh" content="3; url=http://localhost:8080/softpoi2/faces/login.xhtml" />
 		</h:head>
 	
 		<body>
 			<div id="header"></div>
-			<div id="content">
-				<ui:insert name="content">
-					<h:form id="formindex">
-						<h:commandButton id="buttonAdmin" value="Administrador" action="admin"
-							update="formindex" />
-						<h:commandButton id="buttonUsuario" value="Usuario" action="user"
-							update="formindex" />
-					</h:form>
-				</ui:insert>
+			<div id="content" align="center">
+				<p:panelGrid  columns="2">
+	                		    
+            		<f:facet name="header">
+						<p:graphicImage url="/img/index.png" style="width:800px"/>
+               		</f:facet>
+				</p:panelGrid>
 			</div>
-			<div id="footer"></div>
+			<div id="footer" align="center"><b>SOFTPOI v1.0</b></div>
 		</body>
 	</f:view>
 </html>

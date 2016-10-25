@@ -11,6 +11,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import dds.softpoi.Administrador;
+import dds.softpoi.ElementoDeConsulta;
 import dds.softpoi.POI;
 
 @ManagedBean(name="bnHistorialBusqueda")
@@ -23,8 +25,12 @@ public class HistorialBusqueda extends VistaPadre {
 	private String fechaDesde;
 	private String fechaHasta;
 	
-// Este atributo es del tipo List<  >
-	private List<String> elemSeleccionado;
+	private List<ElementoDeConsulta> elementosBuscados;
+	
+
+
+
+	private ElementoDeConsulta unElementoSeleccionado;
 		
 	//@ManagedProperty("#{servidor}")
     //private Servidor servidorPpal;
@@ -55,11 +61,11 @@ public class HistorialBusqueda extends VistaPadre {
 	public void setFechaHasta(String fechaHasta) {
 		this.fechaHasta = fechaHasta;
 	}
-
-// Este atributo es del tipo List<  >
-	public void setElemSeleccionado(List<String> fechaHasta) {
-		this.elemSeleccionado = fechaHasta;
+	
+	public void setElementosBuscados(List<ElementoDeConsulta> elementosBuscados) {
+		this.elementosBuscados = elementosBuscados;
 	}
+
 	
 	// ***************************************************************************
 	// Getters
@@ -76,10 +82,9 @@ public class HistorialBusqueda extends VistaPadre {
 	public String getFechaHasta() {
 		return fechaHasta;
 	}
-
-// Este atributo es del tipo List<  >
-	public List<String> getElemSeleccionado(){
-		return elemSeleccionado;
+	
+	public List<ElementoDeConsulta> getElementosBuscados() {
+		return elementosBuscados;
 	}
 	
 	// ***************************************************************************
@@ -87,40 +92,13 @@ public class HistorialBusqueda extends VistaPadre {
 	// ***************************************************************************
 
 	public List<POI> getDetallesPOIs(){
-		return this.getElemSeleccionado().getPOIs();
+		return null;
+		//return this.getElemSeleccionado().getColPOIs();
 	}
 
-// Este atributo es del tipo List<  >
-	public List<String> getResultadoBusqueda(){
-		
-		/*
-		Crear un objeto que tenga los siguientes atributos:
-		1) Fecha de busqueda --> el metodo que devuelve la la fecha, debe ser un string y se debe llamar "getFecha"
-		2) usuario que realizo la busqueda --> el metodo que devuelve el nombre del usuario, debe ser un string y se debe llamar "getUsuario"
-		3) Parametro buscado --> el metodo que devuelve el parametro de busqueda, debe ser un string y se debe llamar "getParametro"
-		4) POIs encontrados (coleccion de POIs) --> el metodo que devuelve la coleccion se debe llamar "getPOIs"
-		
-		<< La busqueda a realizar debe devole un array de este tipo de objeto >>
-		
-		*/
-		
-		if (!this.usuario.isEmpty()){
-			// Busco por usuario exacto
-		}else{
-			if ( !this.fechaDesde.isEmpty() || !this.fechaHasta.isEmpty() ){
-				// Busco por fecha desde y fecha hasta
-			}
-
-			if ( !this.fechaDesde.isEmpty() || this.fechaHasta.isEmpty() ){
-				// Busco por la fecha desde hasta hoy
-			}
-			
-			if ( this.fechaDesde.isEmpty() || !this.fechaHasta.isEmpty() ){
-				// Busco por la fecha hasta (desde los inicios de la prehistoria hasta la fecha hasta :P )
-			}
-		}
-		
-		return null;
+	// Este atributo es del tipo List<  >
+	public void resultadoBusqueda(){
+		elementosBuscados = ((Administrador) super.getUnUsuarioLogueado()).historialBusquedaPantalla(this.usuario,this.fechaDesde,this.fechaHasta);
 	}
  
 	

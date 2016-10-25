@@ -27,7 +27,7 @@
 						<p:calendar id="fechaDesde" value="#{bnHistorialBusqueda.fechaDesde}" pattern="dd-MM-yyyy" mask="true" />
 						<p:calendar id="fechaHasta" value="#{bnHistorialBusqueda.fechaHasta}" pattern="dd-MM-yyyy" mask="true" />
 						<p:outputLabel value=""  />
-						<p:commandButton id="cmbBuscar" value="Buscar" update=":formBusqueda:mostrarBusqueda" />
+						<p:commandButton id="cmbBuscar" value="Buscar" action="#{bnHistorialBusqueda.resultadoBusqueda}" update=":formBusqueda:mostrarBusqueda" />
 						
 					</h:panelGrid>			
 				</p:panel>
@@ -36,35 +36,36 @@
 			<br/><br/>
 			
 			<h:form id="formBusqueda">
-				<p:dataTable id="mostrarBusqueda" var="unaBusqueda" value="#{bnHistorialBusqueda.resultadoBusqueda}" type="ordered">
+				<p:dataTable id="mostrarBusqueda" var="unaBusqueda" value="#{bnHistorialBusqueda.elementosBuscados}" type="ordered">
 					
 					<f:facet name="header">Resultados</f:facet>
 					
 					<p:column headerText="Fecha">
-						<h:outputText value="#{unaBusqueda.fecha}" />
+						<h:outputText value="#{unaBusqueda.fechaConsulta}" />
 					</p:column>
 					
 					<p:column headerText="Usuario">
-						<h:outputText value="#{unaBusqueda.usuario}" />
+						<h:outputText value="#{unaBusqueda.tipoUsuario}" />
 					</p:column>
 					
 					<p:column headerText="Parámetros">
-						<h:outputText value="#{unaBusqueda.parametro}" />
+						<h:outputText value="#{unaBusqueda.consultaUsuario}" />
 					</p:column>
 
 					<p:column headerText="POIs">
-						<h:outputText value="#{unaBusqueda.cantResultados}" />
+						<h:outputText value="#{unaBusqueda.totalResultados}" />
 					</p:column>
 
+<!-- 
 					<p:column style="width:32px;text-align: center">
 						<p:commandButton id="cmbDetalle" update=":formBusqueda:detallePOI" oncomplete="PF('poiDialog').show()" icon="ui-icon-search" title="ver">
 							<f:setPropertyActionListener value="#{unaBusqueda}"	target="#{bnHistorialBusqueda.elemSeleccionado}" />
 						</p:commandButton>
 					</p:column>
-					
+	 -->
 				</p:dataTable>
 				
-				
+				<!-- 
 			    <p:dialog header="Detalle de POIs" widgetVar="poiDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 			    	<p:outputPanel id="detallePOI" style="text-align:center;">
 	                	
@@ -87,7 +88,7 @@
 	                	
 	                </p:outputPanel>
 			    </p:dialog>
-    
+    -->
 			</h:form>
 			
 		</ui:define>

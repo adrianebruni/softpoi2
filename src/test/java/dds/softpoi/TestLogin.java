@@ -37,17 +37,14 @@ public class TestLogin {
 
 		// Verificamos
 		System.out.println("El usuario 'usuarioComun' no cuenta con permisos de administrador");
-		assertEquals("El usuario 'usuarioComun' no cuenta con permisos de administrador", null, unServidor.login(usuarioComun));	
+		assertEquals("El usuario 'usuarioComun' no cuenta con permisos de administrador", null, unServidor.login(usuarioComun.getNombre(), usuarioComun.getClave()).getToken());	
 		
 		System.out.println("El usuario 'usuarioComun' token : " + usuarioComun.getToken());
 		
 		
 		System.out.println("El usuario 'admin1' cuenta con permisos de administrador");
-		assertEquals("El usuario 'admin1' cuenta con permisos de administrador", admin1.getToken(), unServidor.login(admin1));
-		
-		System.out.println("El usuario 'admin1' cuenta con token: " + admin1.getToken());
-		assertEquals("El usuario 'admin1' token: " + admin1.getToken() , admin1.getToken(), unServidor.login(admin1));
-		
+		assertEquals("El usuario 'admin1' cuenta con permisos de administrador", admin1.getToken(), unServidor.login(admin1.getNombre(), admin1.getClave()).getToken());
+				
 	}
 
 }

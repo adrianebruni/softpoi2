@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 	<f:view>
 		<h:head>
@@ -16,13 +17,25 @@
 			<div id="header"></div>
 			<div id="content">
 			<h:form>
-				<h:panelGrid columns="2">
-					<h:outputText value="Nombre"></h:outputText>
-					<h:inputText value="#{usuario.nombre}"></h:inputText>
-					<h:outputText value="Clave"></h:outputText>
-					<h:inputSecret value="#{usuario.clave}"></h:inputSecret>
-				</h:panelGrid>
-				<h:commandButton value="Acceder" action="login"></h:commandButton>
+				<p:panel id="panelLogin" header="Login">
+					<p:messages id="msgs" />
+					<h:panelGrid columns="3" cellpadding="5">
+						<p:outputLabel for="usuario" value="Usuario:" />
+						<p:inputText id="usuario" value="#{bnVistaLogin.usuario}" required="true" label="Usuario">
+							<f:validateLength maximum="15" />
+						</p:inputText>
+						<p:message for="usuario" display="icon" />
+						<p:outputLabel for="clave" value="Clave:" />
+						<p:password id="clave" value="#{bnVistaLogin.clave}" label="Clave" required="true">
+							<f:validateLength maximun="15" />
+							<p:ajax update="msgClave" event="keyup" />
+						</p:password>
+						<p:message for="clave" id="msgClave" display="icon" />
+					</h:panelGrid>
+					<p:commandButton value="Ingresar" action="#{bnVistaLogin.validar}" update="panelLogin" icon="ui-icon-check">
+						<f:param name="server" value="holaMundo" />
+					</p:commandButton>
+				</p:panel>			
 			</h:form>
 			</div>
 			<div id="footer"></div>

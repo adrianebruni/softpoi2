@@ -87,6 +87,20 @@ public class Servidor {
 	// Metodos
 	// ***************************************************************************
 	
+	public Usuario login(String unUsuario, String unaClave){
+		Usuario resultado = null;
+		
+		for (Usuario unUsuarioServidor: colAdmins){		
+			if ( (unUsuarioServidor.getNombre().equals(unUsuario)) && (unUsuarioServidor.getClave().equals(unaClave)) ){
+				resultado = unUsuarioServidor;
+				break;
+			}
+		}
+		
+		return resultado;
+	}
+	
+	/*
 	public String login(Usuario unUsuario){
 		 if (colAdmins.contains(unUsuario)){
 			 return unUsuario.getToken();
@@ -94,6 +108,7 @@ public class Servidor {
 			 return null;
 		 }
 	}
+	*/
 	
 	public String generarToken(){
 		return new BigInteger(130,random).toString(32);
@@ -197,7 +212,7 @@ public class Servidor {
 	}
 
     public ArrayList<ItemReporteFecha> reportePorFecha(Usuario unUsuario){
-     	if (objSeguridad.validarUsuario(unUsuario)){
+     	if (objSeguridad.validarUsuarioAdmin(unUsuario)){
     		return this.histconsulta.reportePorFecha(unUsuario);
     	}else{
     		return null;
@@ -205,7 +220,7 @@ public class Servidor {
     }
     
     public ArrayList<ItemReporteTerminal> reportePorTerminal(Usuario unUsuario){	
-    	if (objSeguridad.validarUsuario(unUsuario)){
+    	if (objSeguridad.validarUsuarioAdmin(unUsuario)){
     		return this.histconsulta.cantidadBusquedasPorTerminal();
     	}else{
     		return null;

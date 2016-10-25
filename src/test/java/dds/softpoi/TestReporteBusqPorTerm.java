@@ -24,6 +24,11 @@ public class TestReporteBusqPorTerm {
         cal.set(2016, 7, 25, 0, 0, 0);
         Date unDia = cal.getTime();
 		
+        /*
+         * 
+         *   FALTA AGREGAR COLECCION DE POIS
+         * 
+         * 
 		ElementoDeConsulta elemA = new ElementoDeConsulta(unDia, "Banco Galicia", 0.91, "terminalAbasto", 20);
 	    servidorPpal.getHistoricoConsulta().setelementosDeConsulta(elemA);
 		ElementoDeConsulta elemB = new ElementoDeConsulta(unDia, "Banco Galicia", 0.90, "terminalAbasto", 20);
@@ -36,7 +41,7 @@ public class TestReporteBusqPorTerm {
 	    servidorPpal.getHistoricoConsulta().setelementosDeConsulta(elemE);
 		ElementoDeConsulta elemF = new ElementoDeConsulta(unDia, "Pool", 0.01, "terminalAbasto", 100);
 	    servidorPpal.getHistoricoConsulta().setelementosDeConsulta(elemF);
-	    
+	    */
 	    
 		ArrayList<ItemReporteTerminal> colResult = new ArrayList<ItemReporteTerminal>();
 			

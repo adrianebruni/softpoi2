@@ -3,6 +3,11 @@ package dds.softpoi;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+//@Table(name = "T_BANCO")
 public class Banco extends POI {
 	
 	private int altura;

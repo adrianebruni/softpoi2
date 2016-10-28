@@ -7,17 +7,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-@MappedSuperclass
+//@MappedSuperclass
 public class Persistible implements Serializable {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected Long id;
 	protected String nombre;
 
 	protected Persistible() {
 	}
 
-	@Column(name = "id")
+//	@Column(name = "id")
 	public Long getId() {
 		System.out.println("getId");
 		return id;
@@ -28,7 +28,7 @@ public class Persistible implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "nombre")
+//	@Column(name = "nombre")
 	public String getNombre() {
 		System.out.println("getNombre");
 		return nombre;

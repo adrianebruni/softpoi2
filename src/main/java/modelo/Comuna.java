@@ -8,10 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "COMUNA")
+//@Entity
+//@Table(name = "COMUNA")
 public class Comuna extends Persistible {
-	@OneToMany(mappedBy = "comuna", cascade = CascadeType.ALL)
+//	@OneToMany(mappedBy = "comuna", cascade = CascadeType.ALL)
 	private Set<Poi> pois;
 
 	public Comuna() {

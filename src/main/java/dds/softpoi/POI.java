@@ -1,15 +1,30 @@
 package dds.softpoi;
 
 import java.io.File;
+import java.io.Serializable;
 //import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
 //import maps.java.*; //propiedades-java build path-libraries-add external jars-MapsJavaJar
 	
-public abstract class POI{
+@Entity
+@NamedQuery(name = "buscarPOIPorNombre", query = "SELECT p FROM POI p WHERE p.nombre LIKE :pnombre")
+public abstract class POI implements Serializable{
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected int idpoi;
+//	@Column(name = "name")
 	protected String nombre;
 	protected double latitud;              
 	protected double longitud;              
@@ -90,6 +105,7 @@ public abstract class POI{
 	public int getIdpoi(){
 		return idpoi;
 	}
+	
 	
 	public String getNombre() {
 		return nombre;
@@ -297,5 +313,8 @@ public abstract class POI{
 
 		return existe;		
 	}
+
+
+
 	
 }

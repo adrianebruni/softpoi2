@@ -8,15 +8,15 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "POI")
-@NamedQuery(name = "buscarPoiPorNombre", query = "SELECT p FROM Poi p WHERE p.nombre LIKE :pnombre")
+//@Entity
+//@Table(name = "POI")
+//@NamedQuery(name = "buscarPoiPorNombre", query = "SELECT p FROM Poi p WHERE p.nombre LIKE :pnombre")
 public class Poi extends Persistible {
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "comuna_id", referencedColumnName = "id")
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "comuna_id", referencedColumnName = "id")
 	private Comuna comuna;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "georef_id", referencedColumnName = "id")
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "georef_id", referencedColumnName = "id")
 	private Georef georef;
 
 	public Poi() {

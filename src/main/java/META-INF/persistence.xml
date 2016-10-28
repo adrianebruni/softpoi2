@@ -8,19 +8,31 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 		<description>
 			Persistence unit for JPA with Hibernate
 		</description>
-		<class>modelo.Comuna</class>
-		<class>modelo.Poi</class>
-		<class>modelo.Georef</class>
-		<class>modelo.Persistible</class>
+		<!--  agrego esto por un warning de deprecated -->
+		<!-- <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
+		<class>dds.softpoi.POI</class> 
+		<class>dds.softpoi.Banco</class> 
+		<class>dds.softpoi.ParadaColectivo</class> 
+		<class>dds.softpoi.CGP</class>
+		<class>dds.softpoi.Comuna</class>
+		<class>dds.softpoi.Comercio</class>
+		<class>dds.softpoi.Rubro</class>
+		<!-- <class>dds.softpoi.ParadaColectivo</class> -->
+		<!-- <class>dds.softpoi.Comercio</class> -->
+		<!-- <class>dds.softpoi.Persistible</class> -->
+		<!-- <class>modelo.Comuna</class>-->
+		<!-- <class>modelo.Poi</class>-->
+		<!-- <class>modelo.Georef</class>-->
+		<!-- <class>modelo.Persistible</class>-->
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/dds" />
 			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="Unificada" />
+			<property name="javax.persistence.jdbc.password" value="ACA LA PASSWORD" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.show_sql" value="false" />
-			<!-- <property name="hibernate.hbm2ddl.auto" value="update" /> preguntar a ale pq no anda esto-->
-			<property name="eclipselink.ddl-generation" value="create-tables"/> 
+			<property name="hibernate.hbm2ddl.auto" value="update" /> 
+			<!-- <property name="eclipselink.ddl-generation" value="create-tables"/> -->
 			<!-- <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/> -->
 		</properties> 
 	</persistence-unit>

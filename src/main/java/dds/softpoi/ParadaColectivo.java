@@ -4,11 +4,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+
+@Entity
+//@Table(name = "T_PARADACOLECTIVO")
 public class ParadaColectivo extends POI {
 	private String empresa;
 	private int numeroDeLinea;
 		
 	// Constructor
+	public ParadaColectivo(){
+		
+	};
 	public ParadaColectivo(String nombre, double latitud, double longitud) {
 		super.nombre = nombre;
 		super.latitud = latitud;
@@ -26,6 +33,7 @@ public class ParadaColectivo extends POI {
 	public void setNumeroDeLinea(int numeroDeLinea){
 		this.numeroDeLinea= numeroDeLinea;
 	}
+
 	
 	// ***************************************************************************
 	// Getters
@@ -38,6 +46,10 @@ public class ParadaColectivo extends POI {
 	public int getNumeroDeLinea(){
 		return numeroDeLinea;
 	}
+	
+	
+	
+	
 	
 	// ***************************************************************************
 	// Methods

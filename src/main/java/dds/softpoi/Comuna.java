@@ -1,13 +1,23 @@
 package dds.softpoi;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Comuna {
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private double limSur;
 	private double limNorte;
 	private double limEste;
 	private double limOeste;
 	private String zonas;
+	
 	
 	// ***************************************************************************
 	// Constructor

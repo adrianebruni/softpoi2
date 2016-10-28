@@ -6,15 +6,15 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "GEOREF")
+//@Entity
+//@Table(name = "GEOREF")
 public class Georef extends Persistible {
 	private Float latitud;
 	private Float longitud;
-	@OneToOne(mappedBy = "georef")
+//	@OneToOne(mappedBy = "georef")
 	private Poi poi;
 
-	@Column(name = "latitud")
+//	@Column(name = "latitud")
 	public Float getLatitud() {
 		return latitud;
 	}
@@ -23,7 +23,7 @@ public class Georef extends Persistible {
 		this.latitud = latitud;
 	}
 
-	@Column(name = "longitud")
+//	@Column(name = "longitud")
 	public Float getLongitud() {
 		return longitud;
 	}

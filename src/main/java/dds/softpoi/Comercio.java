@@ -3,6 +3,12 @@ package dds.softpoi;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Comercio extends POI{
 	
 	private int altura;
@@ -10,12 +16,17 @@ public class Comercio extends POI{
 	private String departamento;
 	private String unidad;
 	private String codigoPostal;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "rubro_id", referencedColumnName = "id")
 	private Rubro rubro;
 	
 	// ***************************************************************************
 	// Constructor
 	// ***************************************************************************
-		public Comercio(String nombre, double latitud, double longitud, Rubro unRubro) {
+	public Comercio(){
+		
+	};	
+	public Comercio(String nombre, double latitud, double longitud, Rubro unRubro) {
 			super.nombre = nombre;
 			super.latitud = latitud;
 			super.longitud = longitud;
@@ -43,6 +54,10 @@ public class Comercio extends POI{
 		
 		public void setCodigoPostal(String codigoPostal) {
 			this.codigoPostal = codigoPostal;
+		}
+		
+		public void setRubro(Rubro unRubro){
+			this.rubro = unRubro;
 		}
 		
 	// ***************************************************************************

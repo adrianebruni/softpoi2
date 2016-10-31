@@ -1,10 +1,10 @@
 package dds.softpoi;
 
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+//import java.util.Date;
 
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ public class TestReporteBusqPorTerm {
 	
         Calendar cal = Calendar.getInstance();
         cal.set(2016, 7, 25, 0, 0, 0);
-        Date unDia = cal.getTime();
+        //Date unDia = cal.getTime();
 		
         /*
          * 

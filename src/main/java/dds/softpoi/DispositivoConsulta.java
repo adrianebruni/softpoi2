@@ -4,13 +4,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
+@Entity
 public class DispositivoConsulta extends Usuario{
 
 	private double longitud;
 	private double latitud;
 	private String zona;
+	
+	@OneToMany
 	private Set<PermisosTerminal> permisosPrevios = new HashSet<PermisosTerminal>();
+	
+	@OneToMany
 	private Set<PermisosTerminal> permisosActuales = new HashSet<PermisosTerminal>();
 
 	// El nombre por ejemplo: terminalAbasto
@@ -18,7 +25,6 @@ public class DispositivoConsulta extends Usuario{
 	// ***************************************************************************
 	// Constructor
 	// ***************************************************************************
-	
 
 	public DispositivoConsulta(){}
 	

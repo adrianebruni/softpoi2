@@ -16,9 +16,9 @@
 				<h:panelGrid columns="3" cellpadding="5">
 					<h:outputLabel for="menu" value="Acciones:" />
 					<p:selectCheckboxMenu id="menu"
-						value="#{accAnteBusqueda.accionesElegidas}" label="Elegir Accion"
+						value="#{bnVistaAccAnteBusqueda.accionesElegidas}" label="Elegir Accion"
 						filter="true" filterMatchMode="startsWith" panelStyle="width:300px">
-						<f:selectItems value="#{accAnteBusqueda.acciones}" />
+						<f:selectItems value="#{bnVistaAccAnteBusqueda.acciones}" />
 					</p:selectCheckboxMenu>
 					<p:commandLink value="Agregar" update="display" />
 				</h:panelGrid>
@@ -27,7 +27,7 @@
 	
 					<p:outputPanel id="display"
 						style="width:300px;padding-left:5px;margin-top:10px">
-						<p:dataList value="#{accAnteBusqueda.accionesElegidas}"
+						<p:dataList value="#{bnVistaAccAnteBusqueda.accionesElegidas}"
 							var="accion" emptyMessage="No hay acciones seleccionadas">
 						    #{accion}
 						</p:dataList>

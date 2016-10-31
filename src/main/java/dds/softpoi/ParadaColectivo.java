@@ -3,19 +3,20 @@ package dds.softpoi;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Entity;
 
 @Entity
-//@Table(name = "T_PARADACOLECTIVO")
 public class ParadaColectivo extends POI {
+
 	private String empresa;
 	private int numeroDeLinea;
 		
-	// Constructor
-	public ParadaColectivo(){
-		
-	};
+	// ***************************************************************************
+	// Constructores
+	// ***************************************************************************
+	
+	public ParadaColectivo(){};
+	
 	public ParadaColectivo(String nombre, double latitud, double longitud) {
 		super.nombre = nombre;
 		super.latitud = latitud;

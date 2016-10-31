@@ -1,8 +1,10 @@
-package test;
+package dds.persistencia;
 
+import org.junit.Test;
+
+//import static org.junit.Assert.assertEquals;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
 import dds.repositorio.Repositorio;
 import dds.softpoi.Banco;
 import dds.softpoi.CGP;
@@ -12,9 +14,15 @@ import dds.softpoi.POI;
 import dds.softpoi.ParadaColectivo;
 import dds.softpoi.Rubro;
 
-public class otrotest {
 
-	public static void main(String[] args) {
+public class TestEntrega6Punto1 {
+
+	@Test
+	public void testPunto1() {
+		
+		// ENUNCIADO:
+		// Obtener un POI, modificar sus coordenadas geográficas, persistirlo, recuperarlo y
+		// verificar que las coordenadas sean las ingresadas en la última modificación.
 		
 		// Configuracion de persistencia
 		final String PERSISTENCE_UNIT_NAME = "DDS";
@@ -23,14 +31,12 @@ public class otrotest {
 		emFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		repositorio = new Repositorio(emFactory.createEntityManager());
 		
-		System.out.println("Creamo un POI BANCO");
-		
 		// Creamos un POI de tipo BANCO y lo persistimos
 		Banco unbanco = new Banco();
 		unbanco.setLatitud(10);
 		unbanco.setLongitud(15);
 		unbanco.setNombre("bancofrances");
-		unbanco.setGerente("Rodo");
+		unbanco.setGerente("Peralta");
 		repositorio.pois().persistir(unbanco);
 		
 		// Creamos un POI de tipo ParadaColectivo y lo persistimos
@@ -41,7 +47,7 @@ public class otrotest {
 		unalinea.setNombre("Parada del 10");
 		unalinea.setCalle("Las Herasa");
 		repositorio.pois().persistir(unalinea);
-		/*
+		
 		// Creamos un POI de tipo CGP y lo persistimos
 		CGP uncgp = new CGP();
 		uncgp.setLatitud(30);
@@ -56,8 +62,8 @@ public class otrotest {
 		
 		// Creamos un POI de tipo COMERCIO y lo persistimos
 		Comercio uncomercio = new Comercio();
-		uncomercio.setLatitud(40);
-		uncomercio.setLongitud(45);
+		uncomercio.setLatitud(11);
+		uncomercio.setLongitud(12);
 		uncomercio.setNombre("MacDonals");
 		uncomercio.setCalle("mitre");
 		Rubro unrubro = new Rubro();
@@ -65,9 +71,9 @@ public class otrotest {
 		unrubro.setRubro("Comida chatarra");
 		uncomercio.setRubro(unrubro);
 		repositorio.pois().persistir(uncomercio);
-		*/
+		
 		// Recuperamos el POI con ID = 2 y mostramos su atributos
-		POI recuperado = repositorio.pois().buscarPOIPorId(2);
+		POI recuperado = repositorio.pois().buscarPOIPorId(1);
 		System.out.println("POI RECUPERADO: ID= " + recuperado.getIdpoi() + " | Nombre: " + recuperado.getNombre());
 		System.out.println("POI RECUPERADO: Latitud= " + recuperado.getLatitud() + " | Longitud= " + recuperado.getLongitud());
 		
@@ -77,10 +83,13 @@ public class otrotest {
 		repositorio.pois().actualizarPOI(recuperado);
 		
 		// Recuperamos el POI con ID = 2 y mostramos su nuevos atributos
-		POI recuperado2 = repositorio.pois().buscarPOIPorId(2);
-		System.out.println("POI RECUPERADO MOD: ID= " + recuperado2.getIdpoi() + " | Nombre: " + recuperado2.getNombre());
-		System.out.println("POI RECUPERADO MOD: Latitud= " + recuperado2.getLatitud() + " | Longitud= " + recuperado2.getLongitud());
-
+		recuperado = repositorio.pois().buscarPOIPorId(1);
+		System.out.println("POI RECUPERADO MOD: ID= " + recuperado.getIdpoi() + " | Nombre: " + recuperado.getNombre());
+		System.out.println("POI RECUPERADO MOD: Latitud= " + recuperado.getLatitud() + " | Longitud= " + recuperado.getLongitud());		
+		
+		repositorio.cerrar();
+		emFactory.close();
+		
 	}
-
+	
 }

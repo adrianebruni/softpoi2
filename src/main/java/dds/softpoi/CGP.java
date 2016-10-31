@@ -1,16 +1,18 @@
 package dds.softpoi;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 @Entity
 public class CGP extends POI{
+
+	//private static final long serialVersionUID = -3982842173012417901L;
+	
 	private int altura;
 	private int piso;
 	private String departamento;
@@ -18,14 +20,11 @@ public class CGP extends POI{
 	private String codigoPostal;
 	private String director;
 	private String telefono;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "comuna_id", referencedColumnName = "id")
 	private Comuna comuna;
-	
-//	private ArrayList<Servicio> servicios = new ArrayList<Servicio>();
-	
-	
-	
+
 	// ***************************************************************************
 	// Constructor
 	// ***************************************************************************

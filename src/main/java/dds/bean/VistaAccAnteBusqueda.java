@@ -1,16 +1,17 @@
-package dds.pruebas;
-
-
+package dds.bean;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
- 
-@ManagedBean
-public class AccAnteBusqueda {
-         
-    private String[] accionesElegidas;   
+import javax.faces.view.ViewScoped;
+
+@ManagedBean(name="bnVistaAccAnteBusqueda")
+@ViewScoped
+public class VistaAccAnteBusqueda extends VistaPadre {
+
+	private static final long serialVersionUID = 6239774130729760800L;
+	private String[] accionesElegidas;   
     private List<String> acciones;
      
     @PostConstruct
@@ -33,4 +34,5 @@ public class AccAnteBusqueda {
     public List<String> getAcciones() {
         return acciones;
     }
+
 }

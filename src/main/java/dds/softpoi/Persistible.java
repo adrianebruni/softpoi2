@@ -10,13 +10,14 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class Persistible implements Serializable{
+
+	private static final long serialVersionUID = -2309789506901394713L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected long id;
 	
-	protected Persistible(){
-		
-	}
+	protected Persistible(){}
 	
 	@Column(name = "id")
 	public long getId(){

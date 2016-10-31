@@ -1,39 +1,34 @@
 package dds.bean;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 
 import dds.softpoi.Administrador;
 import dds.softpoi.ElementoDeConsulta;
 import dds.softpoi.POI;
 
 @ManagedBean(name="bnHistorialBusqueda")
-@ViewScoped
+@RequestScoped
 public class HistorialBusqueda extends VistaPadre {
-     
-	private static final long serialVersionUID = -3883257579910217559L;
 	
 	private String usuario;
 	private String fechaDesde;
 	private String fechaHasta;
-	
 	private List<ElementoDeConsulta> elementosBuscados;
 	
-
-
-
-	private ElementoDeConsulta unElementoSeleccionado;
-		
-	//@ManagedProperty("#{servidor}")
-    //private Servidor servidorPpal;
+	@ManagedProperty("#{bnVistaLogin}")
+	private VistaLogin bnVistaLogin;
+	
+	public VistaLogin getBnVistaLogin(){
+		return bnVistaLogin;
+	}
+	
+	public void setBnVistaLogin(VistaLogin bnVistaLogin){
+		this.bnVistaLogin = bnVistaLogin;
+	}
     
 	// ***************************************************************************
 	// Inicializador
@@ -41,7 +36,9 @@ public class HistorialBusqueda extends VistaPadre {
 	
 	@PostConstruct
     public void init() {
-
+    	// Obtenemos los parametros enviados desde el bean VistaLogin    	
+    	super.setServidor(bnVistaLogin.getServidor());
+    	super.setUnUsuarioLogueado(bnVistaLogin.getUnUsuarioLogueado());
     }
 	
 	// ***************************************************************************
@@ -99,6 +96,7 @@ public class HistorialBusqueda extends VistaPadre {
 	// Este atributo es del tipo List<  >
 	public void resultadoBusqueda(){
 		elementosBuscados = ((Administrador) super.getUnUsuarioLogueado()).historialBusquedaPantalla(this.usuario,this.fechaDesde,this.fechaHasta);
+		
 	}
  
 	

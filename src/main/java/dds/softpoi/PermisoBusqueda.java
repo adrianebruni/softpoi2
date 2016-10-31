@@ -1,13 +1,28 @@
 package dds.softpoi;
 
+import javax.persistence.Entity;
+
+@Entity
 public class PermisoBusqueda extends PermisosTerminal{
 
+	private static PermisoBusqueda permisoBusquedaSingleton = new PermisoBusqueda();
 	
-	private static PermisoBusqueda permisoBusquedaSingleton= new PermisoBusqueda();
+	// ***************************************************************************
+	// Constructor
+	// ***************************************************************************
 	
-	//GETTER
+	public PermisoBusqueda(){}
+	
+	// ***************************************************************************
+	// Setters
+	// ***************************************************************************
+	
+	// ***************************************************************************
+	// Getters
+	// ***************************************************************************
+
 	public static PermisoBusqueda getpermisoBusquedaSingleton() {
-		 return permisoBusquedaSingleton;
-		}
+		return permisoBusquedaSingleton;
+	}
 	
 }

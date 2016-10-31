@@ -5,13 +5,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
 public class Procesos {
+	
 	public void procesoBajaDePOI(Servidor servidor, Usuario unUsuario, String rutaArchivoBajas){
 	    //Se crea un SAXBuilder para poder parsear el archivo
 	    SAXBuilder builder = new SAXBuilder();
@@ -25,7 +25,7 @@ public class Procesos {
 	        Element rootNode = document.getRootElement();
 	 
 	        //Se obtiene la lista de hijos de la raiz 'tables'
-	        List list = rootNode.getChildren( "tipoPOI" );
+	        List<?> list = rootNode.getChildren( "tipoPOI" );
 	 
 	        //Se recorre la lista de hijos de 'tables'
 	        for ( int i = 0; i < list.size(); i++ )
@@ -34,12 +34,12 @@ public class Procesos {
 	            Element tabla = (Element) list.get(i);
 	 
 	            //Se obtiene el atributo 'nombre' que esta en el tag 'tabla'
-	            String clasePOI = tabla.getAttributeValue("clase");
+	            //String clasePOI = tabla.getAttributeValue("clase");
 	 
 //	            System.out.println( "Tipo de POI: " + clasePOI );
 	 
 	            //Se obtiene la lista de hijos del tag 'tabla'
-	            List lista_campos = tabla.getChildren();
+	            List<?> lista_campos = tabla.getChildren();
 	 
 //	            System.out.println( "\tNombre POI \tFecha Baja" );
 	 
@@ -64,6 +64,7 @@ public class Procesos {
 	                ArrayList<POI> listaParaBajar = servidor.buscaPOI(nombre, unUsuario);
 	                for (POI unPoi : listaParaBajar) {
 						unPoi.setIdpoi(0);
+						@SuppressWarnings("deprecation")
 						Date fechaBaja = new Date(añoBaja,mesBaja,diaBaja);
 						unPoi.setFechaBaja(fechaBaja);
 						servidor.eliminarPOI(unPoi);

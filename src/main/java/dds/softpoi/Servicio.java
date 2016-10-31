@@ -2,14 +2,10 @@ package dds.softpoi;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-
 public class Servicio {
+	
 	private int idservicio;
+
 	private String servicio;
 	private ArrayList<Disponibilidad> disponibilidad = new ArrayList<Disponibilidad>();
 	
@@ -17,6 +13,11 @@ public class Servicio {
 	// ***************************************************************************
 	// Setters
 	// ***************************************************************************
+	
+	public void setIdservicio(int idservicio) {
+		this.idservicio = idservicio;
+	}
+	
 	public void setServicio(String servicio) {
 		this.servicio = servicio;
 	}
@@ -32,6 +33,11 @@ public class Servicio {
 	// ***************************************************************************
 	// Getters
 	// ***************************************************************************
+	
+	public int getIdservicio() {
+		return idservicio;
+	}
+	
 	public String getServicio() {
 		return servicio;
 	}

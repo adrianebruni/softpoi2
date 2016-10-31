@@ -16,13 +16,20 @@
 		</h:head>
 	
 		<body>
-			<div id="header"></div>
+			<div id="header">
+				<h:form>
+					<p:menubar>
+						<p:menuitem value="Cerrar Sesion" outcome="index" icon="ui-icon-arrowreturnthick-1-e" />
+					</p:menubar>
+				</h:form>
+				<br/><br/><br/>
+			</div>
 			<div id="content">
 			
 			<h:form id="form">
 				<p:panel id="panel" header="Cadena de Busqueda" style="margin-bottom:10px;">
 					<h:panelGrid columns="2" cellpadding="2">
-						<p:inputText id="criterios" value="#{bnVistaBusqueda.text}"  />
+						<p:inputText id="criterios" value="#{bnVistaBusqueda.textCriterio}"  />
 						
 						<p:commandButton value="Agregar" update="mostrarCriterios" >
 						    <p:confirm header="Confirmacion" message="¿Desea agregar el criterio de búsqueda?" icon="ui-icon-alert" />
@@ -35,10 +42,8 @@
 				    	</p:dataList>
 				    	
 						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-							<p:commandButton value="Sí" type="button"
-								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-							<p:commandButton value="No" type="button"
-								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							<p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 						</p:confirmDialog>
 						
 				</h:panelGrid>

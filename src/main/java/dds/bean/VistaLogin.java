@@ -5,15 +5,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import dds.softpoi.Seguridad;
-import dds.softpoi.Usuario;
-
 @ManagedBean(name="bnVistaLogin")
-@ViewScoped
-//extends VistaPadre 
+@SessionScoped
 public class VistaLogin extends VistaPadre implements Serializable {
 
 	private static final long serialVersionUID = 6149074039987251332L;
@@ -23,6 +19,8 @@ public class VistaLogin extends VistaPadre implements Serializable {
 	// ***************************************************************************
 	// Inicializador
 	// ***************************************************************************
+	
+	public VistaLogin(){}
 	
     @PostConstruct
     public void init() {
@@ -72,14 +70,9 @@ public class VistaLogin extends VistaPadre implements Serializable {
 			if ( super.getUnUsuarioLogueado().getClass().getName().substring(12).equals("DispositivoConsulta") ){
 				// es una terminal
 				retorno = "user"; //Navegation Rule
-				
-
-				
-				
 			}else{
 				// es un administrador
 				retorno = "admin"; //Navegation Rule
-				
 			}
 		}else{
 			msg = "Usuario No Autorizado!";

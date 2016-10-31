@@ -16,6 +16,7 @@ public class Comercio extends POI{
 	private String departamento;
 	private String unidad;
 	private String codigoPostal;
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "rubro_id", referencedColumnName = "id")
 	private Rubro rubro;

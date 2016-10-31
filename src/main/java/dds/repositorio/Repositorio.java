@@ -3,7 +3,10 @@ package dds.repositorio;
 import javax.persistence.EntityManager;
 
 public class Repositorio {
+	
 	private POIs pois;
+	private Usuarios usuarios;
+	
 	protected EntityManager em;
 	
 	public Repositorio(EntityManager em){
@@ -11,11 +14,19 @@ public class Repositorio {
 	}
 
 	public POIs pois(){
-		if(pois==null){
+		if(pois == null){
 			pois = new POIs(em);
 		}
 		return pois;
 	}
+	
+	public Usuarios usuarios(){
+		if(usuarios == null){
+			usuarios = new Usuarios(em);
+		}
+		return usuarios;
+	}	
+	
 	
 	public void cerrar(){
 		em.close();

@@ -2,12 +2,8 @@ package dds.repositorio;
 
 import java.lang.reflect.Field;
 import java.util.List;
-
 import javax.persistence.EntityManager;
-
 import dds.softpoi.POI;
-import modelo.Comuna;
-import modelo.Poi;
 
 public class POIs extends Repositorio{
 	POIs(EntityManager em){
@@ -17,16 +13,27 @@ public class POIs extends Repositorio{
 	public void persistir(POI unPoi){
 		em.getTransaction().begin();
 		em.persist(unPoi);
+		//System.out.println("ID:"+ unPoi.getIdpoi());
 		em.getTransaction().commit();
 	}
+	
 	public POI buscarPOIPorId(int id){
-		return em.find(POI.class, id);
+		POI unPOI = null;
+		
+		try {
+			//System.out.println("ENTRO AL TRY");
+			unPOI = em.find(POI.class, id);
+		} catch (Exception e) {
+			System.out.println("FALLO: busquedarPOIPorID - clase POIs.java");
+		}
+		//System.out.println("VALOR UN POI: " + unPOI);
+		return unPOI;
 	}
 	
 	public List<POI> buscarPOIPorNombre(String nombre){
-		List<POI> pois = null;
-		pois = em.createNamedQuery("buscarPOIPorNombre").setParameter("pnombre", "%" + nombre + "%").getResultList();
-		return pois;
+		List<POI> lstPois = null;
+		lstPois = em.createNamedQuery("buscarPOIPorNombre").setParameter("pnombre", "%" + nombre + "%").getResultList();
+		return lstPois;
 	}
 	
 	public void actualizarPOI(POI unPoi){
@@ -53,6 +60,21 @@ public class POIs extends Repositorio{
 		}
 	}
 	 
-	
+	public Boolean eliminarPOI(POI unPoi){
+
+		em.getTransaction().begin();
+		
+		try {
+			em.remove(unPoi);
+			em.getTransaction().commit();
+			System.out.println("POI eliminado");
+			return true;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("POI NO eliminado");
+			return false;
+		}
+		
+	}
 
 }

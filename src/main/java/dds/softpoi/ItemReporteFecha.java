@@ -1,15 +1,30 @@
 package dds.softpoi;
 
 import java.util.Comparator;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+
+@Entity
 public class ItemReporteFecha {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	protected int id_itemreportefecha;
+	
 	private String fecha;
 	private int cantidad;
+
 	
 	// ***************************************************************************
 	// Getters
 	// ***************************************************************************
+	
+	public int getId_itemreportefecha() {
+		return id_itemreportefecha;
+	}
 	
 	public String getFecha() {
 		return fecha;
@@ -22,6 +37,10 @@ public class ItemReporteFecha {
 	// ***************************************************************************
 	// Setters
 	// ***************************************************************************
+	
+	public void setId_itemreportefecha(int id_itemreportefecha) {
+		this.id_itemreportefecha = id_itemreportefecha;
+	}
 	
 	public void setFecha(String fecha) {
 		this.fecha = fecha;

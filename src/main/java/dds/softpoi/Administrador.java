@@ -5,10 +5,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
+@Entity
 public class Administrador extends Usuario{
 
+	@OneToMany
 	private Set<PermisosTerminal> permisosAsetear = new HashSet<PermisosTerminal>();
+	
+	// ***************************************************************************
+	// Constructor
+	// ***************************************************************************
+	public Administrador(){};
 	
 	// ***************************************************************************
 	// Setters
@@ -29,27 +38,22 @@ public class Administrador extends Usuario{
 	}
 	
 	public void modificarPOI(POI unPOI) throws IllegalArgumentException, IllegalAccessException{ 
-	    serv.modificarPOI(unPOI);
-		
+	    super.getServidor().modificarPOI(unPOI);
 	}
 	
 	public void eliminarPOI(POI unPOI){
-		serv.eliminarPOI(unPOI);
+		super.getServidor().eliminarPOI(unPOI);
 		
 	}	
 	
 	public void actualizarLocalesComerciales(String rutaArchivo){
 		try {
-			serv.actualizarLocalesComerciales(rutaArchivo);
+			super.getServidor().actualizarLocalesComerciales(rutaArchivo);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 	}
 	
 	public void agregarPermiso(PermisosTerminal unPermiso){

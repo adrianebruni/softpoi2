@@ -23,7 +23,6 @@ public class TestAgregarAccionesAusuarios {
 		unAdministrador.setServidor(servidorPpal);
 		servidorPpal.addAdmin(unAdministrador);
 		
-		
 		//TESTEO agregado de permisos
 		unAdministrador.agregarPermiso(PermisoCercania.getpermisoCercaniaSingleton());
 		unAdministrador.commitPermisos(dispositivo2);
@@ -31,7 +30,6 @@ public class TestAgregarAccionesAusuarios {
 		//imprimo permisos de dispositivo2
 		System.out.println("Agrego permisos:");
 		dispositivo2.imprimirPermisos();
-		
 		
 		//TESTEO modificado de permisos
 		unAdministrador.agregarPermiso(PermisoCercania.getpermisoCercaniaSingleton());

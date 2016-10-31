@@ -1,6 +1,7 @@
 package dds.softpoi;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +12,9 @@ public class Rubro {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private int id;
+
 	private String nombre;
 	private double radioCercania;
 	
@@ -19,6 +22,7 @@ public class Rubro {
 	// Constructor
 	// ***************************************************************************
 	public Rubro(){}
+	
 	public Rubro(String unNombre, double unRadioCercania){
 		this.nombre = unNombre;
 		this.radioCercania = unRadioCercania;

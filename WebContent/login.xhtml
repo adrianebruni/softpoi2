@@ -11,30 +11,34 @@
 		<h:head>
 			<title><ui:insert name="title">SOFTPOI v1.0</ui:insert></title>
 			<meta content="text/html; charset=UTF-8" http-equiv="Content-type" />
+			<link rel="stylesheet" href="/softpoi2/css/login/style.css"></link>
 		</h:head>
 	
 		<body>
 			<div id="header"></div>
 			<div id="content">
-			<h:form>
-				<p:panel id="panelLogin" header="Login">
-					<p:messages id="msgs" />
-					<h:panelGrid columns="3" cellpadding="5">
-						<p:outputLabel for="usuario" value="Usuario:" />
-						<p:inputText id="usuario" value="#{bnVistaLogin.usuario}" required="true" label="Usuario">
-							<f:validateLength maximum="15" />
-						</p:inputText>
-						<p:message for="usuario" display="icon" />
-						<p:outputLabel for="clave" value="Clave:" />
-						<p:password id="clave" value="#{bnVistaLogin.clave}" label="Clave" required="true">
-							<f:validateLength maximun="15" />
-							<p:ajax update="msgClave" event="keyup" />
-						</p:password>
-						<p:message for="clave" id="msgClave" display="icon" />
-					</h:panelGrid>
-					<p:commandButton value="Ingresar" action="#{bnVistaLogin.validar}" update="panelLogin" icon="ui-icon-check" />
-				</p:panel>			
-			</h:form>
+  
+			  <section class="container">
+			    <div class="login">
+			      <h1>Login SOFTPOI</h1>
+					<h:form>
+						<p:panel id="panelLogin">
+							<h:panelGrid columns="1" cellpadding="5">
+								<p:inputText style="width:245px;" id="usuario" value="#{bnVistaLogin.usuario}" required="true" label="Usuario" placeholder="Usuario"/>
+								<p><br /></p>
+								<p:password style="width:245px;" id="clave" value="#{bnVistaLogin.clave}" label="Clave" required="true" placeholder="Clave"/>
+								<p><br /></p>								
+							</h:panelGrid>
+							<p:commandButton value="Ingresar" action="#{bnVistaLogin.validar}" update="panelLogin" icon="ui-icon-check" />
+							<p:messages id="msgs" />
+						</p:panel>			
+					</h:form>
+			    </div>
+			  </section>
+			  <section class="about">
+			    <p class="about-author">&copy; 2016 <a href="#" target="_blank">SoftPOI</a> v1.0</p>
+			  </section>
+			
 			</div>
 			<div id="footer"></div>
 		</body>

@@ -2,21 +2,48 @@ package dds.softpoi;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import java.text.SimpleDateFormat;
 
+@Entity
+@Table(name = "ElementoDeConsulta")
 public class ElementoDeConsulta {
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int idconsulta;
 	private Date fechaConsulta;
 	private String consultaUsuario;
 	private double tiempoRespuesta;
 	private String tipoUsuario;
 	private int totalResultados;
-	private ArrayList<POI> colPOIs;
+//	@OneToMany
+//	@JoinColumn(name = "idColPOIs", referencedColumnName = "idpoi")
+	@OneToMany
+	@JoinTable
+	  (
+	      name="POIS_POR_CONSULTA",
+	      joinColumns={ @JoinColumn(name="ridconsulta", referencedColumnName="idconsulta") },
+	      inverseJoinColumns={ @JoinColumn(name="ridpoi", referencedColumnName="idpoi", unique=true) }
+	  )
+	private List<POI> colPOIs;
     
     // ***************************************************************************
  	// Constructor
  	// ***************************************************************************
-    
+	public ElementoDeConsulta(){}
+	
     public ElementoDeConsulta(Date fechaConsulta,String consultaUsuario,double tiempoRespuesta,String tipoUsuario,int totalResultados,ArrayList<POI> colPOIs) {
     	this.fechaConsulta = fechaConsulta;
     	this.consultaUsuario = consultaUsuario;
@@ -48,7 +75,7 @@ public class ElementoDeConsulta {
 		this.totalResultados = totalResultados;
 	}
 
-	public void setColPOIs(ArrayList<POI> colPOIs) {
+	public void setColPOIs(List<POI> colPOIs) {
 		this.colPOIs = colPOIs;
 	}
 
@@ -71,7 +98,7 @@ public class ElementoDeConsulta {
 	public int getTotalResultados() {
 		return totalResultados;
 	}
-	public ArrayList<POI> getColPOIs() {
+	public List<POI> getColPOIs() {
 		return colPOIs;
 	}
 	

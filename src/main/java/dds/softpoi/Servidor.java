@@ -14,6 +14,8 @@ import javax.faces.bean.ManagedBean;
 
 import dds.json.BancoDTO;
 import dds.json.CentroDTO;
+import dds.repositorio.Repositorio;
+
 import java.security.SecureRandom;
 import java.math.BigInteger;
 
@@ -29,6 +31,8 @@ public class Servidor {
 	HistoricoConsulta histconsulta = new HistoricoConsulta();
 	public Auditoria unaAuditoria = new Auditoria();
 	
+	public Repositorio repositorio;
+	
 	SecureRandom random = new SecureRandom();
 	Parametros parametros = new Parametros();
 	Seguridad objSeguridad = new Seguridad(this);
@@ -37,13 +41,18 @@ public class Servidor {
 	// Setters
 	// ***************************************************************************
 	
+	public void setRepositorio(Repositorio unRepositorio){
+		this.repositorio = unRepositorio;
+	}
+	
 	public void addAdmin(Usuario unAdmin) {
 		unAdmin.setToken(generarToken());
 		this.colAdmins.add(unAdmin);
 	}
 	
 	public void cargarPOI(POI unPOI) {
-		unPOI.setIdpoi(this.proximoIdPOI());
+//		unPOI.setIdpoi(this.proximoIdPOI());
+		this.getRepositorio().pois().persistir(unPOI);
 		this.colPOIs.add(unPOI);
 	}
 	
@@ -63,6 +72,9 @@ public class Servidor {
 	// Getters
 	// ***************************************************************************
 	
+	public Repositorio getRepositorio(){
+		return repositorio;
+	}
 	public ArrayList<POI> getColPOIs() {
 		return colPOIs;
 	}

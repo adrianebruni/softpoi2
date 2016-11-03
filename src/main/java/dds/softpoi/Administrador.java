@@ -32,8 +32,6 @@ public class Administrador extends Usuario{
 	// ***************************************************************************
 						
 	public void cargarPOI(POI unPOI) {
-		// Falta validar con clase seguridad
-		System.out.println("Falta validar con clase seguridad");
 		super.getServidor().cargarPOI(unPOI);
 	}
 	

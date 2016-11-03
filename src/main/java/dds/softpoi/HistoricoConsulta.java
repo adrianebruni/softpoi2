@@ -32,6 +32,7 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		ArrayList<POI> poisEncontrados =  unTimer.consultar(query, unUsuario.getServidor(), unUsuario);
 		ElementoDeConsulta unaConsulta = new ElementoDeConsulta(new Date(), query, unTimer.duracionConsulta(), unUsuario.getNombre() , poisEncontrados.size(), poisEncontrados);
 		elementosDeConsulta.add(unaConsulta);
+		unUsuario.getServidor().getRepositorio().elementosDeConsulta().persistir(unaConsulta);
 		return poisEncontrados;
 		
 	}

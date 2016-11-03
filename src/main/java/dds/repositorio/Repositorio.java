@@ -6,6 +6,7 @@ public class Repositorio {
 	
 	private POIs pois;
 	private Usuarios usuarios;
+	private ElementosDeConsulta elementosDeConsulta;
 	
 	protected EntityManager em;
 	
@@ -25,6 +26,13 @@ public class Repositorio {
 			usuarios = new Usuarios(em);
 		}
 		return usuarios;
+	}	
+	
+	public ElementosDeConsulta elementosDeConsulta(){
+		if(elementosDeConsulta == null){
+			elementosDeConsulta = new ElementosDeConsulta(em);
+		}
+		return elementosDeConsulta;
 	}	
 	
 	

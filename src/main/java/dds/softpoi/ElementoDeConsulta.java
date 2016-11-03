@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 @Entity
 @Table(name = "ElementoDeConsulta")
 public class ElementoDeConsulta {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idconsulta;
@@ -28,14 +29,13 @@ public class ElementoDeConsulta {
 	private double tiempoRespuesta;
 	private String tipoUsuario;
 	private int totalResultados;
-//	@OneToMany
-//	@JoinColumn(name = "idColPOIs", referencedColumnName = "idpoi")
-	@OneToMany
+
+	@ManyToMany
 	@JoinTable
 	  (
 	      name="POIS_POR_CONSULTA",
 	      joinColumns={ @JoinColumn(name="ridconsulta", referencedColumnName="idconsulta") },
-	      inverseJoinColumns={ @JoinColumn(name="ridpoi", referencedColumnName="idpoi", unique=true) }
+	      inverseJoinColumns={ @JoinColumn(name="ridpoi", referencedColumnName="idpoi") }
 	  )
 	private List<POI> colPOIs;
     

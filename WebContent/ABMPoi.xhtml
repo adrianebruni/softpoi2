@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/WEB-INF/template/BasicTemplate.xhtml">
+		<ui:define name="content">
+			
+			
+			
+			<h:form id="formALTA">
+				<p:panel header="ALTA POIs" style="margin-bottom:10px;">
+					<h:panelGrid columns="2" cellpadding="5" border="1">
+			                        
+			            <p:outputLabel value="Country: " />
+			            <p:selectOneMenu id="tipoPOI"  value="#{bnVistaABMPoi.tipoPOI}" style="width:190px">
+			            	<f:selectItem itemLabel="Seleccionar Tipo POI" itemValue="" noSelectionOption="true" />
+			                <f:selectItems value="#{bnVistaABMPoi.tipoPOIs}" />
+			            </p:selectOneMenu>		            
+			            
+			            
+			            <p:outputLabel value="Nombre: " />
+			            <p:inputText id="nombre" value="#{bnVistaABMPoi.nombre}"  />
+			            
+			            <p:outputLabel value="Longitud: " />
+			            <p:inputText id="longitud" value="#{bnVistaABMPoi.longitud}"  />
+			            
+			            <p:outputLabel value="Latitud: " />
+			            <p:inputText id="latitud" value="#{bnVistaABMPoi.latitud}"  />
+			            
+			            <p:commandButton value="Agregar" actionListener="#{bnVistaABMPoi.insertarPOI}" >
+						    <p:confirm header="Confirmacion" message="¿Está seguro que desea insertar en POI?" icon="ui-icon-alert" />
+						    <p:confirmDialog global="true"  showEffect="fade" hideEffect="fade">
+								<p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</p:commandButton>
+			            
+					</h:panelGrid>
+					
+					
+				</p:panel>
+			</h:form>
+							
+			<h:form id="formBAJAMOD">
+				<p:panel header="POIs" style="margin-bottom:10px;">
+					<p:dataTable var="unPOI" value="#{bnVistaABMPoi.listapois}">
+						
+						<p:column headerText="Id">
+							<h:outputText value="#{unPOI.idpoi}" />
+						</p:column>
+	
+						<p:column headerText="Nombre">
+							<h:outputText value="#{unPOI.nombre}" />
+						</p:column>
+	
+						<p:column headerText="Tipo">
+							<h:outputText value="TIPO-POI" />
+						</p:column>
+	
+						<p:column headerText="Acción">
+							<p:splitButton value="Acción" icon="ui-icon-disk">
+								<p:menuitem value="Editar" actionListener="#{bnVistaABMPoi.editarPOI}" icon="ui-icon-arrowrefresh-1-w" />
+								<p:menuitem value="Eliminar" actionListener="#{bnVistaABMPoi.eliminarPOI}" ajax="false"	icon="ui-icon-close" />
+							</p:splitButton>
+						</p:column>
+						
+					</p:dataTable>
+				</p:panel>
+			</h:form>
+			
+		</ui:define>
+	</ui:composition>
+</html>

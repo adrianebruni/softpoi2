@@ -153,5 +153,10 @@ public class Banco extends POI {
 	public String getImagenIcon(){
 		return super.getImagenIcon("banco");
 	}
+	
+	public String tipoPOI(){
+		return "Banco";
+	}
+	
 }
 

@@ -79,4 +79,9 @@ public class ParadaColectivo extends POI {
 		return super.getImagenIcon("paradacolectivo");
 	}
 	
+	public String tipoPOI(){
+		return "ParadaColectivo";
+	}
+	
+	
 }

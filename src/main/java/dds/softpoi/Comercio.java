@@ -118,4 +118,9 @@ public class Comercio extends POI{
 		public String getImagenIcon(){
 			return super.getImagenIcon("comercio");
 		}
+		
+		public String tipoPOI(){
+			return "Comercio";
+		}
+		
 }

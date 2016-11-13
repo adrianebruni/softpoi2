@@ -198,9 +198,9 @@ public abstract class POI {
 	}
 	
 	
-	public String tipoPOI(){
+	/*public String tipoPOI(){
 		return this.getClass().getName().substring(4);
-	}
+	}*/
 	
 	// Funcion que calcula la distancia entre 2 coordenadas (la unidad de medida es opcional, por defecto calcula en metros)
 	public static double distancia(double lat1, double lon1, double lat2, double lon2, String unidadMedida){

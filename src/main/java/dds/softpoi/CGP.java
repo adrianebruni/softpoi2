@@ -219,4 +219,8 @@ public class CGP extends POI{
 		return super.getImagenIcon("cgp");
 	}
 	
+	public String tipoPOI(){
+		return "CGP";
+	}
+	
 }

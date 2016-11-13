@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import dds.repositorio.Repositorio;
 import dds.softpoi.Administrador;
 import dds.softpoi.DispositivoConsulta;
 import dds.softpoi.PermisoBusqueda;

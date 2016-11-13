@@ -9,19 +9,17 @@
 
 	<ui:composition template="/WEB-INF/template/BasicTemplate.xhtml">
 		<ui:define name="content">
-			
-			
-			
+					
 			<h:form id="formALTA">
 				<p:panel header="ALTA POIs" style="margin-bottom:10px;">
 					<h:panelGrid columns="2" cellpadding="5" border="1">
 			                        
-			            <p:outputLabel value="Country: " />
+			            <p:outputLabel value="Tipo de POI: " />
 			            <p:selectOneMenu id="tipoPOI"  value="#{bnVistaABMPoi.tipoPOI}" style="width:190px">
 			            	<f:selectItem itemLabel="Seleccionar Tipo POI" itemValue="" noSelectionOption="true" />
 			                <f:selectItems value="#{bnVistaABMPoi.tipoPOIs}" />
+			                <p:ajax render="@formALTA"/>
 			            </p:selectOneMenu>		            
-			            
 			            
 			            <p:outputLabel value="Nombre: " />
 			            <p:inputText id="nombre" value="#{bnVistaABMPoi.nombre}"  />
@@ -32,6 +30,17 @@
 			            <p:outputLabel value="Latitud: " />
 			            <p:inputText id="latitud" value="#{bnVistaABMPoi.latitud}"  />
 			            
+			            
+			            <h:panelGroup rendered="#{bnVistaABMPoi.tipoPOI == 'Banco'}">
+			            	<p:outputLabel value="#{bnVistaABMPoi.datoPOILabel} - 1" />
+			            	<p:inputText value="#{bnVistaABMPoi.datoPOIText} - 2"  />
+			            </h:panelGroup>
+			            
+			            <h:panelGroup rendered="#{bnVistaABMPoi.tipoPOI == 'CGP'}">
+			            	<p:outputLabel value="#{bnVistaABMPoi.datoPOILabel} - x" />
+			            	<p:inputText value="#{bnVistaABMPoi.datoPOIText} - y"  />
+			            </h:panelGroup>
+			            		            
 			            <p:commandButton value="Agregar" actionListener="#{bnVistaABMPoi.insertarPOI}" >
 						    <p:confirm header="Confirmacion" message="¿Está seguro que desea insertar en POI?" icon="ui-icon-alert" />
 						    <p:confirmDialog global="true"  showEffect="fade" hideEffect="fade">

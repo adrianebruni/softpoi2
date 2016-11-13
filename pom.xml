@@ -90,6 +90,13 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.3.0.Final</version>
 		</dependency>
+		
+		<!-- MONGO DB -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>3.4.0-rc1</version>
+		</dependency>
 
 	</dependencies>
 

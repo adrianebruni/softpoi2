@@ -19,8 +19,8 @@ import dds.repositorio.Repositorio;
 import java.security.SecureRandom;
 import java.math.BigInteger;
 
-@ManagedBean(name = "servidor")
-@ApplicationScoped
+//@ManagedBean(name = "servidor")
+//@ApplicationScoped
 public class Servidor {
 	
 	public ArrayList<POI> colPOIs = new ArrayList<POI>();

@@ -10,8 +10,9 @@
     <p:menubar>
         <p:submenu label="Menu" icon="ui-icon-document">
             <p:menuitem value="Buscador" action="buscar" outcome="busqueda"  />
-            <p:menuitem value="Historial de Busqueda" outcome="historialBusqueda" />
-          <p:menuitem value="Acciones ante la busqueda"  outcome="AccAnteBusqueda"/>
+            <p:menuitem value="Historial de Busqueda" action="historico" outcome="historialBusqueda" />
+          	<p:menuitem value="Acciones ante la busqueda" action="AccAnteBusqueda" outcome="AccAnteBusqueda"/>
+          	<p:menuitem value="ABM POIs" action="abmPoi" outcome="ABMPoi"/>
      	</p:submenu>
  
     <p:menuitem value="Inicio" outcome="index"  icon="ui-icon-arrowreturnthick-1-e" />

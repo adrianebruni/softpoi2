@@ -9,7 +9,10 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
+import dds.repositorio.Repositorio;
 import dds.softpoi.Banco;
 import dds.softpoi.CGP;
 import dds.softpoi.Comercio;
@@ -26,6 +29,10 @@ public class VistaABMPoi extends VistaPadre implements Serializable {
 	private Long longitud;
 	private String tipoPOI;
 	private Map<String, String> tipoPOIs = null;
+
+	private String datoPOIText;
+	private String datoPOILabel;
+	
 	
 	@ManagedProperty("#{bnVistaLogin}")
 	private VistaLogin bnVistaLogin;
@@ -66,6 +73,14 @@ public class VistaABMPoi extends VistaPadre implements Serializable {
 		this.tipoPOI = tipoPOI;
 	}
 
+	public void setDatoPOIText(String datoDeUnPOI) {
+		this.datoPOIText = datoDeUnPOI;
+	}
+	
+	public void setDatoPOILabel(String datoDeUnPOI) {
+		this.datoPOILabel = datoDeUnPOI;
+	}
+	
 	// ***************************************************************************
 	// Getters
 	// ***************************************************************************
@@ -95,6 +110,14 @@ public class VistaABMPoi extends VistaPadre implements Serializable {
 		return tipoPOIs;
 	}
 	
+	public String getDatoPOIText() {
+		return datoPOIText;
+	}
+	
+	public String getDatoPOILabel() {
+		return datoPOILabel;
+	}
+	
 	// ***************************************************************************
 	// Metodos
 	// ***************************************************************************
@@ -103,6 +126,15 @@ public class VistaABMPoi extends VistaPadre implements Serializable {
 		
 		System.out.println("inicio");
 
+		// Configuracion de persistencia
+		
+		final String PERSISTENCE_UNIT_NAME = "DDS";
+		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		Repositorio unRepositorio;
+		//emFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		unRepositorio = new Repositorio(emFactory.createEntityManager());
+		super.getServidor().setRepositorio(unRepositorio);
+		
 		POI unPOI = null;
 		switch (this.tipoPOI){		
 			case "Banco":
@@ -125,8 +157,8 @@ public class VistaABMPoi extends VistaPadre implements Serializable {
 		unPOI.setLongitud(this.longitud);
 		unPOI.setLatitud(this.latitud);
 		
-		System.out.println("balbalbla");
-		super.getServidor().cargarPOI(unPOI);	
+		System.out.println("inicia persitencia");
+		super.getServidor().cargarPOI(unPOI);
 		System.out.println("fin");
 	}
 	
@@ -158,6 +190,33 @@ public class VistaABMPoi extends VistaPadre implements Serializable {
 	
 	public void eliminarPOI(){
 		// 
+	}
+	
+	public void tipoPoiSeleccionado(){
+		
+		datoPOIText = "zzzz";
+		
+		// Verifico que tipo de poi esta seleccionado
+		switch (this.tipoPOI){		
+			case "Banco":
+				datoPOILabel = "Gerente: ";
+				break;
+			
+			case "CGP":
+				datoPOILabel = "CGP";
+				break;
+				
+			case "Comercio":
+				datoPOILabel = "Comercio";
+				break;
+				
+			case "ParadaColectivo":
+				datoPOILabel = "ParadaColectivo";
+				break;
+			default:
+				datoPOILabel = "";
+		}
+
 	}
 	
 }

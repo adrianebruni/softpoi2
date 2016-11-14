@@ -126,7 +126,7 @@ public class CGP extends POI{
 	// Methods
 	// ***************************************************************************
 	
-	public boolean estaDisponible(String unServicio, Date unDia, String unaHora){		
+/*	public boolean estaDisponible(String unServicio, Date unDia, String unaHora){		
 		boolean existe = false;
  	
 		for(Servicio unServicioDisponible : this.getServicios())
@@ -140,7 +140,7 @@ public class CGP extends POI{
 		}
 		
 		return existe;
-	}
+	}*/
 	
 	
 	public boolean estaCercaDe(DispositivoConsulta unDispositivo){

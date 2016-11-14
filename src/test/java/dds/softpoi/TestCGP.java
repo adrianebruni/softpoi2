@@ -71,9 +71,13 @@ public class TestCGP {
 			comunaSinServ.setCalle("callao");
 			comuna12.setServicios(unServicio);
 			comuna12.setServicios(otroServicio);
-			System.out.println(comunaSinServ.getDireccion());
+			//System.out.println(comunaSinServ.getDireccion());
 			
-			System.out.println("Esta Disponible (Casamientos): " + comuna12.estaDisponible("Casamientos", FechayHora.fechaHoy(), FechayHora.horaHoy()));
+			System.out.println("Esta Disponible ALGO: " + comuna12.estaDisponible("", FechayHora.fechaHoy(), FechayHora.horaHoy()));
+			assertEquals("Esta Disponible ALGO: ", true, comuna12.estaDisponible("",FechayHora.fechaHoy(), FechayHora.horaHoy()));
+			System.out.println("Hoy: "+ FechayHora.fechaHoy());
+			
+			System.out.println("\nEsta Disponible (Casamientos): " + comuna12.estaDisponible("Casamientos", FechayHora.fechaHoy(), FechayHora.horaHoy()));
 			assertEquals("Esta Disponible (Casamientos): ", true, comuna12.estaDisponible("Casamientos", FechayHora.fechaHoy(), FechayHora.horaHoy()));
 			System.out.println("Test Finalizado !");
 		

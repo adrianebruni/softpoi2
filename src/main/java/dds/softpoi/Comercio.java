@@ -1,6 +1,7 @@
 package dds.softpoi;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,6 +17,7 @@ public class Comercio extends POI{
 	private String departamento;
 	private String unidad;
 	private String codigoPostal;
+	private ArrayList<Disponibilidad> disponibilidad = new ArrayList<Disponibilidad>();
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "rubro_id", referencedColumnName = "id")
@@ -61,7 +63,11 @@ public class Comercio extends POI{
 			this.rubro = unRubro;
 		}
 		
-	// ***************************************************************************
+		public void setDisponibilidad(ArrayList<Disponibilidad> disponibilidad) {
+			this.disponibilidad = disponibilidad;
+		}
+
+		// ***************************************************************************
 	// Getters
 	// ***************************************************************************
 		public int getAltura() {
@@ -86,6 +92,10 @@ public class Comercio extends POI{
 		
 		public Rubro getRubro(){
 			return rubro;
+		}
+		
+		public ArrayList<Disponibilidad> getDisponibilidad() {
+			return disponibilidad;
 		}
 		
 		// ***************************************************************************
@@ -121,6 +131,20 @@ public class Comercio extends POI{
 		
 		public String tipoPOI(){
 			return "Comercio";
+		}
+		
+		public boolean estaDisponible(Date unDia, String horaActual){
+
+			boolean existe = false;
+			
+			for(Disponibilidad unaDisponibilidad : disponibilidad)
+			{
+		    	if (unaDisponibilidad.estaDisponible(unDia, horaActual) ){
+		    		existe = true;
+		    		break;	
+		    	}
+			}
+			return existe;
 		}
 		
 }

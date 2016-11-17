@@ -1,95 +1,177 @@
 package test;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import org.bson.BSONObject;
+import org.bson.Document;
 
-import dds.repositorio.Repositorio;
-import dds.softpoi.Administrador;
-import dds.softpoi.Banco;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.*;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.util.JSON;
+
+import dds.json.BancoDTO;
+import dds.json.CentroDTO;
 import dds.softpoi.POI;
-import dds.softpoi.Servidor;
-import dds.softpoi.ElementoDeConsulta;
-
-
-
+import dds.softpoi.Parametros;
 
 public class test {
 
 	public static void main(String[] args) {
 		
-		// ENUNCIADO:
-		// Realizar una busqueda, persistirla, recuperarla y verificar que corresponda al objeto de esa busqueda
-		// e incluya referencias a los POI
-		
-		// Configuracion de persistencia
-		final String PERSISTENCE_UNIT_NAME = "DDS";
-		EntityManagerFactory emFactory;
-		Repositorio repositorio;
-		emFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		repositorio = new Repositorio(emFactory.createEntityManager());
+		// PUNTO 3:
+		// Los costos de acceso a los servicios externos de POIs se están volviendo muy onorosos,
+		// por lo cual es necesario minimizar el acceso a ellos.
 		
 		
-		//
+		// RTA: Se opto por desarrollar un demonio, el cual se ejecuta automaticamente todos los dias
+		// 		El mismo se conecta y consume los servicios externos d ePOIs y los guarda en una base no relacional
+		//		De este modo, las terminales consultan al servidor propio, disminuyendo el costo del servicio del proveedor.
+		//		Desventaja: aumento de consumo de banda ancha en nuestro servidor.
 		
-		Servidor servidorPpal = new Servidor();
+		// 1) Solicitar todos los datos del servicio externo
 		
-		//crear administrador
-		Administrador juanAdmin = new Administrador();
-		juanAdmin.setNombre("Juan");
-		juanAdmin.setClave("passPrueba");
-		juanAdmin.setServidor(servidorPpal);
-		juanAdmin.setFlagAuditoriaBusqueda(true);
-		servidorPpal.addAdmin(juanAdmin);
-		
-		servidorPpal.setRepositorio(repositorio);
-		
-		// 1) Crear un par de POIs y persistirlos.
-		Banco unbanco = new Banco();
-		unbanco.setLatitud(10);
-		unbanco.setLongitud(15);
-		unbanco.setNombre("bancofrances");
-		unbanco.setGerente("Peralta");
-		//repositorio.pois().persistir(unbanco);
-		juanAdmin.cargarPOI(unbanco);
-		
-		Banco otrobanco = new Banco();
-		otrobanco.setLatitud(12);
-		otrobanco.setLongitud(13);
-		otrobanco.setNombre("bancogalicia");
-		otrobanco.setGerente("Ale");
-		//repositorio.pois().persistir(otrobanco);
-		juanAdmin.cargarPOI(otrobanco);
-		
-		// 2) Crear una terminal de consulta.
-		
-		juanAdmin.buscaPOI("bancogal");
-		
-		// 3) Realizar una busqueda desde la terminal de consulta y persistirla
-		
-		/*
-		ElementoDeConsulta unElemento = new ElementoDeConsulta();
-		unElemento.setConsultaUsuario("cad de busq");
-		unElemento.setFechaConsulta(new Date(116, 10, 05));
-		unElemento.setTiempoRespuesta(5F);
-		unElemento.setTipoUsuario("Admin");
-		unElemento.setTotalResultados(0);
-		List<POI> unaColeccionDePois = new ArrayList<POI>();
-		unaColeccionDePois.add(unbanco);
-		unaColeccionDePois.add(otrobanco);
-		unElemento.setColPOIs(unaColeccionDePois);
-		*/
-		
-		//repositorio.elementosDeConsulta().persistir(unElemento);
-		// 4) Recuperar la busqueda realizada
+		// 2) Recorrer el JSon y
 		
 		
-		repositorio.cerrar();
-		emFactory.close();
+		JsonArray arrayConsulta = null;
+		DBCollection mongoTablaPOI = null;
+		
+		
+
+		
+		
+		
+		
+		
+		
+		// Intentamos conectarnos con la fuente externa para obtener todos los POIs
+		try {
+			String jsonString = readUrl("http://trimatek.org/Consultas/centro");
+			arrayConsulta = (JsonArray) new JsonParser().parse(jsonString);
+		
+		} catch (Exception e) {
+			System.out.println("Se produjo un error al intentar conectar con la fuente externa de datos.");
+			e.printStackTrace();
+			return;
+		}	
+		
+		
+		// Intentamos abrir una conexion mongoDB
+		try {
+			
+			/****************************************************************** 
+			 * Connectamos con MongoDB  
+			 ******************************************************************/
+			
+			// tanto "servidorMongoDB" como el "puertoMongoDB", deben ir en la clase PARAMETROS
+			String servidorMongoDB = "localhost";
+			int puertoMongoDB = 27017;
+					
+			@SuppressWarnings("resource")
+			MongoClient mongoConect = new MongoClient(servidorMongoDB, puertoMongoDB);
+			
+			
+			/****************************************************************** 
+			 * Indicamos la base de datos de mongo
+			 * 
+			 * Si la base no existe, MongoDB la crea automaticamente
+			 ******************************************************************/
+			@SuppressWarnings("deprecation")
+			DB mongoMyDB = mongoConect.getDB("db_pois_externos");
+			
+			
+			/****************************************************************** 
+			 * Indicamos el nombre de la tabla (coleccion de almacenamiento)
+			 * 
+			 * Si la coleccion no existe, MongoDB la crea automaticamente
+			 ******************************************************************/
+			mongoTablaPOI = mongoMyDB.getCollection("poi");
+			
+			
+			
+			/**** Find and display ****/
+			BasicDBObject searchQuery = new BasicDBObject();
+			searchQuery.put("comuna", 1);
+
+			DBCursor cursor = mongoTablaPOI.find(searchQuery);
+
+			while (cursor.hasNext()) {
+				System.out.println(cursor.next());
+			}
+			
+			
+		}catch (Exception e) {
+			System.out.println("Se produjo un error al intentar conectar con MongoDB.");
+			e.printStackTrace();
+			return;
+		}
+		
+		// Intentamos insertar los datos de JSON a MongoDB
+		try {
+			
+			// Recorremos los datos externos obtenidos y los insertamos en la base
+			for(JsonElement unDatoExterno : arrayConsulta){
+				
+				System.out.println(unDatoExterno.toString());
+								
+				DBObject dbObjMongo = null;
+				
+				dbObjMongo = (DBObject) JSON.parse(unDatoExterno.toString());
+				
+				System.out.println(dbObjMongo.toMap());
+				
+				mongoTablaPOI.insert(dbObjMongo);
+				
+			}
+			
+		}catch (Exception e) {
+			System.out.println("Se produjo un error al intentar insertar los datos en MongoDB.");
+			e.printStackTrace();
+			return;
+		}
+				
 		
 	}
+	
+	// ------------------------------------------------------------------------------------------------------------
+	// ------------------------------------------------------------------------------------------------------------
+	// ------------------------------------------------------------------------------------------------------------
+	
+	// Funcion que obtiene todo los datos del parametro enviado por URL a string
+	public static String readUrl(String urlString) throws Exception {
+	    BufferedReader reader = null;
+	    try {
+	        URL url = new URL(urlString);
+	        reader = new BufferedReader(new InputStreamReader(url.openStream()));
+	        StringBuffer buffer = new StringBuffer();
+	        int read;
+	        char[] chars = new char[1024];
+	        while ((read = reader.read(chars)) != -1)
+	            buffer.append(chars, 0, read); 
 
+	        return buffer.toString();
+	    } finally {
+	        if (reader != null)
+	            reader.close();
+	    }
+	}
+	
 }

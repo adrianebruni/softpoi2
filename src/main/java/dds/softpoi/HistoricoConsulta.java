@@ -1,5 +1,7 @@
 package dds.softpoi;
 
+import static org.junit.Assert.assertEquals;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,6 +10,13 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+
+import dds.mongodb.MongoDB;
+
 import java.util.HashSet;
 
 public class HistoricoConsulta implements BuscadorAbstracto{
@@ -32,7 +41,30 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		ArrayList<POI> poisEncontrados =  unTimer.consultar(query, unUsuario.getServidor(), unUsuario);
 		ElementoDeConsulta unaConsulta = new ElementoDeConsulta(new Date(), query, unTimer.duracionConsulta(), unUsuario.getNombre() , poisEncontrados.size(), poisEncontrados);
 		elementosDeConsulta.add(unaConsulta);
-		unUsuario.getServidor().getRepositorio().elementosDeConsulta().persistir(unaConsulta);
+		
+		try {
+			// Insertamos en la base de datos (MySQL)
+			unUsuario.getServidor().getRepositorio().elementosDeConsulta().persistir(unaConsulta);
+		} catch (Exception e) {
+			System.out.println("Error al persistir el ElementoDeConsulta");
+		}
+		
+		try {
+			// Insertamos en la base de datos (MongoDB)
+			MongoDB miMongo = new MongoDB();
+			miMongo.crearConexion("db_pois", "pois_consultas");
+			miMongo.insertarDato(unaConsulta);
+			
+			// Buscamos un valor insertado
+			miMongo.buscarDato("consultaUsuario", "banco");
+			
+			
+		} catch (Exception e) {
+			System.out.println("Error al insertar el ElementoDeConsulta");
+		}
+		
+		
+			
 		return poisEncontrados;
 		
 	}

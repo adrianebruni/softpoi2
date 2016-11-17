@@ -29,6 +29,17 @@ public class Parametros {
 	static String emailMetodoEnvio = "smtp";
 	static String emailHostEnvio = "smtp.gmail.com";
 	
+	static String servidorMongoDB = "localhost";
+	static int puertoMongoDB = 27017;
+	
+	public String getServidorMongoDB(){
+		return servidorMongoDB;
+	}
+
+	public int getPuertoMongoDB(){
+		return puertoMongoDB;
+	}
+	
 	public String getRutaImagenesIconosAbsoluta(){
 		return rutaImagenesIconosAbsoluta;
 	}

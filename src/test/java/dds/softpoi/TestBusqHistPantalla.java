@@ -22,12 +22,12 @@ public class TestBusqHistPantalla {
 		//agrego POIs
 		RepoPOI colPoisPrueba = new RepoPOI();
 		servidorPpal.cargarPOIs(colPoisPrueba.Dame_Bolsa_POI());
-	
+		
 		//buscamos coincidencias para COMUNA
-		juanAdmin.buscaPOI("COMUNA");
+		juanAdmin.buscaPOI("banco");
 
 		//2da busqueda
-		juanAdmin.buscaPOI("FRA");
+		//juanAdmin.buscaPOI("FRA");
 		
 		//juanAdmin.historialBusquedaPantalla("Juan",null,null);
 		

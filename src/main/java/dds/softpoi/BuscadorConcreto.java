@@ -10,6 +10,9 @@ public class BuscadorConcreto implements BuscadorAbstracto {
 		ArrayList<POI> todosLosPoi = new ArrayList<POI>();
 		todosLosPoi.addAll(unServidor.getColPOIs());
 		
+		// agregamos los pois externos de mongoDB
+		todosLosPoi.addAll(unServidor.getcolPOIsExternos());
+		
 		/*
 		 * Las siguiente lineas las comento porque tira error cuando se quiere mostrar por primefaces los datos POI
 		 * 

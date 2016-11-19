@@ -1,5 +1,7 @@
 package dds.softpoi;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,9 +14,16 @@ import java.util.Set;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+
 import dds.json.BancoDTO;
 import dds.json.CentroDTO;
+import dds.mongodb.MongoDB;
 import dds.repositorio.Repositorio;
+import javassist.CtField.Initializer;
 
 import java.security.SecureRandom;
 import java.math.BigInteger;
@@ -36,6 +45,14 @@ public class Servidor {
 	SecureRandom random = new SecureRandom();
 	Parametros parametros = new Parametros();
 	Seguridad objSeguridad = new Seguridad(this);
+	
+	MongoDB miMongo = new MongoDB();
+	
+	public Servidor(){
+		this.guardarDatosExternosEnMongo();
+		this.recuperarDatosExternosEnMongo();
+		//this.recuperarDatosExternosEnMongo(); // esto no va (borrar)
+	}
 	
 	// ***************************************************************************
 	// Setters
@@ -279,5 +296,54 @@ public class Servidor {
     	return this.histconsulta.coleccItemsHistorialBusqPantalla(unUsuario,fechaInicial,fechaFinal);
 
     }
+    
+    public void guardarDatosExternosEnMongo(){
+
+		JsonArray arrayConsulta = null;
+					
+		// Intentamos conectarnos con la fuente externa para obtener todos los POIs
+		try {
+			CentroDTO jsonCentro = new CentroDTO();  
+			arrayConsulta = jsonCentro.consultarJson(parametros.getUrlJsonCentro());
+			
+			//MongoDB miMongo = new MongoDB();
+			miMongo.crearConexion("db_pois", "pois_externos");
+			miMongo.eliminarTabla("pois_externos");
+			miMongo.insertarDato(arrayConsulta);
+			
+		} catch (Exception e) {
+			System.out.println("Se produjo un error al intentar conectar con la fuente externa de datos.");
+			e.printStackTrace();
+			return;
+		}	
+    }
+    
+    
+    
+    public void recuperarDatosExternosEnMongo(){
+		try {
+			miMongo.crearConexion("db_pois", "pois_externos");
+			CentroDTO unCentro = new CentroDTO();
+			this.colPOIsExternos.addAll(unCentro.dameDatosExternos());
+		} catch (Exception e) {
+			System.out.println("Se produjo un error al intentar conectar con la fuente externa de datos.");
+			e.printStackTrace();
+			return;
+		}	
+		
+    }
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }

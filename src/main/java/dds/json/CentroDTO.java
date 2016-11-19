@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mongodb.DBCursor;
 
+import dds.mongodb.MongoDB;
 import dds.softpoi.CGP;
 import dds.softpoi.Comuna;
 import dds.softpoi.Disponibilidad;
@@ -107,5 +109,49 @@ public class CentroDTO extends OrigenJSON {
 		return POIs;
 		
 	}
+	
+	
+	public ArrayList<POI> dameDatosExternos() {
+		
+		MongoDB miMongo = new MongoDB();
+		DBCursor cursor = miMongo.buscarDato();
+		CGP unCGP;
+		ArrayList<POI> colAux = new ArrayList<POI>(); 
+		
+		while (cursor.hasNext()){
+		
+			unCGP = new CGP();
+			
+			// Seteamos la comuna (ID, Zonas)
+			Comuna unaComuna = new Comuna();
+			
+			System.out.println("COMUNA :" + cursor.next().get("comuna").toString());
+			
+			unaComuna.setID((Integer) cursor.next().get("comuna"));
+			unaComuna.setZonas(cursor.next().get("zonas").toString());
+			unCGP.setComuna(unaComuna);
+			
+			// Seteamos el nombre de la comuna
+			unCGP.setNombre("CGP de comuna " + cursor.next().get("comuna").toString());
+			
+			// Seteamos el director
+			unCGP.setDirector(cursor.next().get("director").toString());
+			
+			// Seteamos el domicilio
+			unCGP.setCalle(cursor.next().get("domicilio").toString());
+			
+			// Seteamos el telefono
+			unCGP.setTelefono(cursor.next().get("telefono").toString());
+			
+			colAux.add(unCGP);
+		}
+		
+		return colAux;
+		
+	}
+	
+	
+	
+	
 	
 }

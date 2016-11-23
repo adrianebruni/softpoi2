@@ -96,11 +96,13 @@ public class BBDD {
 		tipopoi = unPoi.getClass().getSimpleName();
 	
 		String queryinsert;
+		int idpoi = unPoi.getIdpoi();
 		String nombre = unPoi.getNombre();
 		double latitud = unPoi.getLatitud();
 		double longitud = unPoi.getLongitud();
-		queryinsert = "INSERT INTO DDS.POI (NOMBRE, LATITUD, LONGITUD, TIPOPOI)" +
-		               "VALUES('" + nombre   + "', " + 
+		queryinsert = "INSERT INTO DDS.POI (IDPOI, NOMBRE, LATITUD, LONGITUD, TIPOPOI)" +
+		               "VALUES( " + idpoi + ", '" + 
+				                    nombre   + "', " + 
 				                    latitud +  ", " + 
 		                            longitud + ", '" +
 		                            tipopoi + "')" ;
@@ -127,9 +129,14 @@ public class BBDD {
 			while (rs.next()) {
 				proximoId = Integer.parseInt(rs.getString("IDPOI"));
 			}
-		} catch (SQLException e) {
+
+		} catch (SQLException e) { 	
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
+		} catch(NumberFormatException ex) {
+			System.out.println("Primer poi de la base");
+			proximoId = 0;
 		}
 		proximoId = proximoId + 1;
 		return proximoId;

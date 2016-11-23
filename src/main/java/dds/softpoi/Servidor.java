@@ -53,6 +53,8 @@ public class Servidor {
 	
 	public Servidor(){
 		this.colPOIs.addAll(base.obtenerTodaLaBBDD());
+		this.actualizoDesdeDatosExternos();
+		this.cargarPOIs(getcolPOIsExternos());
 //		this.guardarDatosExternosEnMongo();
 //		this.recuperarDatosExternosEnMongo();
 		//this.recuperarDatosExternosEnMongo(); // esto no va (borrar)
@@ -207,7 +209,7 @@ public class Servidor {
 	
 
 	public void actualizoDesdeDatosExternos(String cadena) {
-	
+		
 		colPOIsExternos.removeAll(colPOIsExternos);
 		ArrayList<POI> colAUX = new ArrayList<POI>();
 
@@ -237,6 +239,31 @@ public class Servidor {
 		Set<POI> datosExternosSinRepetir = new HashSet<POI>();
 		datosExternosSinRepetir.addAll(colAUX);
 		
+		colPOIsExternos.addAll(datosExternosSinRepetir);
+	}
+	
+	public void actualizoDesdeDatosExternos() {
+		
+		colPOIsExternos.removeAll(colPOIsExternos);
+		ArrayList<POI> colAUX = new ArrayList<POI>();
+
+		
+		BancoDTO bancosExternos = new BancoDTO();
+		try{
+			colAUX.addAll(bancosExternos.dameDatosExternos(parametros.getUrlJsonBanco()));
+		}catch (Exception e) {
+			//System.out.println("No se encontraron banco.nombre externos");
+		}
+		
+		CentroDTO centrosExternos = new CentroDTO();
+		
+		try{
+			colAUX.addAll(centrosExternos.dameDatosExternos(parametros.getUrlJsonCentro()));
+		}catch (Exception e) {
+			//System.out.println("No se encontraron centros externos");
+		}
+		Set<POI> datosExternosSinRepetir = new HashSet<POI>();
+		datosExternosSinRepetir.addAll(colAUX);
 		colPOIsExternos.addAll(datosExternosSinRepetir);
 	}
 	

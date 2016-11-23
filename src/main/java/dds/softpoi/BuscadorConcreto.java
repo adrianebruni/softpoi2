@@ -11,7 +11,7 @@ public class BuscadorConcreto implements BuscadorAbstracto {
 		todosLosPoi.addAll(unServidor.getColPOIs());
 		
 		// agregamos los pois externos de mongoDB
-		todosLosPoi.addAll(unServidor.getcolPOIsExternos());
+		//todosLosPoi.addAll(unServidor.getcolPOIsExternos());
 		
 		/*
 		 * Las siguiente lineas las comento porque tira error cuando se quiere mostrar por primefaces los datos POI

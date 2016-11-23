@@ -1,6 +1,5 @@
 package dds.softpoi;
 
-import static org.junit.Assert.assertEquals;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -28,6 +27,9 @@ import javassist.CtField.Initializer;
 import java.security.SecureRandom;
 import java.math.BigInteger;
 
+import java.sql.*;
+import javax.swing.JOptionPane;
+
 //@ManagedBean(name = "servidor")
 //@ApplicationScoped
 public class Servidor {
@@ -46,11 +48,13 @@ public class Servidor {
 	Parametros parametros = new Parametros();
 	Seguridad objSeguridad = new Seguridad(this);
 	
-	MongoDB miMongo = new MongoDB();
+	//MongoDB miMongo = new MongoDB();
+	BBDD base = new BBDD();
 	
 	public Servidor(){
-		this.guardarDatosExternosEnMongo();
-		this.recuperarDatosExternosEnMongo();
+		this.colPOIs.addAll(base.obtenerTodaLaBBDD());
+//		this.guardarDatosExternosEnMongo();
+//		this.recuperarDatosExternosEnMongo();
 		//this.recuperarDatosExternosEnMongo(); // esto no va (borrar)
 	}
 	
@@ -69,12 +73,17 @@ public class Servidor {
 	
 	public void cargarPOI(POI unPOI) {
 //		unPOI.setIdpoi(this.proximoIdPOI());
-		this.getRepositorio().pois().persistir(unPOI);
+//		this.getRepositorio().pois().persistir(unPOI);
+		unPOI.setIdpoi(this.proximoIdPOI());
+		this.base.persistirPOI(unPOI);
 		this.colPOIs.add(unPOI);
 	}
 	
 	public void cargarPOIs(ArrayList<POI> listaPOIs) {
-		this.colPOIs.addAll(listaPOIs);
+		for(POI unpoi : listaPOIs){
+			this.cargarPOI(unpoi);
+		}
+//		this.colPOIs.addAll(listaPOIs);
 	}
 
 	public void cargarPOIExterno(POI unPOI) {
@@ -89,6 +98,9 @@ public class Servidor {
 	// Getters
 	// ***************************************************************************
 	
+	public BBDD getBBDD(){
+		return this.base;
+	}
 	public Repositorio getRepositorio(){
 		return repositorio;
 	}
@@ -231,13 +243,14 @@ public class Servidor {
 	//ver de optimizar con la funcion sort de la coleccion
 	// despues de ordenarlo, obtenemos el maximo idpoi+1  *ver
     public int proximoIdPOI(){
-		int idaux = 1;
-		for(POI unpoi : colPOIs){
-			if( unpoi.getIdpoi() >= idaux ){
-				idaux = unpoi.getIdpoi() + 1;
-			}
-		}
-		return idaux;	
+		//int idaux = 1;
+		//for(POI unpoi : base.obtenerTodaLaBBDD()){
+		//	if( unpoi.getIdpoi() >= idaux ){
+		//		idaux = unpoi.getIdpoi() + 1;
+		//	}
+		//}
+		//return idaux;
+    	return base.obtenerProximoIdBBDD();
 	}
 
     public ArrayList<ItemReporteFecha> reportePorFecha(Usuario unUsuario){
@@ -307,9 +320,9 @@ public class Servidor {
 			arrayConsulta = jsonCentro.consultarJson(parametros.getUrlJsonCentro());
 			
 			//MongoDB miMongo = new MongoDB();
-			miMongo.crearConexion("db_pois", "pois_externos");
-			miMongo.eliminarTabla("pois_externos");
-			miMongo.insertarDato(arrayConsulta);
+			//miMongo.crearConexion("db_pois", "pois_externos");
+			//miMongo.eliminarTabla("pois_externos");
+			//miMongo.insertarDato(arrayConsulta);
 			
 		} catch (Exception e) {
 			System.out.println("Se produjo un error al intentar conectar con la fuente externa de datos.");
@@ -322,7 +335,7 @@ public class Servidor {
     
     public void recuperarDatosExternosEnMongo(){
 		try {
-			miMongo.crearConexion("db_pois", "pois_externos");
+			//miMongo.crearConexion("db_pois", "pois_externos");
 			CentroDTO unCentro = new CentroDTO();
 			this.colPOIsExternos.addAll(unCentro.dameDatosExternos());
 		} catch (Exception e) {

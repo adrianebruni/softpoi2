@@ -27,7 +27,8 @@ public class BuscadorConcreto implements BuscadorAbstracto {
 		for(POI unPoi : todosLosPoi){
 			if (unPoi.getNombre().toUpperCase().indexOf(query.toUpperCase()) > -1){
 				poiEncontrados.add(unPoi);
-			}else{
+			}
+			/*else{
 				for(Servicio unservicio : unPoi.servicios){
 					if (unservicio.getServicio().toUpperCase().indexOf(query.toUpperCase()) > -1){
 						poiEncontrados.add(unPoi);
@@ -46,7 +47,7 @@ public class BuscadorConcreto implements BuscadorAbstracto {
 					
 				}
 					
-			}
+			}*/
 				
 		}
 		return poiEncontrados;

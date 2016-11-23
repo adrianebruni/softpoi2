@@ -13,6 +13,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import dds.repositorio.Repositorio;
+import dds.softpoi.Administrador;
 import dds.softpoi.Banco;
 import dds.softpoi.CGP;
 import dds.softpoi.Comercio;
@@ -128,12 +129,12 @@ public class VistaABMPoi extends VistaPadre implements Serializable {
 
 		// Configuracion de persistencia
 		
-		final String PERSISTENCE_UNIT_NAME = "DDS";
-		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		Repositorio unRepositorio;
+//		final String PERSISTENCE_UNIT_NAME = "DDS";
+//		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+//		Repositorio unRepositorio;
 		//emFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		unRepositorio = new Repositorio(emFactory.createEntityManager());
-		super.getServidor().setRepositorio(unRepositorio);
+//		unRepositorio = new Repositorio(emFactory.createEntityManager());
+//		super.getServidor().setRepositorio(unRepositorio);
 		
 		POI unPOI = null;
 		switch (this.tipoPOI){		
@@ -156,9 +157,9 @@ public class VistaABMPoi extends VistaPadre implements Serializable {
 		unPOI.setNombre(this.nombre);
 		unPOI.setLongitud(this.longitud);
 		unPOI.setLatitud(this.latitud);
-		
+		((Administrador) super.getUnUsuarioLogueado()).cargarPOI(unPOI);
 		System.out.println("inicia persitencia");
-		super.getServidor().cargarPOI(unPOI);
+		//super.getServidor().cargarPOI(unPOI);
 		System.out.println("fin");
 	}
 	
@@ -189,7 +190,7 @@ public class VistaABMPoi extends VistaPadre implements Serializable {
 	}	
 	
 	public void eliminarPOI(){
-		// 
+		//((Administrador) super.getUnUsuarioLogueado()).eliminarPOI(unPOI);
 	}
 	
 	public void tipoPoiSeleccionado(){

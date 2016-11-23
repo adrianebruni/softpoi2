@@ -35,9 +35,9 @@ public abstract class VistaPadre implements Serializable {
     	Administrador unAdmin = new Administrador();
     	
     	//colBusqueda = new ArrayList<String>();
-    	RepoPOI colPoisPrueba = new RepoPOI();
+//    	RepoPOI colPoisPrueba = new RepoPOI();
     	
-    	unServidor.cargarPOIs(colPoisPrueba.Dame_Bolsa_POI());
+//    	unServidor.cargarPOIs(colPoisPrueba.Dame_Bolsa_POI());
     	
 		// Crear Administrador
 		unAdmin.setNombre("root");

@@ -175,7 +175,8 @@ public class Servidor {
 				colPOIs.remove(unpoi);
 				break;
 			}
-		}		
+		}
+		base.eliminarPOI(idpoi);
 	}	
 	
 	public void modificarPOI(POI poimodificado) throws IllegalArgumentException, IllegalAccessException {

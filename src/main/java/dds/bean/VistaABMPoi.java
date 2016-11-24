@@ -209,8 +209,8 @@ public class VistaABMPoi extends VistaPadre implements Serializable {
 	}	
 	
 	public void eliminarPOI(String IDPOI){
-		//((Administrador) super.getUnUsuarioLogueado()).eliminarPOI(IDPOI);
-		System.out.println("valor: " + IDPOI);
+		((Administrador) super.getUnUsuarioLogueado()).eliminarPOI(Integer.parseInt(IDPOI.substring(1, IDPOI.length()-1)));
+		System.out.println("valor: " + Integer.parseInt(IDPOI.substring(1, IDPOI.length()-1)));
 	}
 	
 	public void tipoPoiSeleccionado(){

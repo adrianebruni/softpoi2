@@ -44,6 +44,10 @@ public class Administrador extends Usuario{
 		
 	}	
 	
+	public void eliminarPOI(int idPoi){
+		super.getServidor().eliminarPOI(idPoi);
+		
+	}	
 	public void actualizarLocalesComerciales(String rutaArchivo){
 		try {
 			super.getServidor().actualizarLocalesComerciales(rutaArchivo);

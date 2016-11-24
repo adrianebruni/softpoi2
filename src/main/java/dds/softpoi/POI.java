@@ -9,8 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 //import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+//import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+
 
 @Entity
 @Table(name = "POI")
@@ -21,7 +23,8 @@ import javax.persistence.Table;
 	@NamedQuery(name = "buscarPOIPorNombreExacto", query = "SELECT p FROM POI p WHERE p.nombre LIKE :pnombre")	
 })
 */
-@NamedQuery(name = "buscarPOIPorNombre", query = "SELECT p FROM POI p WHERE p.nombre LIKE :pnombre")
+//@NamedQuery(name = "buscarPOIPorNombre", query = "SELECT p FROM POI p WHERE p.nombre LIKE :pnombre")
+
 public abstract class POI {
 
 	@Id

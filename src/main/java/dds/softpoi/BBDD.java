@@ -117,6 +117,25 @@ public class BBDD {
 		
 	}
 	
+	public void eliminarPOI(int idPoi){
+		if (this.getConexion() == null){
+			this.crearConexionBBDD();
+		}
+		String querydelete;
+	
+		querydelete = "DELETE FROM DDS.POI WHERE IDPOI = " + idPoi;
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			stmt.executeUpdate(querydelete);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+	}
+	
+	
 	public int obtenerProximoIdBBDD(){
 		int proximoId=0;
 		if (this.getConexion() == null){

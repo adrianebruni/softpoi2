@@ -16,6 +16,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 
 import dds.mongodb.MongoDB;
+import dds.mongodb.MongoDBConnection;
 
 import java.util.HashSet;
 
@@ -41,27 +42,28 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		ArrayList<POI> poisEncontrados =  unTimer.consultar(query, unUsuario.getServidor(), unUsuario);
 		ElementoDeConsulta unaConsulta = new ElementoDeConsulta(new Date(), query, unTimer.duracionConsulta(), unUsuario.getNombre() , poisEncontrados.size(), poisEncontrados);
 		elementosDeConsulta.add(unaConsulta);
+		MongoDBConnection.persistirElementoDeConsulta(unaConsulta);
 		
-		try {
-			// Insertamos en la base de datos (MySQL)
-			unUsuario.getServidor().getRepositorio().elementosDeConsulta().persistir(unaConsulta);
-		} catch (Exception e) {
-			System.out.println("Error al persistir el ElementoDeConsulta");
-		}
+		//try {
+		//	// Insertamos en la base de datos (MySQL)
+		//	unUsuario.getServidor().getRepositorio().elementosDeConsulta().persistir(unaConsulta);
+		//} catch (Exception e) {
+		//	System.out.println("Error al persistir el ElementoDeConsulta");
+		//}
 		
-		try {
-			// Insertamos en la base de datos (MongoDB)
-			MongoDB miMongo = new MongoDB();
-			miMongo.crearConexion("db_pois", "pois_consultas");
-			miMongo.insertarDato(unaConsulta);
-			
-			// Buscamos un valor insertado
-			miMongo.buscarDato("consultaUsuario", "banco");
-			
-			
-		} catch (Exception e) {
-			System.out.println("Error al insertar el ElementoDeConsulta");
-		}
+		//try {
+		//	// Insertamos en la base de datos (MongoDB)
+		//	MongoDB miMongo = new MongoDB();
+		//	miMongo.crearConexion("db_pois", "pois_consultas");
+		//	miMongo.insertarDato(unaConsulta);
+		//	
+		//	// Buscamos un valor insertado
+		//	miMongo.buscarDato("consultaUsuario", "banco");
+		//	
+		//	
+		//} catch (Exception e) {
+		//	System.out.println("Error al insertar el ElementoDeConsulta");
+		//}
 		
 		
 			

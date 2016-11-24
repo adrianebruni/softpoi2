@@ -32,13 +32,13 @@
 			            
 			            
 			            <h:panelGroup rendered="#{bnVistaABMPoi.tipoPOI == 'Banco'}">
-			            	<p:outputLabel value="#{bnVistaABMPoi.datoPOILabel} - 1" />
-			            	<p:inputText value="#{bnVistaABMPoi.datoPOIText} - 2"  />
+			            	<p:outputLabel value="#{bnVistaABMPoi.datoPOILabel}" />
+			            	<p:inputText value="#{bnVistaABMPoi.datoPOIText}"  />
 			            </h:panelGroup>
 			            
 			            <h:panelGroup rendered="#{bnVistaABMPoi.tipoPOI == 'CGP'}">
-			            	<p:outputLabel value="#{bnVistaABMPoi.datoPOILabel} - x" />
-			            	<p:inputText value="#{bnVistaABMPoi.datoPOIText} - y"  />
+			            	<p:outputLabel value="#{bnVistaABMPoi.datoPOILabel}" />
+			            	<p:inputText value="#{bnVistaABMPoi.datoPOIText}"  />
 			            </h:panelGroup>
 			            		            
 			            <p:commandButton value="Agregar" actionListener="#{bnVistaABMPoi.insertarPOI}" >
@@ -56,7 +56,7 @@
 			</h:form>
 							
 			<h:form id="formBAJAMOD">
-				<p:panel header="POIs" style="margin-bottom:10px;">
+				<p:panel id="panelBAJAMOD" header="POIs" style="margin-bottom:10px;">
 					<p:dataTable var="unPOI" value="#{bnVistaABMPoi.listapois}">
 						
 						<p:column headerText="Id">
@@ -73,8 +73,8 @@
 	
 						<p:column headerText="Acción">
 							<p:splitButton value="Acción" icon="ui-icon-disk">
-								<p:menuitem value="Editar" actionListener="#{bnVistaABMPoi.editarPOI}" icon="ui-icon-arrowrefresh-1-w" />
-								<p:menuitem value="Eliminar" actionListener="#{bnVistaABMPoi.eliminarPOI}" ajax="false"	icon="ui-icon-close" />
+								<p:menuitem value="Editar" actionListener="#{bnVistaABMPoi.editarPOI({unPOI.idpoi})}" icon="ui-icon-arrowrefresh-1-w" />
+								<p:menuitem value="Eliminar" action="#{bnVistaABMPoi.eliminarPOI({unPOI.idpoi})}" update=":formBAJAMOD:panelBAJAMOD" icon="ui-icon-close" />
 							</p:splitButton>
 						</p:column>
 						

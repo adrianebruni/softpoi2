@@ -8,9 +8,12 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+
+import org.primefaces.context.RequestContext;
 
 import dds.repositorio.Repositorio;
 import dds.softpoi.Administrador;
@@ -22,6 +25,7 @@ import dds.softpoi.ParadaColectivo;
 
 @ManagedBean(name="bnVistaABMPoi")
 @ViewScoped
+//@SessionScoped
 public class VistaABMPoi extends VistaPadre implements Serializable {
 
 	private static final long serialVersionUID = -4368748875565642695L;
@@ -185,12 +189,28 @@ public class VistaABMPoi extends VistaPadre implements Serializable {
 		return colPOI;
 	}
 	
-	public void editarPOI(){
-		// 
+	public void editarPOI(String IDPOI){
+		
+		
+		// Indicamos las opciones de configuracion de la ventana de dialogo
+		Map<String,Object> opciones = new HashMap<String, Object>();
+		opciones.put("resizable", false);
+		
+		// Indicamos los parametros que se encian por URL
+		List<String> paramList = new ArrayList<String>();
+		paramList.add(IDPOI);
+				
+		Map<String, List<String>> parametros = new HashMap<String, List<String>>();
+		parametros.put("IDPOI", paramList);
+		
+		RequestContext.getCurrentInstance().openDialog("modificarPOI", opciones, parametros);
+		
+		
 	}	
 	
-	public void eliminarPOI(){
-		//((Administrador) super.getUnUsuarioLogueado()).eliminarPOI(unPOI);
+	public void eliminarPOI(String IDPOI){
+		//((Administrador) super.getUnUsuarioLogueado()).eliminarPOI(IDPOI);
+		System.out.println("valor: " + IDPOI);
 	}
 	
 	public void tipoPoiSeleccionado(){

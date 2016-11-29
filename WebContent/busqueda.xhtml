@@ -33,6 +33,8 @@
 							<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 						</p:confirmDialog>
 						
+						<p:commandButton id="cmb2" value="Buscar" update=":formBusqueda:mostrarBusqueda" />
+						
 				</h:panelGrid>
 				</p:panel>
 			</h:form>		
@@ -41,7 +43,7 @@
 			
 			<h:form id="formBusqueda">
 				
-				<p:commandButton id="cmb2" value="Buscar" update=":formBusqueda:mostrarBusqueda" />
+				
 				<p:dataTable id="mostrarBusqueda" var="unPOI" value="#{bnVistaBusqueda.poisEncontrados}" type="ordered">
 					
 					<f:facet name="header">POIs Encontrados</f:facet>

@@ -1,11 +1,45 @@
 package dds.softpoi;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import com.mongodb.DBCursor;
+
+import dds.bbdd.DBMySQL;
+import dds.mongodb.MongoDB;
 
 public class BuscadorConcreto implements BuscadorAbstracto {
-
+	
+	private static Parametros objParam = new Parametros();
 	
 	public ArrayList<POI> consultar(String query, Servidor unServidor){
+		
+		Set<POI> auxPOIs = new HashSet<POI>();
+		//ArrayList<POI> colAux = null;
+		
+	
+		// Buscamos en MySQL
+		DBMySQL objBBDD = new DBMySQL();
+		objBBDD.getConexion();
+		auxPOIs.addAll(objBBDD.buscarPOIs("nombre", query, false));
+		
+		
+		// Buscamos en MongoDB
+		MongoDB objMongo = new MongoDB();
+		DBCursor cursor;
+		objMongo.crearConexion(objParam.getBaseMongoDB(), objParam.getTablaMongoPOIsExternos());
+		cursor = objMongo.buscarDato("nombre", query, false);
+		
+		System.out.println("Hay que ver como pasar de objMongo a POI (con morphia)");			
+		while(cursor.hasNext()){
+			System.out.println(cursor.next());			
+		}
+		
+		return null;
+	}
+	
+	
+	public ArrayList<POI> consultar2(String query, Servidor unServidor){
 		ArrayList<POI> poiEncontrados = new ArrayList<POI>();
 		ArrayList<POI> todosLosPoi = new ArrayList<POI>();
 		todosLosPoi.addAll(unServidor.getColPOIs());

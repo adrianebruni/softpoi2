@@ -1,6 +1,5 @@
 package dds.softpoi;
 
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -10,28 +9,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-
+import dds.bbdd.DBMySQL;
 import dds.json.BancoDTO;
 import dds.json.CentroDTO;
 import dds.mongodb.MongoDB;
 import dds.repositorio.Repositorio;
-import javassist.CtField.Initializer;
-
 import java.security.SecureRandom;
 import java.math.BigInteger;
 
-import java.sql.*;
-import javax.swing.JOptionPane;
-
-//@ManagedBean(name = "servidor")
-//@ApplicationScoped
 public class Servidor {
 	
 	public ArrayList<POI> colPOIs = new ArrayList<POI>();
@@ -49,15 +34,20 @@ public class Servidor {
 	Seguridad objSeguridad = new Seguridad(this);
 	
 	//MongoDB miMongo = new MongoDB();
-	BBDD base = new BBDD();
+	DBMySQL base = new DBMySQL();
 	
 	public Servidor(){
 		this.colPOIs.addAll(base.obtenerTodaLaBBDD());
-		this.actualizoDesdeDatosExternos();
-		this.cargarPOIs(getcolPOIsExternos());
-//		this.guardarDatosExternosEnMongo();
-//		this.recuperarDatosExternosEnMongo();
-		//this.recuperarDatosExternosEnMongo(); // esto no va (borrar)
+		
+		// Codigo utilizado por Alex.
+		//this.actualizoDesdeDatosExternos();
+		//this.cargarPOIs(getcolPOIsExternos());
+		
+		// Si la coleccion de PoisExternos no esta instanciada, descargamos todo del REST a MongoDB
+		if (colPOIsExternos.size() == 0){
+			this.guardarDatosExternosEnMongo();
+		}
+		
 	}
 	
 	// ***************************************************************************
@@ -100,7 +90,7 @@ public class Servidor {
 	// Getters
 	// ***************************************************************************
 	
-	public BBDD getBBDD(){
+	public DBMySQL getBBDD(){
 		return this.base;
 	}
 	public Repositorio getRepositorio(){
@@ -248,21 +238,20 @@ public class Servidor {
 		colPOIsExternos.removeAll(colPOIsExternos);
 		ArrayList<POI> colAUX = new ArrayList<POI>();
 
-		
-		BancoDTO bancosExternos = new BancoDTO();
 		try{
+			BancoDTO bancosExternos = new BancoDTO();
 			colAUX.addAll(bancosExternos.dameDatosExternos(parametros.getUrlJsonBanco()));
 		}catch (Exception e) {
-			//System.out.println("No se encontraron banco.nombre externos");
-		}
-		
-		CentroDTO centrosExternos = new CentroDTO();
+			System.out.println("ERROR: No se pudieron obtener los datos 'BANCOS' desde las fuentes externas (REST)");
+		}	
 		
 		try{
+			CentroDTO centrosExternos = new CentroDTO();
 			colAUX.addAll(centrosExternos.dameDatosExternos(parametros.getUrlJsonCentro()));
 		}catch (Exception e) {
-			//System.out.println("No se encontraron centros externos");
+			System.out.println("ERROR: No se pudieron obtener los datos 'CENTRO' desde las fuentes externas (REST)");
 		}
+		
 		Set<POI> datosExternosSinRepetir = new HashSet<POI>();
 		datosExternosSinRepetir.addAll(colAUX);
 		colPOIsExternos.addAll(datosExternosSinRepetir);
@@ -338,53 +327,38 @@ public class Servidor {
 
     }
     
+    // Se conecta a las fuentes externas (REST) y guarda todo en MongoDB
     public void guardarDatosExternosEnMongo(){
-
-		JsonArray arrayConsulta = null;
-					
-		// Intentamos conectarnos con la fuente externa para obtener todos los POIs
+    	
 		try {
-			CentroDTO jsonCentro = new CentroDTO();  
-			arrayConsulta = jsonCentro.consultarJson(parametros.getUrlJsonCentro());
+			// Connectamos con MongoDB  
+			MongoDB myMongo = new MongoDB();
+			myMongo.crearConexion(parametros.getBaseMongoDB(), parametros.getTablaMongoPOIsExternos());
 			
-			//MongoDB miMongo = new MongoDB();
-			//miMongo.crearConexion("db_pois", "pois_externos");
-			//miMongo.eliminarTabla("pois_externos");
-			//miMongo.insertarDato(arrayConsulta);
+			// Guardo los datos del webservices, en la coleccion de pois externos de la clase servidor
+			actualizoDesdeDatosExternos();
 			
-		} catch (Exception e) {
-			System.out.println("Se produjo un error al intentar conectar con la fuente externa de datos.");
+			// Eliminamos todos los registros de mongo para insertar los nuevos
+			myMongo.eliminarTabla(parametros.getTablaMongoPOIsExternos());
+						
+			for(POI unPOI : colPOIsExternos){
+				try {	
+					myMongo.insertarDato(unPOI);
+				}catch (Exception e) {
+					System.out.println("Se produjo un error al intentar insertar los datos en MongoDB.");
+					e.printStackTrace();
+				}
+			}
+			
+			myMongo.cerrarConexion();
+			
+			//System.out.println("Conexion cerrada");
+			
+		}catch (Exception e) {
+			System.out.println("Se produjo un error al intentar conectar con MongoDB.");
 			e.printStackTrace();
 			return;
 		}	
     }
-    
-    
-    
-    public void recuperarDatosExternosEnMongo(){
-		try {
-			//miMongo.crearConexion("db_pois", "pois_externos");
-			CentroDTO unCentro = new CentroDTO();
-			this.colPOIsExternos.addAll(unCentro.dameDatosExternos());
-		} catch (Exception e) {
-			System.out.println("Se produjo un error al intentar conectar con la fuente externa de datos.");
-			e.printStackTrace();
-			return;
-		}	
-		
-    }
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 }

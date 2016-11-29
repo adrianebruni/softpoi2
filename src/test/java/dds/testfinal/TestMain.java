@@ -1,7 +1,6 @@
 package dds.testfinal;
 
 import dds.softpoi.Administrador;
-import dds.softpoi.RepoPOI;
 import dds.softpoi.Servidor;
 
 public class TestMain {

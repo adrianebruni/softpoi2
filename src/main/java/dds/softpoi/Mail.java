@@ -13,9 +13,9 @@ import javax.mail.internet.MimeMessage;
 
 public class Mail {
 
-	static Properties mailServerProperties;
-	static Session getMailSession;
-	static MimeMessage generateMailMessage;
+	private Properties mailServerProperties;
+	private Session getMailSession;
+	private MimeMessage generateMailMessage;
 	
 	private String emailCuenta;
 	private String emailClave;
@@ -75,7 +75,11 @@ public class Mail {
 			if ( (emailCuenta == "") || (emailClave == "")){
 				System.out.println("1er PASO ===> Configurando las propiedades del servidor de correo.. Falta configurar cuenta de email y clave!");
 			}else{
-			
+				
+				System.out.println("Simulamos que el envio de correo se realizo correctamente");
+				System.out.println("Para que funcione realmente, hay que descomentar las lineas de abajo --> Mail.java | enviarMail()");
+				
+				/*
 				mailServerProperties = System.getProperties();
 				mailServerProperties.put("mail.smtp.port", this.emailPuerto);
 				mailServerProperties.put("mail.smtp.auth", this.emailAutenticacion);
@@ -112,6 +116,8 @@ public class Mail {
 				transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
 				transport.close();
 				//System.out.println("4to PASO ===> Enviando Correo.. OK!");
+				 
+				 */
 			}
 		}catch (Exception e) {
 			System.out.println("falló mail");

@@ -2,15 +2,10 @@ package test;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
 import dds.repositorio.Repositorio;
 import dds.softpoi.Banco;
-import dds.softpoi.CGP;
-import dds.softpoi.Comercio;
-import dds.softpoi.Comuna;
 import dds.softpoi.POI;
 import dds.softpoi.ParadaColectivo;
-import dds.softpoi.Rubro;
 
 public class otrotest {
 

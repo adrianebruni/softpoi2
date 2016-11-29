@@ -1,7 +1,5 @@
 package dds.softpoi;
 
-import static org.junit.Assert.assertEquals;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,12 +8,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-
-import dds.mongodb.MongoDB;
 import dds.mongodb.MongoDBConnection;
 
 import java.util.HashSet;

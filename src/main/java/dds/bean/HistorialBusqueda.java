@@ -14,6 +14,8 @@ import dds.softpoi.POI;
 @RequestScoped
 public class HistorialBusqueda extends VistaPadre {
 	
+	//private static final long serialVersionUID = -1058309824881699645L;
+	
 	private String usuario;
 	private String fechaDesde;
 	private String fechaHasta;

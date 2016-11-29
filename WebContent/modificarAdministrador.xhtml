@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<style type="text/css" >
+			.ui-wiget {
+				font-size: 90%;
+			}
+		</style>
+	</h:head>
+	
+	<h:body>
+		<i id="customheader" class="fa fa-fw fa-car" style="display:none" ></i>
+		<h:form id="formModAdmin">
+			<p:panel id="panel" header="#{bnVistaMSGDialog.administrador}" style="margin-bottom:10px;">
+				<h:panelGrid columns="2" cellpadding="2">
+							
+					<p:outputLabel value="ID" />
+					<p:outputLabel id="vid_usuario" value="#{bnVistaMSGDialog.id}" />
+					
+					<p:outputLabel value="Nombre" />
+					<p:inputText id="vnombre" value="#{bnVistaMSGDialog.nombreAdmin}" />
+					
+					<p:outputLabel value="Clave" />
+					<p:inputText id="vclave" value="#{bnVistaMSGDialog.claveAdmin}" />
+					
+					<p:outputLabel value="Email" />
+					<p:inputText id="vemail" value="#{bnVistaMSGDialog.emailAdmin}" />
+		
+					<p:outputLabel value="Notificaciones" />
+					<p:selectBooleanCheckbox id="vflagnotificaciones" value="#{bnVistaMSGDialog.flagNotificacionesAdmin}"/>
+					
+					<p:outputLabel value="Auditoria Busqueda" />
+					<p:selectBooleanCheckbox id="vflagauditoriabusqueda" value="#{bnVistaMSGDialog.flagAuditoriaBusquedaAdmin}"/>
+					
+				</h:panelGrid>
+				
+				<p:commandButton value="Aceptar" actionListener="#{bnVistaMSGDialog.actualizarAdmin}" />
+				<p:commandButton value="Cancelar" actionListener="#{bnVistaMSGDialog.cerrarVentana}" />
+							
+			</p:panel>
+		</h:form>
+	</h:body>
+		
+</html>

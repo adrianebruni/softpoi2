@@ -29,11 +29,11 @@
 			<h:form id="form">
 				<p:panel id="panel" header="Cadena de Busqueda" style="margin-bottom:10px;">
 					<h:panelGrid columns="2" cellpadding="2">
+												
 						<p:inputText id="criterios" value="#{bnVistaBusqueda.textCriterio}"  />
 						
 						<p:commandButton value="Agregar" update="mostrarCriterios" >
 						    <p:confirm header="Confirmacion" message="¿Desea agregar el criterio de búsqueda?" icon="ui-icon-alert" />
-						    
 						</p:commandButton>
 
 						<p:dataList id="mostrarCriterios" value="#{bnVistaBusqueda.criterios}" var="unCriterio" type="ordered" >
@@ -46,16 +46,21 @@
 							<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 						</p:confirmDialog>
 						
-				</h:panelGrid>
+						<p:commandButton id="cmb2" value="Buscar" update=":formBusqueda:mostrarBusqueda" />
+						
+					</h:panelGrid>
 				</p:panel>
 			</h:form>		
+			
+			<br/><br/>
+
 			
 			<br/><br/>
 			
 			<h:form id="formBusqueda">
 				
-				<p:commandButton id="cmb2" value="Buscar" update=":formBusqueda:mostrarBusqueda" />
-				<p:dataTable id="mostrarBusqueda" var="unPOI" value="#{bnVistaBusqueda.poisEncontrados}" type="ordered">
+				
+				<p:dataTable id="mostrarBusqueda" var="unPOI" value="#{bnVistaBusqueda.poisEncontrados}">
 					
 					<f:facet name="header">POIs Encontrados</f:facet>
 					

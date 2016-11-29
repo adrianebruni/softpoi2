@@ -7,18 +7,16 @@ import java.util.List;
 import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import dds.softpoi.POI;
 
+//@SuppressWarnings("serial")
 @ManagedBean(name="bnVistaBusqueda")
 @ViewScoped
-//@RequestScoped
 public class VistaBusqueda extends VistaPadre implements Serializable {
 
 	private static final long serialVersionUID = 6149074039987251332L;
-	
-	private List<String> colCriteriosBusqueda = new ArrayList<String>();
+	private Set<String> colCriteriosBusqueda = new HashSet<String>();
 	private Set<POI> POIs;
 	private POI POISeleccionado;
 	
@@ -49,7 +47,7 @@ public class VistaBusqueda extends VistaPadre implements Serializable {
 	// ***************************************************************************
     
     public void setTextCriterio(String textCriterio){
-    	if (!textCriterio.isEmpty() && !textCriterio.trim().isEmpty()){
+    	if (!textCriterio.trim().isEmpty()){
     		colCriteriosBusqueda.add(textCriterio);
     	}
     }
@@ -70,8 +68,19 @@ public class VistaBusqueda extends VistaPadre implements Serializable {
     	return "";
     }
     
-    public List<String> getCriterios(){
-    	return colCriteriosBusqueda;
+	public List<String> getCriterios(){
+    	if (colCriteriosBusqueda.size() == 0){
+    		return null;
+    	}
+    	
+    	List<String> lstAux = new ArrayList<String>();
+    	try {
+        	lstAux.addAll(colCriteriosBusqueda);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+    	return lstAux;
     }
     
     public POI getPOISeleccionado() {
@@ -84,11 +93,18 @@ public class VistaBusqueda extends VistaPadre implements Serializable {
         
     //@SuppressWarnings("unchecked")
 	public Set<POI> getPoisEncontrados() {
+		
+		Set<POI> auxPOIs = new HashSet<POI>(); 
+		
+		if ( (colCriteriosBusqueda == null) || (colCriteriosBusqueda.isEmpty()) ) {
+			System.out.println("Debug: Primer proceso");
+			return auxPOIs;
+		}
+					
 		// Obtenemos los parametros enviados desde el bean VistaLogin    	
     	super.setServidor(bnVistaLogin.getServidor());
     	super.setUnUsuarioLogueado(bnVistaLogin.getUnUsuarioLogueado());    	
-    	Set<POI> auxPOIs = new HashSet<POI>();    	
-    	
+    	   	   	
     	// aca tiene que recorrer la coleccion colBusqueda y por cada uno de ellos buscar poi segun el criterio de busqueda.
     	for(String unCriterio : colCriteriosBusqueda){    		
     		// el resultado de cada busqueda se debe almacenar en una coleccion sin repetidos
@@ -97,11 +113,12 @@ public class VistaBusqueda extends VistaPadre implements Serializable {
     	
     	// Cargamos la variable privada de la clase con los POIs sin repetidos
     	POIs = auxPOIs;
-
+    	
     	// Retornamos los la coleccion de POIs (sin repetidos) para mostrarlos por pantalla
 		return POIs;
     	
     }
+	
 
     public List<String> getInfoPOI(){
     	return POISeleccionado.getInfo();	

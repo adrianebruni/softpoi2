@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14769179892380" configfile="/softpoi2/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="216" y="216" id="pf14769213898950" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" outlinks="pf14769213898961 pf14771745482922" inlinks="pf14772877892701" path="/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="principal.xhtml" x="384" y="331" id="pf14769213898962" referenceLink="//@navigationRule.6/@fromViewId|" outlinks="pf14769463830885 pf14770046446640 pf14771508358740 pf14790649837040" inlinks="pf14769213898961" path="/principal.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="busqueda.xhtml" x="672" y="300" id="pf14769223695014" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf14769463830885" path="/busqueda.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="AccAnteBusqueda.xhtml" x="648" y="432" id="pf14770046446651" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf14770046446640" path="/AccAnteBusqueda.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="historialBusqueda.xhtml" x="516" y="528" id="pf14771508358751" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf14771508358740" path="/historialBusqueda.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="busquedaUsuario.xhtml" x="564" y="48" id="pf14771771994365" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf14771745482922" path="/busquedaUsuario.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="24" y="216" id="pf14772855705280" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf14772877892701" path="/index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="ABMPoi.xhtml" x="628" y="180" id="pf14790649837041" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" inlinks="pf14790649837040" path="/ABMPoi.xhtml"/>
-  <links id="pf14769213898961" target="pf14769213898962" source="pf14769213898950" outcome="admin"/>
-  <links id="pf14769463830885" target="pf14769223695014" source="pf14769213898962" outcome="buscar"/>
-  <links id="pf14770046446640" target="pf14770046446651" source="pf14769213898962" outcome="accionBusqueda"/>
-  <links id="pf14771508358740" target="pf14771508358751" source="pf14769213898962" outcome="historico"/>
-  <links id="pf14771745482922" target="pf14771771994365" source="pf14769213898950" outcome="user"/>
-  <links id="pf14772877892701" target="pf14769213898950" source="pf14772855705280" redirect="true"/>
-  <links id="pf14790649837040" target="pf14790649837041" source="pf14769213898962" outcome="abmPoi"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" id="pf14803555659760" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" outlinks="pf14803555659771 pf14803555659772" inlinks="pf14803555659773" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="principal.xhtml" id="pf14803555659774" referenceLink="//@navigationRule.6/@fromViewId|" outlinks="pf14803555659775 pf14803555659776 pf14803555659777 pf14803555659778" inlinks="pf14803555659771" path="/principal.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="AccAnteBusqueda.xhtml" id="pf14803555659779" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf14803555659775" path="/AccAnteBusqueda.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="busqueda.xhtml" id="pf148035556597810" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf14803555659776" path="/busqueda.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="historialBusqueda.xhtml" id="pf148035556597811" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf14803555659777" path="/historialBusqueda.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="busquedaUsuario.xhtml" id="pf148035556597812" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf14803555659772" path="/busquedaUsuario.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" id="pf148035556597813" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf14803555659773" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="ABMPoi.xhtml" id="pf148035556597814" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" inlinks="pf14803555659778" path="/ABMPoi.xhtml"/>
+  <links id="pf14803555659771" target="pf14803555659774" source="pf14803555659760" outcome="admin"/>
+  <links id="pf14803555659775" target="pf14803555659779" source="pf14803555659774" outcome="accionBusqueda"/>
+  <links id="pf14803555659776" target="pf148035556597810" source="pf14803555659774" outcome="buscar"/>
+  <links id="pf14803555659777" target="pf148035556597811" source="pf14803555659774" outcome="historico"/>
+  <links id="pf14803555659772" target="pf148035556597812" source="pf14803555659760" outcome="user"/>
+  <links id="pf14803555659773" target="pf14803555659760" source="pf148035556597813" redirect="true"/>
+  <links id="pf14803555659778" target="pf148035556597814" source="pf14803555659774" outcome="abmPoi"/>
 </pageflow:Pageflow>

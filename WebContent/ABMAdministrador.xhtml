@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:composition template="/WEB-INF/template/BasicTemplate.xhtml">
+		<ui:define name="content">
+	
+			<h:form id="formALTA"> 
+				<p:panel id="panel" header="Administrador" style="margin-bottom:10px;">
+					<h:panelGrid columns="2" cellpadding="2">
+						
+						<p:outputLabel value="Nombre: "  />
+						<p:inputText id="nombre" value="#{bnVistaABMUsuario.nombre}"/>
+						
+						<p:outputLabel value="Clave: "  />
+						<p:inputText id="clave" value="#{bnVistaABMUsuario.clave}"/>
+						
+						<p:outputLabel value="E-Mail: "  />
+						<p:inputText id="mail" value="#{bnVistaABMUsuario.email}"/>
+						
+						<p:outputLabel value="Notificaciones"  />
+						<p:selectBooleanCheckbox value="#{bnVistaABMUsuario.notificaciones}"/>
+						
+						<p:outputLabel value="Auditoria Busqueda"  />
+						<p:selectBooleanCheckbox value="#{bnVistaABMUsuario.auditoriaBusqueda}"/>
+						
+						<p:commandButton value="Grabar" actionListener="#{bnVistaABMUsuario.altaAdministrador}">
+							<p:confirm header="Confirmacion" message="¿Desea ingresar el nuevo Administrador?" icon="ui-icon-alert" />
+						</p:commandButton>
+						
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Sí" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+										
+					</h:panelGrid>
+				</p:panel>
+			</h:form>		
+
+		
+			<h:form id="formBAJAMOD">
+				<p:panel id="panelAdmin" header="Administradores" style="margin-bottom:10px;">
+					<p:dataTable var="unAdmin" value="#{bnVistaABMUsuario.administradores}">	
+						
+						<p:column headerText="Id">
+							<h:outputText value="#{unAdmin.id_usuario}" />
+						</p:column>
+			
+						<p:column headerText="Nombre">
+							<h:outputText value="#{unAdmin.nombre}" />
+						</p:column>
+			
+						<p:column headerText="E-Mail">
+							<h:outputText value="#{unAdmin.email}" />
+						</p:column> 
+			
+						<p:column headerText="Acción">
+							<p:splitButton value="Acción"  icon="ui-icon-disk">
+								<p:menuitem value="Editar" icon="ui-icon-arrowrefresh-1-w" actionListener="#{bnVistaABMUsuario.editarAdministrador(unAdmin.id_usuario)}" />
+								<p:menuitem value="Eliminar" icon="ui-icon-close" actionListener="#{bnVistaABMUsuario.eliminarAdministrador(unAdmin.id_usuario)}" ajax="true" update=":formBAJAMOD:panelAdmin" />
+							</p:splitButton>
+						</p:column>
+						
+					</p:dataTable>
+				</p:panel>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+
+</html>

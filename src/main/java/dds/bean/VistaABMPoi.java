@@ -1,21 +1,14 @@
 package dds.bean;
 
-import java.io.Serializable;
+//import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import org.primefaces.context.RequestContext;
-
-import dds.repositorio.Repositorio;
 import dds.softpoi.Administrador;
 import dds.softpoi.Banco;
 import dds.softpoi.CGP;
@@ -23,20 +16,20 @@ import dds.softpoi.Comercio;
 import dds.softpoi.POI;
 import dds.softpoi.ParadaColectivo;
 
+//@SuppressWarnings("serial")
 @ManagedBean(name="bnVistaABMPoi")
 @ViewScoped
-//@SessionScoped
-public class VistaABMPoi extends VistaPadre implements Serializable {
+public class VistaABMPoi extends VistaPadre {
 
-	private static final long serialVersionUID = -4368748875565642695L;
+	//private static final long serialVersionUID = -4368748875565642695L;
 	private String nombre;
-	private Long latitud;
-	private Long longitud;
+	private Double latitud;
+	private Double longitud;
 	private String tipoPOI;
+	
 	private Map<String, String> tipoPOIs = null;
 
-	private String datoPOIText;
-	private String datoPOILabel;
+	private POI POISeleccionado;
 	
 	
 	@ManagedProperty("#{bnVistaLogin}")
@@ -66,24 +59,20 @@ public class VistaABMPoi extends VistaPadre implements Serializable {
 		this.nombre = nombre;
 	}
 	
-	public void setLatitud(Long latitud) {
+	public void setLatitud(Double latitud) {
 		this.latitud = latitud;
 	}
 	
-	public void setLongitud(Long longitud) {
+	public void setLongitud(Double longitud) {
 		this.longitud = longitud;
 	}
 	
 	public void setTipoPOI(String tipoPOI) {
 		this.tipoPOI = tipoPOI;
 	}
-
-	public void setDatoPOIText(String datoDeUnPOI) {
-		this.datoPOIText = datoDeUnPOI;
-	}
 	
-	public void setDatoPOILabel(String datoDeUnPOI) {
-		this.datoPOILabel = datoDeUnPOI;
+	public void setPOISeleccionado(POI pOISeleccionado) {
+		POISeleccionado = pOISeleccionado;
 	}
 	
 	// ***************************************************************************
@@ -94,11 +83,11 @@ public class VistaABMPoi extends VistaPadre implements Serializable {
 		return nombre;
 	}
 
-	public Long getLatitud() {
+	public Double getLatitud() {
 		return latitud;
 	}
 
-	public Long getLongitud() {
+	public Double getLongitud() {
 		return longitud;
 	}
 
@@ -115,12 +104,8 @@ public class VistaABMPoi extends VistaPadre implements Serializable {
 		return tipoPOIs;
 	}
 	
-	public String getDatoPOIText() {
-		return datoPOIText;
-	}
-	
-	public String getDatoPOILabel() {
-		return datoPOILabel;
+	public POI getPOISeleccionado() {
+		return POISeleccionado;
 	}
 	
 	// ***************************************************************************
@@ -129,16 +114,7 @@ public class VistaABMPoi extends VistaPadre implements Serializable {
 	
 	public void insertarPOI(String tipoPOI) {
 		
-		System.out.println("inicio");
-
-		// Configuracion de persistencia
-		
-//		final String PERSISTENCE_UNIT_NAME = "DDS";
-//		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-//		Repositorio unRepositorio;
-		//emFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-//		unRepositorio = new Repositorio(emFactory.createEntityManager());
-//		super.getServidor().setRepositorio(unRepositorio);
+		System.out.println("VistaABMPoi -> insertarPOI()");
 		
 		POI unPOI = null;
 		switch (this.tipoPOI){		
@@ -161,30 +137,23 @@ public class VistaABMPoi extends VistaPadre implements Serializable {
 		unPOI.setNombre(this.nombre);
 		unPOI.setLongitud(this.longitud);
 		unPOI.setLatitud(this.latitud);
+		
 		((Administrador) super.getUnUsuarioLogueado()).cargarPOI(unPOI);
-		System.out.println("inicia persitencia");
-		//super.getServidor().cargarPOI(unPOI);
-		System.out.println("fin");
+		
+		this.limpiarCampos();
+
 	}
 	
-	public List<POI> listapois(){	
-		
-		// Obtenemos los parametros enviados desde el bean VistaLogin    	
-    	super.setServidor(bnVistaLogin.getServidor());
-    	super.setUnUsuarioLogueado(bnVistaLogin.getUnUsuarioLogueado()); 
-    	
-		
-		List<POI> colPOI = super.getServidor().getColPOIs();
-		return colPOI;
+	private void limpiarCampos(){
+		this.nombre = null;
+		this.longitud = null;
+		this.latitud = null;
 	}
 
 	public List<POI> getListapois(){
-		
 		// Obtenemos los parametros enviados desde el bean VistaLogin    	
     	super.setServidor(bnVistaLogin.getServidor());
     	super.setUnUsuarioLogueado(bnVistaLogin.getUnUsuarioLogueado()); 
-    	
-		
 		List<POI> colPOI = super.getServidor().getColPOIs();
 		return colPOI;
 	}
@@ -213,31 +182,8 @@ public class VistaABMPoi extends VistaPadre implements Serializable {
 		System.out.println("valor: " + Integer.parseInt(IDPOI.substring(1, IDPOI.length()-1)));
 	}
 	
-	public void tipoPoiSeleccionado(){
-		
-		datoPOIText = "zzzz";
-		
-		// Verifico que tipo de poi esta seleccionado
-		switch (this.tipoPOI){		
-			case "Banco":
-				datoPOILabel = "Gerente: ";
-				break;
-			
-			case "CGP":
-				datoPOILabel = "CGP";
-				break;
-				
-			case "Comercio":
-				datoPOILabel = "Comercio";
-				break;
-				
-			case "ParadaColectivo":
-				datoPOILabel = "ParadaColectivo";
-				break;
-			default:
-				datoPOILabel = "";
-		}
-
+	public void modificarPOI(POI unPOI){
+		System.out.println("lalalalalal: " + unPOI.getNombre());
 	}
 	
 }

@@ -30,6 +30,7 @@ public class POIs extends Repositorio{
 		return unPOI;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<POI> buscarPOIPorNombre(String nombre){
 		List<POI> lstPois = null;
 		lstPois = em.createNamedQuery("buscarPOIPorNombre").setParameter("pnombre", "%" + nombre + "%").getResultList();

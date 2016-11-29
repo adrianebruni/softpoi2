@@ -1,36 +1,31 @@
 package dds.bean;
 
-import java.io.Serializable;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import dds.repositorio.Repositorio;
 import dds.softpoi.Administrador;
 import dds.softpoi.DispositivoConsulta;
 import dds.softpoi.PermisoBusqueda;
-import dds.softpoi.RepoPOI;
 import dds.softpoi.Seguridad;
 import dds.softpoi.Servidor;
 import dds.softpoi.Usuario;
 
+
 @ManagedBean(name="bnVistaPadre")
 @SessionScoped
-public abstract class VistaPadre implements Serializable {
+public abstract class VistaPadre {
      
-	private static final long serialVersionUID = 5533699653210560793L;
+	//private static final long serialVersionUID = 5533699653210560793L;
 
 	//private List<String> colBusqueda = new ArrayList<String>();
 	//private Administrador unAdmin = new Administrador();
 	private Usuario unUsuarioLogueado;
-    private Servidor unServidor = new Servidor();
+    private Servidor unServidor;
     private Seguridad objSeguridad;
     
     public void init() {
     	
-    	//unServidor = new Servidor();
+    	System.out.println("Iniciando: VistaPadre.java");
+    	unServidor = new Servidor();
     	
     	Administrador unAdmin = new Administrador();
     	

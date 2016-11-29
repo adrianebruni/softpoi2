@@ -1,18 +1,12 @@
 package dds.mongodb;
 
 import com.mongodb.MongoClient;
-
 import dds.softpoi.ElementoDeConsulta;
-import dds.softpoi.POI;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
-
-
 
 public class MongoDBConnection {
 

@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mongodb.DBCursor;
-
-import dds.mongodb.MongoDB;
 import dds.softpoi.CGP;
 import dds.softpoi.Comuna;
 import dds.softpoi.Disponibilidad;
@@ -25,6 +22,7 @@ public class CentroDTO extends OrigenJSON {
 		try {
 			jsaCentro = this.consultarJson(sURL);
 		} catch (Exception e) {
+			System.out.println("ERROR: CentroDTO.java - dameDatosExternos --> No se pudo conectar con la fuente externa");
 			e.printStackTrace();
 		}
 		
@@ -39,7 +37,7 @@ public class CentroDTO extends OrigenJSON {
 			int jsonComuna = ((JsonObject)jsaCentro.get(i)).get("comuna").getAsInt();
 			unaComuna.setID(jsonComuna);
 			String jsonZonas = ((JsonObject)jsaCentro.get(i)).get("zonas").getAsString();
-			unaComuna.setZonas(jsonZonas);
+			unaComuna.setZonas(jsonZonas.toUpperCase());
 			
 			unCGP.setComuna(unaComuna);
 			
@@ -47,11 +45,11 @@ public class CentroDTO extends OrigenJSON {
 			
 			// Seteamos el director
 			String jsonDirector = ((JsonObject)jsaCentro.get(i)).get("director").getAsString();
-			unCGP.setDirector(jsonDirector);
+			unCGP.setDirector(jsonDirector.toUpperCase());
 			
 			// Seteamos el domicilio
 			String jsonDomicilio = ((JsonObject)jsaCentro.get(i)).get("domicilio").getAsString();
-			unCGP.setCalle(jsonDomicilio);
+			unCGP.setCalle(jsonDomicilio.toUpperCase());
 			
 			// Seteamos el telefono
 			String jsonTelefono = ((JsonObject)jsaCentro.get(i)).get("telefono").getAsString();
@@ -67,7 +65,7 @@ public class CentroDTO extends OrigenJSON {
 				
 				// nombre del servicio
 				String jsonServicioNombre = ((JsonObject)jsonServicios.get(j)).get("nombre").getAsString();
-				unServicio.setServicio(jsonServicioNombre);
+				unServicio.setServicio(jsonServicioNombre.toUpperCase());
 				
 				// Dias y Horarios disponibles
 				JsonArray jsonDisponibilidad = (JsonArray) ((JsonObject)jsonServicios.get(j)).get("horarios");
@@ -108,50 +106,6 @@ public class CentroDTO extends OrigenJSON {
 		
 		return POIs;
 		
-	}
-	
-	
-	public ArrayList<POI> dameDatosExternos() {
-		
-		MongoDB miMongo = new MongoDB();
-		DBCursor cursor = miMongo.buscarDato();
-		CGP unCGP;
-		ArrayList<POI> colAux = new ArrayList<POI>(); 
-		
-		while (cursor.hasNext()){
-		
-			unCGP = new CGP();
-			
-			// Seteamos la comuna (ID, Zonas)
-			Comuna unaComuna = new Comuna();
-			
-			System.out.println("COMUNA :" + cursor.next().get("comuna").toString());
-			
-			unaComuna.setID((Integer) cursor.next().get("comuna"));
-			unaComuna.setZonas(cursor.next().get("zonas").toString());
-			unCGP.setComuna(unaComuna);
-			
-			// Seteamos el nombre de la comuna
-			unCGP.setNombre("CGP de comuna " + cursor.next().get("comuna").toString());
-			
-			// Seteamos el director
-			unCGP.setDirector(cursor.next().get("director").toString());
-			
-			// Seteamos el domicilio
-			unCGP.setCalle(cursor.next().get("domicilio").toString());
-			
-			// Seteamos el telefono
-			unCGP.setTelefono(cursor.next().get("telefono").toString());
-			
-			colAux.add(unCGP);
-		}
-		
-		return colAux;
-		
-	}
-	
-	
-	
-	
+	}	
 	
 }

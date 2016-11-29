@@ -1,10 +1,7 @@
 package dds.persistencia;
 
 import org.junit.Test;
-
 import java.util.ArrayList;
-import java.util.Date;
-
 //import static org.junit.Assert.assertEquals;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

@@ -41,20 +41,24 @@ public abstract class Usuario {
 	// Setters
 	// ***************************************************************************
 	
+	public void setId_usuario(int Id_usuario){
+		this.id_usuario = Id_usuario;
+	}
+	
 	public void setNombre(String unNombre){
-		nombre = unNombre;
+		this.nombre = unNombre;
 	}
 
 	public void setEmail(String unEmail){
-		email = unEmail;
+		this.email = unEmail;
 	}
 
 	public void setClave(String unaClave) {
-		clave = unaClave;
+		this.clave = unaClave;
 	}
 	
 	public void setToken (String unToken) {
-		token = unToken;
+		this.token = unToken;
 	}
 	
 	public void setServidor (Servidor elServidor) {
@@ -74,23 +78,23 @@ public abstract class Usuario {
 	// ***************************************************************************
 	
 	public int getId_usuario(){
-		return this.id_usuario;
+		return id_usuario;
 	}
 	
 	public String getNombre(){
-		return this.nombre;
+		return nombre;
 	}
 	
 	public String getEmail() {
-		return this.email;
+		return email;
 	}
 	
 	public String getClave() {
-		return this.clave;
+		return clave;
 	}
 	
 	public String getToken() {
-		return this.token;
+		return token;
 	}
 	
 	public Servidor getServidor() {

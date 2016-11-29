@@ -4,6 +4,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
     version="2.2">
+    
+    <application>
+    	<action-listener>org.primefaces.application.DialogActionListener</action-listener>
+    	<navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>
+    	<view-handler>org.primefaces.application.DialogViewHandler</view-handler>
+    </application>
+    
 	<navigation-rule>
 		<display-name>login.xhtml</display-name>
 		<from-view-id>/login.xhtml</from-view-id>
@@ -12,6 +19,7 @@
 			<to-view-id>/principal.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
 	<navigation-rule>
 		<display-name>principal.xhtml</display-name>
 		<from-view-id>/principal.xhtml</from-view-id>
@@ -20,6 +28,7 @@
 			<to-view-id>/AccAnteBusqueda.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
 	<navigation-rule>
 		<display-name>principal.xhtml</display-name>
 		<from-view-id>/principal.xhtml</from-view-id>
@@ -28,6 +37,7 @@
 			<to-view-id>/busqueda.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
 	<navigation-rule>
 		<display-name>principal.xhtml</display-name>
 		<from-view-id>/principal.xhtml</from-view-id>
@@ -36,6 +46,7 @@
 			<to-view-id>/historialBusqueda.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
 	<navigation-rule>
 		<display-name>login.xhtml</display-name>
 		<from-view-id>/login.xhtml</from-view-id>
@@ -44,6 +55,7 @@
 			<to-view-id>/busquedaUsuario.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
 	<navigation-rule>
 		<display-name>index.xhtml</display-name>
 		<from-view-id>/index.xhtml</from-view-id>
@@ -52,6 +64,7 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	
 	<navigation-rule>
 		<display-name>principal.xhtml</display-name>
 		<from-view-id>/principal.xhtml</from-view-id>

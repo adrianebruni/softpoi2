@@ -43,7 +43,7 @@ public abstract class POI {
 	protected ArrayList<Servicio> servicios = new ArrayList<Servicio>();
 	protected Date fecha_baja;
 	protected String palabras_clave;
-	
+	protected String tipoPOI;
 	
 	public abstract List<String> getInfo();
 	

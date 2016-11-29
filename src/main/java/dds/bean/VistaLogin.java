@@ -1,6 +1,6 @@
 package dds.bean;
 
-import java.io.Serializable;
+//import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
@@ -8,11 +8,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+//@SuppressWarnings("serial")
 @ManagedBean(name="bnVistaLogin")
 @SessionScoped
-public class VistaLogin extends VistaPadre implements Serializable {
+public class VistaLogin extends VistaPadre  {
 
-	private static final long serialVersionUID = 6149074039987251332L;
+	//private static final long serialVersionUID = 6149074039987251332L;
 	private String usuario;
 	private String clave;
 		

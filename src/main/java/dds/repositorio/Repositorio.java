@@ -1,7 +1,5 @@
 package dds.repositorio;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
 
 public class Repositorio {

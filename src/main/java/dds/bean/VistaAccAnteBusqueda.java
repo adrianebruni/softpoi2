@@ -6,11 +6,12 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
 
+//@SuppressWarnings("serial")
 @ManagedBean(name="bnVistaAccAnteBusqueda")
 @ViewScoped
 public class VistaAccAnteBusqueda extends VistaPadre {
 
-	private static final long serialVersionUID = 6239774130729760800L;
+	//private static final long serialVersionUID = 6239774130729760800L;
 	private String[] accionesElegidas;   
     private List<String> acciones;
      

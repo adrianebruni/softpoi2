@@ -4,33 +4,98 @@ public class Parametros {
 	
 	// Parametro de configuracion que indica si se le envia un email a los administradores
 	// si la consulta demora mas que "demoraConsulta"
-	static double demoraConsulta = 9.003;
+	private static double demoraConsulta = 9.003;
 	
-	static String rutaXMLBajas = "./src/test/java/dds/softpoi/archivobajas.xml";
+	private static String rutaXMLBajas = "./src/test/java/dds/softpoi/archivobajas.xml";
 
-	static String rutaComerciosPalabrasClave1 = "./src/test/java/dds/softpoi/ComerciosPalabrasClave";
-	static String rutaComerciosPalabrasClave2 = "./src/test/java/dds/softpoi/ComerciosPalabrasClave2";
+	private static String rutaComerciosPalabrasClave1 = "./src/test/java/dds/softpoi/ComerciosPalabrasClave";
+	private static String rutaComerciosPalabrasClave2 = "./src/test/java/dds/softpoi/ComerciosPalabrasClave2";
 	
 	// ./softpoi2/WebContent/WEB-INF/img/
 	// ./WebContent/WEB-INF/img/
-	static String rutaImagenesIconos = "/img/";
-	static String rutaImagenesIconosAbsoluta = "/home/usuario/dds/Proyectos-Java/softpoi2/WebContent/img/";
+	private static String rutaImagenesIconos = "/img/";
+	private static String rutaImagenesIconosAbsoluta = "/home/usuario/dds/Proyectos-Java/softpoi2/WebContent/img/";
 	
 	// Parametros de configuracion JSON
-	static String urlJsonBanco = "http://trimatek.org/Consultas/banco";
-	static String urlJsonCentro = "http://trimatek.org/Consultas/centro";
+	private static String urlJsonBanco = "http://trimatek.org/Consultas/banco";
+	private static String urlJsonCentro = "http://trimatek.org/Consultas/centro";
 	
 	// Parametros de configuracion para el envio de correos de alertas
-	static String emailCuenta = "softpoi.notificaciones@gmail.com";
-	static String emailClave = "pN2f3WOV";
-	static String emailPuerto = "587";
-	static String emailAutenticacion = "true";
-	static String emailCifradoTLS = "true";
-	static String emailMetodoEnvio = "smtp";
-	static String emailHostEnvio = "smtp.gmail.com";
+	private static String emailCuenta = "softpoi.notificaciones@gmail.com";
+	private static String emailClave = "pN2f3WOV";
+	private static String emailPuerto = "587";
+	private static String emailAutenticacion = "true";
+	private static String emailCifradoTLS = "true";
+	private static String emailMetodoEnvio = "smtp";
+	private static String emailHostEnvio = "smtp.gmail.com";
 	
-	static String servidorMongoDB = "localhost";
-	static int puertoMongoDB = 27017;
+	// Parametros de configuracion para MongoDB
+	private static String servidorMongoDB = "localhost";
+	private static int puertoMongoDB = 27017;
+	private static String baseMongoDB = "db_mongo_softpoi";
+	//static String tablaMongoPOIsExternosBancos = "pois_extero_banco";
+	//static String tablaMongoPOIsExternosCentros = "pois_extero_centro";
+	private static String tablaMongoPOIsExternos = "pois_exteros";
+	private static String tablaMongoHistoricoConsultas = "historico";
+	
+	// Parametros de configuracion para MySQL
+	private static final String MySQL_JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	private static final int MySQL_PORT = 3306;
+	private static final String MySQL_HOST = "localhost";
+	private static final String MySQL_DBNAME = "DDS";
+	private static final String MySQL_URL = "jdbc:mysql://" + MySQL_HOST + ":" + MySQL_PORT + "/" + MySQL_DBNAME;
+	private static final String MySQL_USER = "root";
+	private static final String MySQL_PASS = "";
+	
+	public String getMysqlJdbcDriver() {
+		return MySQL_JDBC_DRIVER;
+	}
+
+	public int getMysqlPort() {
+		return MySQL_PORT;
+	}
+
+	public String getMysqlHost() {
+		return MySQL_HOST;
+	}
+
+	public String getMysqlDBName() {
+		return MySQL_DBNAME;
+	}
+
+	public String getMysqlURL() {
+		return MySQL_URL;
+	}
+
+	public String getMysqlUser() {
+		return MySQL_USER;
+	}
+
+	public String getMysqlPass() {
+		return MySQL_PASS;
+	}
+	
+	public String getBaseMongoDB(){
+		return baseMongoDB;
+	}
+	
+	public String getTablaMongoPOIsExternos(){
+		return tablaMongoPOIsExternos;
+	}
+	
+	/*
+	public String getTablaMongoPOIsExternosCentros(){
+		return tablaMongoPOIsExternosCentros;
+	}
+	
+	public String getTablaMongoPOIsExternosBancos(){
+		return tablaMongoPOIsExternosBancos;
+	}
+	*/
+	
+	public String getTablaMongoHistoricoConsultas(){
+		return tablaMongoHistoricoConsultas;
+	}
 	
 	public String getServidorMongoDB(){
 		return servidorMongoDB;

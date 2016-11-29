@@ -21,6 +21,7 @@ public class BancoDTO extends OrigenJSON{
 		try {
 			jsaBanco = this.consultarJson(sURL);
 		} catch (Exception e) {
+			System.out.println("ERROR: BancoDTO.java - dameDatosExternos --> No se pudo conectar con la fuente externa");
 			e.printStackTrace();
 		}	
 		
@@ -31,7 +32,7 @@ public class BancoDTO extends OrigenJSON{
 			
 			// Seteamos en nombre del banco
 			String jsonNombreBanco = ((JsonObject)jsaBanco.get(i)).get("banco").getAsString();
-			unBanco.setNombre(jsonNombreBanco);
+			unBanco.setNombre(jsonNombreBanco.toUpperCase());
 			
 			// Seteamos Latitud
 			Double jsonX = ((JsonObject)jsaBanco.get(i)).get("x").getAsDouble();
@@ -43,11 +44,11 @@ public class BancoDTO extends OrigenJSON{
 			
 			// Seteamos la sucursal
 			String jsonSucursal = ((JsonObject)jsaBanco.get(i)).get("sucursal").getAsString();
-			unBanco.setSucursal(jsonSucursal);
+			unBanco.setSucursal(jsonSucursal.toUpperCase());
 			
 			// Seteamos el gerente
 			String jsonGerente = ((JsonObject)jsaBanco.get(i)).get("gerente").getAsString();
-			unBanco.setGerente(jsonGerente);
+			unBanco.setGerente(jsonGerente.toUpperCase());
 			
 			// Obtenemos el array de servicios
 			JsonArray jsonServicios = (JsonArray) ((JsonObject)jsaBanco.get(i)).get("servicios");
@@ -60,7 +61,7 @@ public class BancoDTO extends OrigenJSON{
 				
 				// Seteamos el Nombre del Servicio
 				String jsonServicioNombre = jsonServicios.get(j).getAsString();
-				unServicio.setServicio(jsonServicioNombre);
+				unServicio.setServicio(jsonServicioNombre.toUpperCase());
 				
 				// Seteamos un rango horario y dia disponible por defecto.
 				RangoHorario objRangoHorario = new RangoHorario("10:00:00", "15:00:00");

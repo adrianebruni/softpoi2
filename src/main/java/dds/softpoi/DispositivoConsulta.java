@@ -26,7 +26,7 @@ public class DispositivoConsulta extends Usuario{
 	// Constructor
 	// ***************************************************************************
 
-	public DispositivoConsulta(){}
+	public DispositivoConsulta() { }
 	
 	public DispositivoConsulta(String nombre, double latitud, double longitud, String zona) {
 		super.nombre = nombre;

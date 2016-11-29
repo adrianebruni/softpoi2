@@ -164,7 +164,7 @@ public class DBMySQL {
 	
 	// Devuelve todas las terminales que se encuentran en la base de datos
 	public ArrayList<DispositivoConsulta> buscarTerminales(){
-		String Query = "SELECT * FROM DDS.TERMINALES";
+		String Query = "SELECT * FROM DDS.TERMINAL";
 		
 		ArrayList<DispositivoConsulta> colAux = new ArrayList<DispositivoConsulta>();
 		DispositivoConsulta unaTerminal = null;
@@ -189,12 +189,12 @@ public class DBMySQL {
 			while (rs.next()) {
 				unaTerminal = new DispositivoConsulta();
 				
-				unaTerminal.setId_usuario(Integer.parseInt(rs.getString("id_usuario")));
+				unaTerminal.setId_usuario(rs.getInt("id_usuario"));
 				unaTerminal.setClave(rs.getString("clave"));
 				unaTerminal.setNombre(rs.getString("nombre"));
 				//unaTerminal.setZona(rs.getString("zona"));
-				unaTerminal.setLongitud(Double.parseDouble(rs.getString("longitud")));
-				unaTerminal.setLatitud(Double.parseDouble(rs.getString("latitud")));
+				unaTerminal.setLongitud(rs.getDouble("longitud"));
+				unaTerminal.setLatitud(rs.getDouble("latitud"));
 				unaTerminal.setFlagAuditoriaBusqueda(rs.getBoolean("flagAuditoriaBusqueda"));
 				unaTerminal.setFlagNotificaciones(rs.getBoolean("flagNotificaciones"));
 				
@@ -209,6 +209,62 @@ public class DBMySQL {
 		return colAux;
 		
 	}
+
+	
+	
+	// Devuelve todas las terminales que se encuentran en la base de datos
+	public DispositivoConsulta buscarTerminal(String id_usuario){
+		
+		DispositivoConsulta unaTerminal = null;
+		
+		if ( (id_usuario.trim().isEmpty()) || (id_usuario == null) ){
+			return unaTerminal;
+		}
+		
+		String Query = "SELECT * FROM DDS.TERMINAL WHERE id_usuario = " + id_usuario;
+				
+		ResultSet rs = null;
+		
+		// Verificamos que exista la conexion con la BBDD
+		if (this.getConexion() == null){
+			this.crearConexionBBDD();
+		}
+		
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(Query);
+		} catch (Exception e) {
+			System.out.println("ERROR: BBDD.java - buscarTerminal >> No se pudo crear Statement o ResultSet");
+			e.printStackTrace();
+			return unaTerminal;
+		} 
+		
+		// Obtenemos los datos de la base en MySQL
+		try {
+			while (rs.next()) {
+				unaTerminal = new DispositivoConsulta();
+				
+				unaTerminal.setId_usuario(rs.getInt("id_usuario"));
+				unaTerminal.setClave(rs.getString("clave"));
+				unaTerminal.setNombre(rs.getString("nombre"));
+				//unaTerminal.setZona(rs.getString("zona"));
+				unaTerminal.setLongitud(rs.getDouble("longitud"));
+				unaTerminal.setLatitud(rs.getDouble("latitud"));
+				unaTerminal.setFlagAuditoriaBusqueda(rs.getBoolean("flagAuditoriaBusqueda"));
+				unaTerminal.setFlagNotificaciones(rs.getBoolean("flagNotificaciones"));
+			}
+		} catch (SQLException e) {
+			System.out.println("ERROR: BBDD.java - buscarTerminal >> No se pudo obtener los datos");
+			e.printStackTrace();
+		}	
+		
+		// retornamos los administradores
+		return unaTerminal;
+		
+	}	
+	
+	
 	
 	// Devuelve todos los POIs que se encuentran en la base de datos, segun el 'valorBuscado' por el campo 'key'
 	// si 'busquedaExacta' es falso, entonces hace 'like %%'
@@ -579,6 +635,48 @@ public class DBMySQL {
 			
 			// Condicion
 			PStmt.setInt(6, id_usuario);
+			
+			PStmt.execute();
+			PStmt.close();
+			
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+	}
+
+
+	public void modificarTerminal(DispositivoConsulta unaTerminal){
+		
+		if (this.connection == null){
+			this.crearConexionBBDD();
+		}
+		
+		int id_usuario = unaTerminal.getId_usuario();
+		String nombre = unaTerminal.getNombre();
+		String clave = unaTerminal.getClave();
+		double longitud = unaTerminal.getLongitud();
+		double latitud = unaTerminal.getLatitud();
+		boolean flagAuditoriaBusqueda = unaTerminal.getFlagAuditoriaBusqueda();
+		boolean flagNotificaciones = unaTerminal.getFlagNotificaciones();
+				
+		String Query = "UPDATE DDS.TERMINAL SET "
+				+ "nombre = ?, clave = ?, longitud = ?, latitud = ?, flagAuditoriaBusqueda = ?, flagNotificaciones = ? "
+				+ "WHERE id_usuario = ?"; 
+		
+		try {
+			PreparedStatement PStmt = (PreparedStatement) connection.prepareStatement(Query);
+			
+			// Valores
+			PStmt.setString(1, nombre);
+			PStmt.setString(2, clave);
+			PStmt.setDouble(3, longitud);
+			PStmt.setDouble(4, latitud);
+			PStmt.setBoolean(5, flagAuditoriaBusqueda);
+			PStmt.setBoolean(6, flagNotificaciones);
+			
+			// Condicion
+			PStmt.setInt(7, id_usuario);
 			
 			PStmt.execute();
 			PStmt.close();

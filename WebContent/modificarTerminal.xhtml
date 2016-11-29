@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<style type="text/css" >
+			.ui-wiget {
+				font-size: 90%;
+			}
+		</style>
+	</h:head>
+	
+	<h:body>
+		<i id="customheader" class="fa fa-fw fa-car" style="display:none" ></i>
+		<h:form id="formModTerm">
+			<p:panel id="panel" header="#{bnVistaMSGDialog.terminal}" style="margin-bottom:10px;">
+				
+				<h:panelGrid columns="2" cellpadding="2">
+							
+					<p:outputLabel value="ID" />
+					<p:outputLabel id="vid_usuario" value="#{bnVistaMSGDialog.id}" />
+					
+					<p:outputLabel value="Nombre" />
+					<p:inputText id="vnombre" value="#{bnVistaMSGDialog.nombreTerm}" />
+					 
+					<p:outputLabel value="Clave" />
+					<p:inputText id="vclave" value="#{bnVistaMSGDialog.claveTerm}" />
+					
+					<p:outputLabel value="Longitud" />
+					<p:inputText id="vlongitud" value="#{bnVistaMSGDialog.longitudTerm}" />
+					
+					<p:outputLabel value="Latitud" />
+					<p:inputText id="vlatitud" value="#{bnVistaMSGDialog.latitudTerm}" />
+		
+					<p:outputLabel value="Notificaciones" /> 
+					<p:selectBooleanCheckbox id="vflagnotificaciones" value="#{bnVistaMSGDialog.flagNotificacionesTerm}"/>
+					
+					<p:outputLabel value="Auditoria Busqueda" />
+					<p:selectBooleanCheckbox id="vflagauditoriabusqueda" value="#{bnVistaMSGDialog.flagAuditoriaBusquedaTerm}"/>
+					
+				</h:panelGrid>
+				
+				<p:commandButton value="Aceptar" actionListener="#{bnVistaMSGDialog.actualizarTerm}" /> 
+				<p:commandButton value="Cancelar" actionListener="#{bnVistaMSGDialog.cerrarVentanaTerm}" /> 
+							
+			</p:panel>
+		</h:form>
+	</h:body>
+		
+</html>

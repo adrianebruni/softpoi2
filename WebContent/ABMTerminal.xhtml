@@ -8,7 +8,6 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:composition template="/WEB-INF/template/BasicTemplate.xhtml">
-	
 		<ui:define name="content">
 	
 			<h:form id="formALTA">
@@ -47,29 +46,30 @@
 			</h:form>
 	
 			<h:form id="formBAJAMOD">
-				<p:panel header="Terminales" style="margin-bottom:10px;">
+				<p:panel id="panelTerm" header="Terminales" style="margin-bottom:10px;">
 					<p:dataTable var="unaTerminal" value="#{bnVistaABMUsuario.terminales}">
 	
 						<p:column headerText="Id">
-							<h:outputText value="#{unaTerminal.Id}" />
+							<h:outputText value="#{unaTerminal.id_usuario}" />
 						</p:column>
 	
 						<p:column headerText="Nombre">
-							<h:outputText value="#{unaTerminal.Nombre}" />
+							<h:outputText value="#{unaTerminal.nombre}" />
 						</p:column>
 	
 						<p:column headerText="Latitud">
-							<h:outputText value="#{unaTerminal.Latitud}" />
+							<h:outputText value="#{unaTerminal.latitud}" />
 						</p:column>
 	
 						<p:column headerText="Longitud">
-							<h:outputText value="#{unaTerminal.Longitud}" />
+							<h:outputText value="#{unaTerminal.longitud}" />
 						</p:column>
 	
 						<p:column headerText="Acción">
 							<p:splitButton value="Acción" icon="ui-icon-disk">
-								<p:menuitem value="Editar" icon="ui-icon-arrowrefresh-1-w" />
-								<p:menuitem value="Eliminar" ajax="false" icon="ui-icon-close" />
+								<p:menuitem value="Editar" icon="ui-icon-arrowrefresh-1-w" actionListener="#{bnVistaABMUsuario.editarTerminal(unaTerminal.id_usuario)}" />
+								<p:menuitem value="Eliminar" icon="ui-icon-close" actionListener="#{bnVistaABMUsuario.eliminarTerminal(unaTerminal.id_usuario)}" ajax="true" update=":formBAJAMOD:panelTerm" />
+								
 							</p:splitButton>
 						</p:column>
 	

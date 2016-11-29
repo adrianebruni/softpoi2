@@ -112,7 +112,9 @@ public class VistaABMUsuario extends VistaPadre {
 	}
 	
 	// ***************************************************************************
-	// Metodos
+	//
+	// 			METODOS ADMINITRADOR
+	//
 	// ***************************************************************************
 	
 	public void altaAdministrador(){
@@ -125,19 +127,7 @@ public class VistaABMUsuario extends VistaPadre {
 		unAdmin.setEmail(this.email);
 		objMyDB.altaAdministrador(unAdmin);
 		objMyDB.cerrarConexion();
-	}
-
-	public void altaTerminal(){
-		objMyDB.getConexion();
-		DispositivoConsulta unaTerminal= new DispositivoConsulta();		
-		unaTerminal.setNombre(this.nombre);	
-		unaTerminal.setClave(this.clave);
-		unaTerminal.setFlagAuditoriaBusqueda(this.auditoriaBusqueda);
-		unaTerminal.setFlagNotificaciones(this.notificaciones);
-		unaTerminal.setLongitud(this.longitud);
-		unaTerminal.setLatitud(this.latitud);
-		objMyDB.altaTerminal(unaTerminal);
-		objMyDB.cerrarConexion();
+		RequestContext.getCurrentInstance().update("formBAJAMOD:panelAdmin");
 	}
 	
 	public List<Administrador> getAdministradores(){
@@ -146,26 +136,12 @@ public class VistaABMUsuario extends VistaPadre {
 		objMyDB.cerrarConexion();
 		return colAdmins;
 	}
-	
-	public List<DispositivoConsulta> getTerminales(){
-		objMyDB.getConexion();
-		List<DispositivoConsulta> colAdmins = objMyDB.buscarTerminales();
-		objMyDB.cerrarConexion();
-		return colAdmins; 
-	}
-	
 	public void eliminarAdministrador(String id_usuario){
 		objMyDB.getConexion();
 		objMyDB.bajaAdministrador(id_usuario);
 		objMyDB.cerrarConexion();
 	}
 
-	public void eliminarTerminal(String id_usuario){
-		objMyDB.getConexion();
-		objMyDB.bajaTerminal(id_usuario);
-		objMyDB.cerrarConexion();
-	}
-	
 	public void editarAdministrador(String id_usuario){
 		Map<String, Object> opcionesVentana = new HashMap<String, Object>();
 		opcionesVentana.put("modal", true);
@@ -197,5 +173,71 @@ public class VistaABMUsuario extends VistaPadre {
 		objMyDB.cerrarConexion();
 		return unAdmin;
 	}
+	
+	// ***************************************************************************
+	//
+	// 			METODOS TERMINAL
+	//
+	// ***************************************************************************	
+	
+	public List<DispositivoConsulta> getTerminales(){
+		objMyDB.getConexion();
+		List<DispositivoConsulta> colAdmins = objMyDB.buscarTerminales();
+		objMyDB.cerrarConexion();
+		return colAdmins; 
+	}
+	
+	public DispositivoConsulta getTerminal(String id_usuario){
+		objMyDB.getConexion();
+		DispositivoConsulta unaTerminal = objMyDB.buscarTerminal(id_usuario);
+		objMyDB.cerrarConexion();
+		return unaTerminal;
+	}
+	
+	public void eliminarTerminal(String id_usuario){
+		objMyDB.getConexion();
+		objMyDB.bajaTerminal(id_usuario);
+		objMyDB.cerrarConexion();
+	}
+
+	public void editarTerminal(String id_usuario){
+		Map<String, Object> opcionesVentana = new HashMap<String, Object>();
+		opcionesVentana.put("modal", true);
+		opcionesVentana.put("resizable", false);
+		opcionesVentana.put("width", 480);
+		opcionesVentana.put("height", 340);
+		opcionesVentana.put("contentWidth", "100%");
+		opcionesVentana.put("contentHeight", "100%");
+		opcionesVentana.put("headerElement", "customheader");
+		
+		Map<String, List<String>> parametros = new HashMap<>();
+		List<String> parametro;
+
+		parametro = new ArrayList<>();
+		parametro.add(this.getClass().getSimpleName());		
+		parametros.put("from", parametro);
+		
+		parametro = new ArrayList<>();
+		parametro.add(id_usuario);
+		parametros.put("id", parametro);
+				
+		RequestContext.getCurrentInstance().openDialog("modificarTerminal", opcionesVentana, parametros);
+
+	}
+	
+	public void altaTerminal(){		
+		objMyDB.getConexion();
+		DispositivoConsulta unaTerminal= new DispositivoConsulta();
+		unaTerminal.setNombre(this.nombre);
+		unaTerminal.setClave(this.clave);
+		unaTerminal.setFlagAuditoriaBusqueda(this.auditoriaBusqueda);
+		unaTerminal.setFlagNotificaciones(this.notificaciones);
+		unaTerminal.setLongitud(this.longitud);
+		unaTerminal.setLatitud(this.latitud);
+		objMyDB.altaTerminal(unaTerminal);
+		objMyDB.cerrarConexion();
+		RequestContext.getCurrentInstance().update("formBAJAMOD:panelTerm");
+	}
+	
 	
 }

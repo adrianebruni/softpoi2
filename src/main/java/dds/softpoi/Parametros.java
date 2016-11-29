@@ -35,7 +35,7 @@ public class Parametros {
 	private static String baseMongoDB = "db_mongo_softpoi";
 	//static String tablaMongoPOIsExternosBancos = "pois_extero_banco";
 	//static String tablaMongoPOIsExternosCentros = "pois_extero_centro";
-	private static String tablaMongoPOIsExternos = "pois_exteros";
+	private static String tablaMongoPOIsExternos = "pois_externos";
 	private static String tablaMongoHistoricoConsultas = "historico";
 	
 	// Parametros de configuracion para MySQL

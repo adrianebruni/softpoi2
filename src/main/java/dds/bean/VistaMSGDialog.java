@@ -1,33 +1,41 @@
 package dds.bean;
 
-import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.servlet.http.HttpServletRequest;
-
 import org.primefaces.context.RequestContext;
-
 import dds.bbdd.DBMySQL;
 import dds.softpoi.Administrador;
+import dds.softpoi.DispositivoConsulta;
 
 @ManagedBean(name="bnVistaMSGDialog")
 @ViewScoped
 public class VistaMSGDialog extends VistaPadre {
 	
 	private DBMySQL objMyDB = new DBMySQL();
-	
+	private VistaABMUsuario objBean = new VistaABMUsuario();
 	private Map<String, String[]> parametros;
 	
 	private String id;
-	
 	private Administrador unAdmin;
+	private DispositivoConsulta unaTerminal;
+	
 	private String nombreAdmin;
 	private String claveAdmin;
 	private String emailAdmin;
 	private boolean flagAuditoriaBusquedaAdmin;
 	private boolean flagNotificacionesAdmin;
+	
+	private String nombreTerm;
+	private String claveTerm;
+	private double longitudTerm;
+	private double latitudTerm;
+	private boolean flagAuditoriaBusquedaTerm;
+	private boolean flagNotificacionesTerm;
+
+	
+	
 	
 	// ***************************************************************************
 	// Inicializador
@@ -38,7 +46,9 @@ public class VistaMSGDialog extends VistaPadre {
     public void init() {}
 	
 	// ***************************************************************************
-	// Setters
+	// 
+    // UTILIZADO POR: ABM ADMINISTRADOR
+    //
 	// ***************************************************************************
 	
     public void setNombreAdmin(String unNombre){
@@ -61,61 +71,158 @@ public class VistaMSGDialog extends VistaPadre {
     	flagNotificacionesAdmin = flagNotificaciones;
     } 
     
+    public String getNombreAdmin(){
+    	return this.nombreAdmin;
+    }
+     
+    public String getClaveAdmin(){
+    	return this.claveAdmin;
+    }    
+    
+    public String getEmailAdmin(){
+    	return this.emailAdmin;
+    }  
+    
+    public boolean getFlagAuditoriaBusquedaAdmin(){
+    	return this.flagAuditoriaBusquedaAdmin;
+    }
+    
+    public boolean getFlagNotificacionesAdmin(){
+    	return this.flagNotificacionesAdmin;
+    }   
+    
+	public String getAdministrador(){
+		unAdmin = new Administrador();
+		this.recibirParametros();
+		//VistaABMUsuario objBean = new VistaABMUsuario();
+		unAdmin = objBean.getAdministrador(this.id);
+		this.nombreAdmin = unAdmin.getNombre();
+		this.claveAdmin = unAdmin.getClave();
+		this.emailAdmin = unAdmin.getEmail();
+		this.flagAuditoriaBusquedaAdmin = unAdmin.getFlagAuditoriaBusqueda();
+		this.flagNotificacionesAdmin = unAdmin.getFlagNotificaciones();	
+		return "Modificar Administrador";
+	}
+     
+	public void actualizarAdmin(){
+		
+    	unAdmin.setNombre(this.nombreAdmin);
+    	unAdmin.setClave(this.claveAdmin);
+    	unAdmin.setEmail(this.emailAdmin);
+    	unAdmin.setFlagAuditoriaBusqueda(this.flagAuditoriaBusquedaAdmin);
+    	unAdmin.setFlagNotificaciones(this.flagNotificacionesAdmin);
+				
+		objMyDB.getConexion();
+		objMyDB.modificarAdministrador(unAdmin);
+		objMyDB.cerrarConexion(); 
+		this.cerrarVentanaAdmin();
+	}
+	
+	public void cerrarVentanaAdmin(){
+		RequestContext.getCurrentInstance().closeDialog("modificarAdministrador");
+		RequestContext.getCurrentInstance().update("formBAJAMOD:panelAdmin");
+		System.out.println("panel");
+	}
+	
 	// ***************************************************************************
-	// Getters
+	// 
+    // UTILIZADO POR: ABM TERMINAL
+    //
+	// ***************************************************************************
+
+	public String getNombreTerm() {
+		return nombreTerm;
+	}
+
+	public void setNombreTerm(String nombreTerm) {
+		this.nombreTerm = nombreTerm;
+	}
+
+	public String getClaveTerm() {
+		return claveTerm;
+	}
+
+	public void setClaveTerm(String claveTerm) {
+		this.claveTerm = claveTerm;
+	}
+
+	public double getLongitudTerm() {
+		return longitudTerm;
+	}
+
+	public void setLongitudTerm(double longitudTerm) {
+		this.longitudTerm = longitudTerm;
+	}
+
+	public double getLatitudTerm() {
+		return latitudTerm;
+	}
+
+	public void setLatitudTerm(double latitudTerm) {
+		this.latitudTerm = latitudTerm;
+	}	
+	
+	public boolean isFlagAuditoriaBusquedaTerm() {
+		return flagAuditoriaBusquedaTerm;
+	}
+
+	public void setFlagAuditoriaBusquedaTerm(boolean flagAuditoriaBusquedaTerm) {
+		this.flagAuditoriaBusquedaTerm = flagAuditoriaBusquedaTerm;
+	}
+
+	public boolean isFlagNotificacionesTerm() {
+		return flagNotificacionesTerm;
+	}
+
+	public void setFlagNotificacionesTerm(boolean flagNotificacionesTerm) {
+		this.flagNotificacionesTerm = flagNotificacionesTerm;
+	}
+	
+	public String getTerminal(){
+		this.recibirParametros();
+		unaTerminal = new DispositivoConsulta();
+		unaTerminal = objBean.getTerminal(this.id);
+
+		this.nombreTerm = unaTerminal.getNombre();
+		this.claveTerm = unaTerminal.getClave();
+		this.longitudTerm = unaTerminal.getLongitud();
+		this.latitudTerm = unaTerminal.getLatitud();
+		this.flagAuditoriaBusquedaTerm = unaTerminal.getFlagAuditoriaBusqueda();
+		this.flagNotificacionesTerm = unaTerminal.getFlagNotificaciones();	
+		
+		return "Modificar Terminal";
+	}
+	
+	public void actualizarTerm(){
+		
+		unaTerminal.setNombre(this.nombreTerm);
+		unaTerminal.setClave(this.claveTerm);
+		unaTerminal.setLongitud(this.latitudTerm);
+		unaTerminal.setLatitud(this.latitudTerm);
+		unaTerminal.setFlagAuditoriaBusqueda(this.flagAuditoriaBusquedaTerm);
+		unaTerminal.setFlagNotificaciones(this.flagNotificacionesTerm);
+				
+		objMyDB.getConexion();
+		objMyDB.modificarTerminal(unaTerminal);
+		objMyDB.cerrarConexion(); 
+		this.cerrarVentanaTerm();
+	}
+	
+	public void cerrarVentanaTerm(){
+		RequestContext.getCurrentInstance().closeDialog("modificarTerminal");
+		RequestContext.getCurrentInstance().update("formBAJAMOD:panelTerm");
+	}
+	
+	// ***************************************************************************
+	//
+	// COMUN PARA TODOS
+	//
 	// ***************************************************************************
 	
     public String getId(){
     	return this.id;
     }
     
-    public String getNombreAdmin(){
-    	//return unAdmin.getNombre();
-    	return this.nombreAdmin;
-    }
-     
-    public String getClaveAdmin(){
-    	//return unAdmin.getClave();
-    	return this.claveAdmin;
-    }    
-    
-    public String getEmailAdmin(){
-    	//return unAdmin.getEmail();
-    	return this.emailAdmin;
-    }  
-    
-    public boolean getFlagAuditoriaBusquedaAdmin(){
-    	//return unAdmin.getFlagAuditoriaBusqueda();
-    	return this.flagAuditoriaBusquedaAdmin;
-    }
-    
-    public boolean getFlagNotificacionesAdmin(){
-    	//return unAdmin.getFlagNotificaciones();
-    	return this.flagNotificacionesAdmin;
-    }   
-    
-	public String getAdministrador(){
-		System.out.println("--> getAdministrador"); 
-		unAdmin = new Administrador();
-		this.recibirParametros();
-		VistaABMUsuario objBean = new VistaABMUsuario();
-		unAdmin = objBean.getAdministrador(this.id);
-		
-		System.out.println("admin nombre --> " + unAdmin.getNombre() );
-
-		this.nombreAdmin = unAdmin.getNombre();
-		this.claveAdmin = unAdmin.getClave();
-		this.emailAdmin = unAdmin.getEmail();
-		this.flagAuditoriaBusquedaAdmin = unAdmin.getFlagAuditoriaBusqueda();
-		this.flagNotificacionesAdmin = unAdmin.getFlagNotificaciones();	
-		
-		return "Modificar Administrador";
-	}
-	
-	// ***************************************************************************
-	// Metodos
-	// ***************************************************************************
-	
 	public void recibirParametros() {
 		parametros = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterValuesMap();
 				
@@ -126,7 +233,7 @@ public class VistaMSGDialog extends VistaPadre {
 			case "VistaABMUsuario":
 				this.obtenerParametrosVistaABMUsuario();
 				break;
-							
+					
 			case "VistaABMPOI":
 				this.obtenerParametrosVistaABMPOI();
 				break;
@@ -146,24 +253,6 @@ public class VistaMSGDialog extends VistaPadre {
 		System.out.println("Pendiente --> obtenerParametrosVistaABMPOI" );
 	}
 	
-	public void actualizarAdmin(){
-		
-    	unAdmin.setNombre(this.nombreAdmin);
-    	unAdmin.setClave(this.claveAdmin);
-    	unAdmin.setEmail(this.emailAdmin);
-    	unAdmin.setFlagAuditoriaBusqueda(this.flagAuditoriaBusquedaAdmin);
-    	unAdmin.setFlagNotificaciones(this.flagNotificacionesAdmin);
-				
-		objMyDB.getConexion();
-		objMyDB.modificarAdministrador(unAdmin);
-		objMyDB.cerrarConexion(); 
-		this.cerrarVentana();
-	}
-	
-	public void cerrarVentana(){
-		RequestContext.getCurrentInstance().closeDialog("modificarAdministrador");
-		RequestContext.getCurrentInstance().update("panelAdmin"); 
-		System.out.println("panel");
-	}
+
 	
 }

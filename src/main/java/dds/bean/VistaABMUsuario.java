@@ -136,6 +136,7 @@ public class VistaABMUsuario extends VistaPadre {
 		objMyDB.cerrarConexion();
 		return colAdmins;
 	}
+	
 	public void eliminarAdministrador(String id_usuario){
 		objMyDB.getConexion();
 		objMyDB.bajaAdministrador(id_usuario);
@@ -164,7 +165,7 @@ public class VistaABMUsuario extends VistaPadre {
 		parametros.put("id", parametro);
 				
 		RequestContext.getCurrentInstance().openDialog("modificarAdministrador", opcionesVentana, parametros);
-
+		
 	}
 	
 	public Administrador getAdministrador(String id_usuario){

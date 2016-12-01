@@ -35,7 +35,7 @@ public class TestDistanciaCGP {
 		//creo un POI CGP de prueba
 		CGP cgpFlores = new CGP("CGP Flores",0.36,0.70);
 		cgpFlores.setComuna(comunaFlores);
-		System.out.println(cgpFlores.tipoPOI()+ ": " + cgpFlores.getNombre() + ", latitud: " + cgpFlores.getLatitud() + ", longitud: " + cgpFlores.getLongitud());		
+		System.out.println(cgpFlores.getTipoPOI() + ": " + cgpFlores.getNombre() + ", latitud: " + cgpFlores.getLatitud() + ", longitud: " + cgpFlores.getLongitud());		
 				
 		assertEquals("Verificamos que el CGP este cerca del dispositivo", true, dispositivoConsulta.estaCercaMio(cgpFlores));
 

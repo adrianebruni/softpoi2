@@ -34,7 +34,7 @@ public class TestDistanciaParadaCol {
 		callaoCordoba132.setEmpresa("Nuevos Rumbos S.A.");
 		callaoCordoba132.setNumeroDeLinea(132);
 		//System.out.println("tipo de POI:" + callaoCordoba132.tipoPOI());
-		System.out.println(callaoCordoba132.tipoPOI() + ": " + callaoCordoba132.getNombre() + ", latitud: " + callaoCordoba132.getLatitud() + ", longitud: " + callaoCordoba132.getLongitud());		
+		System.out.println(callaoCordoba132.getTipoPOI() + ": " + callaoCordoba132.getNombre() + ", latitud: " + callaoCordoba132.getLatitud() + ", longitud: " + callaoCordoba132.getLongitud());		
 
 		assertEquals("Verificamos que la parada este cerca del dispositivo", true, dispositivoConsulta.estaCercaMio(callaoCordoba132));
 		

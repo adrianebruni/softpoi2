@@ -39,7 +39,7 @@ public class TestDistanciaBanco {
 		
 		//creo un POI Banco de prueba
 		Banco bancoNacion1 = new Banco("Banco Nacion microcentro",0.350219708,0.715484992);
-		System.out.println(bancoNacion1.tipoPOI() + ": " + bancoNacion1.getNombre() + ", latitud: " + bancoNacion1.getLatitud() + ", longitud: " + bancoNacion1.getLongitud());		
+		System.out.println(bancoNacion1.getTipoPOI() + ": " + bancoNacion1.getNombre() + ", latitud: " + bancoNacion1.getLatitud() + ", longitud: " + bancoNacion1.getLongitud());		
 		
 		assertEquals("Verificamos que el Banco este cerca del dispositivo", true, dispositivoConsulta.estaCercaMio(bancoNacion1));
 		

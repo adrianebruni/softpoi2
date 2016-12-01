@@ -35,7 +35,7 @@ public class TestDistanciaComercio {
 		
 		//creo un POI Comercio de prueba
 		Comercio merceriaJose = new Comercio("Merceria Jose",-34.5617237,-58.4586025,rubroMerceria);
-		System.out.println(merceriaJose.tipoPOI() + ": " + merceriaJose.getNombre() + ", latitud: " + merceriaJose.getLatitud() + ", longitud: " + merceriaJose.getLongitud());		
+		System.out.println(merceriaJose.getTipoPOI() + ": " + merceriaJose.getNombre() + ", latitud: " + merceriaJose.getLatitud() + ", longitud: " + merceriaJose.getLongitud());		
 			
 	
 		assertEquals("Verificamos que el Comercio este cerca del dispositivo", true, dispositivoConsulta.estaCercaMio(merceriaJose));

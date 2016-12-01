@@ -43,7 +43,7 @@ public abstract class POI {
 	protected ArrayList<Servicio> servicios = new ArrayList<Servicio>();
 	protected Date fecha_baja;
 	protected String palabras_clave;
-	protected String tipoPOI;
+	//protected String tipoPOI;
 	
 	public abstract List<String> getInfo();
 	
@@ -199,10 +199,9 @@ public abstract class POI {
 				 this.latitud > 90 || this.latitud < -90 ||
 				 this.longitud > 180 || this.longitud < -180);
 	}
-	
-	
-	public String tipoPOI(){
-		return this.getClass().getName().substring(4);
+		
+	public String getTipoPOI(){
+		return this.getClass().getSimpleName().toString();
 	}
 	
 	// Funcion que calcula la distancia entre 2 coordenadas (la unidad de medida es opcional, por defecto calcula en metros)

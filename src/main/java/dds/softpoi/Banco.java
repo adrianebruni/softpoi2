@@ -151,11 +151,11 @@ public class Banco extends POI {
 	}
 	
 	public String getImagenIcon(){
-		return super.getImagenIcon("banco");
+		return super.getImagenIcon(this.getTipoPOI());
 	}
 	
-	public String tipoPOI(){
-		return "Banco";
+	public String getTipoPOI(){
+		return this.getClass().getSimpleName().toString();
 	}
 	
 }

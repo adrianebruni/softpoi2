@@ -26,8 +26,8 @@ public abstract class VistaPadre {
     	
     	System.out.println("Iniciando: VistaPadre.java");
     	unServidor = new Servidor();
-    	
-    	Administrador unAdmin = new Administrador();
+    	objSeguridad = new Seguridad(unServidor);
+//    	Administrador unAdmin = new Administrador();
     	
     	//colBusqueda = new ArrayList<String>();
 //    	RepoPOI colPoisPrueba = new RepoPOI();
@@ -35,26 +35,29 @@ public abstract class VistaPadre {
 //    	unServidor.cargarPOIs(colPoisPrueba.Dame_Bolsa_POI());
     	
 		// Crear Administrador
-		unAdmin.setNombre("root");
-		unAdmin.setClave("root");
-		unAdmin.setServidor(unServidor);
+//		unAdmin.setNombre("root");
+//		unAdmin.setClave("root");
+//		unAdmin.setServidor(unServidor);
 		//unAdmin.setFlagAuditoriaBusqueda(true);
-		unServidor.addAdmin(unAdmin);
-				
+//		unServidor.addAdmin(unAdmin);
+
+/*    	
 		DispositivoConsulta terminalAbasto = new DispositivoConsulta("terminalAbasto", 0.350219708, 0.715584992, "Abasto");
 		terminalAbasto.setClave("terminal1");
 		terminalAbasto.setFlagAuditoriaBusqueda(true);
 		terminalAbasto.setFlagNotificaciones(false);
 		terminalAbasto.setServidor(unServidor);
 		unServidor.addAdmin(terminalAbasto);
-		
-		// ESTO ESTA HARDCODEADO PERO DEBERIA IR EN UNA PANTALLA DE ADMINISTRACION
+*/	
+
+    	/*
+    	// ESTO ESTA HARDCODEADO PERO DEBERIA IR EN UNA PANTALLA DE ADMINISTRACION
 		// es decir que un administrador tiene que logearse y darle permisos a una terminal para que pueda hacer consultas.
 		unAdmin.agregarPermiso(PermisoBusqueda.getpermisoBusquedaSingleton());
 		unAdmin.commitPermisos(terminalAbasto);	
+*/		
 		
-		objSeguridad = new Seguridad(unServidor);
-		
+
 		//HARDCODEO UNA CONSULTA DE USUARIO PARA TENER DATOS PARA LA BUSQUEDA DE HISTORIAL
 		//buscamos coincidencias para COMUNA
 		//terminalAbasto.buscaPOI("COMUNA");

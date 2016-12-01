@@ -34,7 +34,7 @@
 						</p:commandButton>
 						
 						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-							<p:commandButton value="Sí" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="Sí" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":formBAJAMOD:panelAdmin" />
 							<p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 						</p:confirmDialog>
 										
@@ -65,7 +65,7 @@
 								<p:menuitem value="Eliminar" icon="ui-icon-close" actionListener="#{bnVistaABMUsuario.eliminarAdministrador(unAdmin.id_usuario)}" ajax="true" update=":formBAJAMOD:panelAdmin" />
 							</p:splitButton>
 						</p:column>
-						
+												
 					</p:dataTable>
 				</p:panel>
 			</h:form>

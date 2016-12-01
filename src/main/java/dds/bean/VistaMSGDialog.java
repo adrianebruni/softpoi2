@@ -8,6 +8,7 @@ import org.primefaces.context.RequestContext;
 import dds.bbdd.DBMySQL;
 import dds.softpoi.Administrador;
 import dds.softpoi.DispositivoConsulta;
+import dds.softpoi.POI;
 
 @ManagedBean(name="bnVistaMSGDialog")
 @ViewScoped
@@ -18,15 +19,16 @@ public class VistaMSGDialog extends VistaPadre {
 	private Map<String, String[]> parametros;
 	
 	private String id;
-	private Administrador unAdmin;
-	private DispositivoConsulta unaTerminal;
 	
+	
+	private Administrador unAdmin;
 	private String nombreAdmin;
 	private String claveAdmin;
 	private String emailAdmin;
 	private boolean flagAuditoriaBusquedaAdmin;
 	private boolean flagNotificacionesAdmin;
 	
+	private DispositivoConsulta unaTerminal;
 	private String nombreTerm;
 	private String claveTerm;
 	private double longitudTerm;
@@ -34,7 +36,11 @@ public class VistaMSGDialog extends VistaPadre {
 	private boolean flagAuditoriaBusquedaTerm;
 	private boolean flagNotificacionesTerm;
 
-	
+	private POI unPOI;
+	private String nombrePOI;
+	private double longitudPOI;
+	private double latitudPOI;
+	private String tipoPOI;
 	
 	
 	// ***************************************************************************
@@ -94,7 +100,6 @@ public class VistaMSGDialog extends VistaPadre {
 	public String getAdministrador(){
 		unAdmin = new Administrador();
 		this.recibirParametros();
-		//VistaABMUsuario objBean = new VistaABMUsuario();
 		unAdmin = objBean.getAdministrador(this.id);
 		this.nombreAdmin = unAdmin.getNombre();
 		this.claveAdmin = unAdmin.getClave();
@@ -119,9 +124,7 @@ public class VistaMSGDialog extends VistaPadre {
 	}
 	
 	public void cerrarVentanaAdmin(){
-		RequestContext.getCurrentInstance().closeDialog("modificarAdministrador");
-		RequestContext.getCurrentInstance().update("formBAJAMOD:panelAdmin");
-		System.out.println("panel");
+		RequestContext.getCurrentInstance().closeDialog("modificarAdministrador");		
 	}
 	
 	// ***************************************************************************
@@ -197,7 +200,7 @@ public class VistaMSGDialog extends VistaPadre {
 		
 		unaTerminal.setNombre(this.nombreTerm);
 		unaTerminal.setClave(this.claveTerm);
-		unaTerminal.setLongitud(this.latitudTerm);
+		unaTerminal.setLongitud(this.longitudTerm);
 		unaTerminal.setLatitud(this.latitudTerm);
 		unaTerminal.setFlagAuditoriaBusqueda(this.flagAuditoriaBusquedaTerm);
 		unaTerminal.setFlagNotificaciones(this.flagNotificacionesTerm);
@@ -213,6 +216,84 @@ public class VistaMSGDialog extends VistaPadre {
 		RequestContext.getCurrentInstance().update("formBAJAMOD:panelTerm");
 	}
 	
+	
+	// ***************************************************************************
+	// 
+    // UTILIZADO POR: ABM POI
+    //
+	// ***************************************************************************	
+	
+	public String getNombrePOI() {
+		return nombrePOI;
+	}
+
+	public void setNombrePOI(String nombrePOI) {
+		this.nombrePOI = nombrePOI;
+	}
+
+	public double getLongitudPOI() {
+		return longitudPOI;
+	}
+
+	public void setLongitudPOI(double longitudPOI) {
+		this.longitudPOI = longitudPOI;
+	}
+
+	public double getLatitudPOI() {
+		return latitudPOI;
+	}
+
+	public void setLatitudPOI(double latitudPOI) {
+		this.latitudPOI = latitudPOI;
+	}
+
+	public String getTipoPOI() {
+		return tipoPOI;
+	}
+
+	public void setTipoPOI(String tipoPOI) {
+		this.tipoPOI = tipoPOI;
+	}
+	
+	public String getDatoPOI(){
+		this.recibirParametros();
+		
+		objMyDB.getConexion();
+		unPOI = objMyDB.buscarPOI(this.id);
+		objMyDB.cerrarConexion();
+
+		try {
+			if (unPOI != null){
+				this.nombrePOI = unPOI.getNombre();
+				this.longitudPOI = unPOI.getLongitud();
+				this.latitudPOI = unPOI.getLatitud();
+				this.tipoPOI = unPOI.getTipoPOI();
+			}
+		} catch (Exception e) {
+
+		}
+		
+		return "Modificar POI";
+	}
+	
+	public void actualizarPOI(){
+		
+		unPOI.setNombre(this.nombrePOI);
+		unPOI.setLongitud(this.longitudPOI);
+		unPOI.setLatitud(this.latitudPOI);
+		
+				
+		objMyDB.getConexion();
+		objMyDB.modificarPOI(unPOI);
+		objMyDB.cerrarConexion(); 
+		this.cerrarVentanaPOI();
+	}
+	
+	public void cerrarVentanaPOI(){
+		RequestContext.getCurrentInstance().closeDialog("modificarPOI");
+		RequestContext.getCurrentInstance().update("formBAJAMOD:panelPOI");
+	}
+	
 	// ***************************************************************************
 	//
 	// COMUN PARA TODOS
@@ -226,31 +307,13 @@ public class VistaMSGDialog extends VistaPadre {
 	public void recibirParametros() {
 		parametros = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterValuesMap();
 				
-		String[] lstParam = parametros.get("from");
-		String paramFrom = lstParam[0];
+		String[] lstParam1 = parametros.get("from");
+		String paramFrom = lstParam1[0]; // <--- Indica nombre de la clase (vista) desde donde se estan enviando los parametros
 		
-		switch (paramFrom){		
-			case "VistaABMUsuario":
-				this.obtenerParametrosVistaABMUsuario();
-				break;
-					
-			case "VistaABMPOI":
-				this.obtenerParametrosVistaABMPOI();
-				break;
-		}
+		String[] lstParam2 = parametros.get("id");
+		String paramID = lstParam2[0];
+		this.id = paramID;
 		
-	}
-		
-	private void obtenerParametrosVistaABMUsuario(){
-		String[] lstParam;
-		lstParam = parametros.get("id");
-		String paramID = lstParam[0];
-		this.id = paramID;		
-	}
-	
-	
-	private void obtenerParametrosVistaABMPOI(){
-		System.out.println("Pendiente --> obtenerParametrosVistaABMPOI" );
 	}
 	
 

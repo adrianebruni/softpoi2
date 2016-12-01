@@ -1,8 +1,11 @@
 package dds.softpoi;
 
+import dds.bbdd.DBMySQL;
+
 public class Seguridad {
 	
-	protected Servidor unServidor;
+	private Servidor unServidor;
+	private DBMySQL objMyDB;
 	
 	// ***************************************************************************
 	// Constructor
@@ -19,7 +22,28 @@ public class Seguridad {
 	// ***************************************************************************	
 	
 	public Usuario login(String nombreUsuario, String claveUsuario) {
-		return unServidor.login(nombreUsuario, claveUsuario);
+		Usuario userAdmin = new Administrador();
+		Usuario userTerm = new DispositivoConsulta();
+		
+		objMyDB = new DBMySQL();
+		objMyDB.getConexion();
+		userAdmin = objMyDB.buscarAdministrador(nombreUsuario, claveUsuario);
+		userTerm = objMyDB.buscarTerminal(nombreUsuario, claveUsuario);
+		objMyDB.cerrarConexion();
+		
+		try {
+			if (userAdmin != null){
+				return userAdmin;
+			}
+		} catch (Exception e) {	}
+		
+		try {
+			if (userTerm != null){
+				return userTerm;
+			}
+		} catch (Exception e) {	}
+		
+		return null;
 	}
 	
 	public Boolean validarUsuarioAdmin(Usuario unUsuario){

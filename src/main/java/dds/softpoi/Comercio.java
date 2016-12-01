@@ -126,11 +126,11 @@ public class Comercio extends POI{
 		}
 		
 		public String getImagenIcon(){
-			return super.getImagenIcon("comercio");
+			return super.getImagenIcon(this.getTipoPOI());
 		}
 		
-		public String tipoPOI(){
-			return "Comercio";
+		public String getTipoPOI(){
+			return this.getClass().getSimpleName().toString();
 		}
 		
 		public boolean estaDisponible(Date unDia, String horaActual){

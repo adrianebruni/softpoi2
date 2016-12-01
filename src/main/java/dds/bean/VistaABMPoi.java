@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
+
+import dds.bbdd.DBMySQL;
 import dds.softpoi.Administrador;
 import dds.softpoi.Banco;
 import dds.softpoi.CGP;
@@ -21,7 +23,9 @@ import dds.softpoi.ParadaColectivo;
 @ViewScoped
 public class VistaABMPoi extends VistaPadre {
 
-	//private static final long serialVersionUID = -4368748875565642695L;
+	
+	private DBMySQL objMyDB = new DBMySQL();
+	
 	private String nombre;
 	private Double latitud;
 	private Double longitud;
@@ -31,7 +35,7 @@ public class VistaABMPoi extends VistaPadre {
 
 	private POI POISeleccionado;
 	
-	
+	/*
 	@ManagedProperty("#{bnVistaLogin}")
 	private VistaLogin bnVistaLogin;
 	
@@ -42,6 +46,7 @@ public class VistaABMPoi extends VistaPadre {
 	public void setBnVistaLogin(VistaLogin bnVistaLogin){
 		this.bnVistaLogin = bnVistaLogin;
 	}
+	*/
 	
 	// ***************************************************************************
 	// Inicializador
@@ -114,8 +119,6 @@ public class VistaABMPoi extends VistaPadre {
 	
 	public void insertarPOI(String tipoPOI) {
 		
-		System.out.println("VistaABMPoi -> insertarPOI()");
-		
 		POI unPOI = null;
 		switch (this.tipoPOI){		
 			case "Banco":
@@ -138,18 +141,22 @@ public class VistaABMPoi extends VistaPadre {
 		unPOI.setLongitud(this.longitud);
 		unPOI.setLatitud(this.latitud);
 		
-		((Administrador) super.getUnUsuarioLogueado()).cargarPOI(unPOI);
+		objMyDB.getConexion();
+		objMyDB.altaPOI(unPOI);
+		objMyDB.cerrarConexion();
 		
 		this.limpiarCampos();
-
+		RequestContext.getCurrentInstance().update("formBAJAMOD:panelPOI");
+		
 	}
 	
 	private void limpiarCampos(){
-		this.nombre = null;
-		this.longitud = null;
-		this.latitud = null;
+		this.setNombre(null);
+		this.setLongitud(null);
+		this.setLatitud(null);
 	}
 
+	/*
 	public List<POI> getListapois(){
 		// Obtenemos los parametros enviados desde el bean VistaLogin    	
     	super.setServidor(bnVistaLogin.getServidor());
@@ -157,33 +164,47 @@ public class VistaABMPoi extends VistaPadre {
 		List<POI> colPOI = super.getServidor().getColPOIs();
 		return colPOI;
 	}
+	*/
+	
+	public List<POI> getListaPois(){
+		objMyDB.getConexion();
+		List<POI> colPOI = objMyDB.buscarPOIs(null,null,false);
+		objMyDB.cerrarConexion();
+		return colPOI;
+	}
 	
 	public void editarPOI(String IDPOI){
-		
-		
+			
 		// Indicamos las opciones de configuracion de la ventana de dialogo
-		Map<String,Object> opciones = new HashMap<String, Object>();
-		opciones.put("resizable", false);
+		Map<String, Object> opcionesVentana = new HashMap<String, Object>();
+		opcionesVentana.put("modal", true);
+		opcionesVentana.put("resizable", false);
+		opcionesVentana.put("width", 480);
+		opcionesVentana.put("height", 340);
+		opcionesVentana.put("contentWidth", "100%");
+		opcionesVentana.put("contentHeight", "100%");
+		opcionesVentana.put("headerElement", "customheader");
 		
-		// Indicamos los parametros que se encian por URL
-		List<String> paramList = new ArrayList<String>();
-		paramList.add(IDPOI);
+		Map<String, List<String>> parametros = new HashMap<>();
+		List<String> parametro;
+
+		parametro = new ArrayList<>();
+		parametro.add(this.getClass().getSimpleName());		
+		parametros.put("from", parametro);
+		
+		parametro = new ArrayList<>();
+		parametro.add(IDPOI);
+		parametros.put("id", parametro);
 				
-		Map<String, List<String>> parametros = new HashMap<String, List<String>>();
-		parametros.put("IDPOI", paramList);
-		
-		RequestContext.getCurrentInstance().openDialog("modificarPOI", opciones, parametros);
-		
-		
+		RequestContext.getCurrentInstance().openDialog("modificarPOI", opcionesVentana, parametros);
 	}	
 	
 	public void eliminarPOI(String IDPOI){
-		((Administrador) super.getUnUsuarioLogueado()).eliminarPOI(Integer.parseInt(IDPOI.substring(1, IDPOI.length()-1)));
-		System.out.println("valor: " + Integer.parseInt(IDPOI.substring(1, IDPOI.length()-1)));
-	}
-	
-	public void modificarPOI(POI unPOI){
-		System.out.println("lalalalalal: " + unPOI.getNombre());
+		objMyDB.getConexion();
+		objMyDB.bajaPOI(IDPOI);
+		objMyDB.cerrarConexion();
+		//((Administrador) super.getUnUsuarioLogueado()).eliminarPOI(Integer.parseInt(IDPOI.substring(1, IDPOI.length()-1)));
+		//System.out.println("valor: " + Integer.parseInt(IDPOI.substring(1, IDPOI.length()-1)));
 	}
 	
 }

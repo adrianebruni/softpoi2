@@ -76,11 +76,11 @@ public class ParadaColectivo extends POI {
 	}
 	
 	public String getImagenIcon(){
-		return super.getImagenIcon("paradacolectivo");
+		return super.getImagenIcon(this.getTipoPOI());
 	}
 	
-	public String tipoPOI(){
-		return "ParadaColectivo";
+	public String getTipoPOI(){
+		return this.getClass().getSimpleName().toString();
 	}
 	
 	

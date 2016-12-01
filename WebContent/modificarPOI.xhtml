@@ -1,60 +1,46 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-	<h:head></h:head>
+	<h:head>
+		<style type="text/css" >
+			.ui-wiget {
+				font-size: 90%;
+			}
+		</style>
+	</h:head>
+	
 	<h:body>
-	
-	<p:outputLabel value="Modificar POI: " />
-	
-	<!-- 
-		<p:panel header="MODIFICAR POIs" style="margin-bottom:10px;">
-			<h:panelGrid columns="2" cellpadding="5" border="1">
-	                        
-	            <p:outputLabel value="Tipo de POI: " />
-	            <p:selectOneMenu id="tipoPOI"  value="#{bnVistaABMPoi.tipoPOI}" style="width:190px">
-	            	<f:selectItem itemLabel="Seleccionar Tipo POI" itemValue="" noSelectionOption="true" />
-	                <f:selectItems value="#{bnVistaABMPoi.tipoPOIs}" />
-	                <p:ajax render="@formALTA"/>
-	            </p:selectOneMenu>		            
-	            
-	            <p:outputLabel value="Nombre: " />
-	            <p:inputText id="nombre" value="#{bnVistaABMPoi.nombre}"  />
-	            
-	            <p:outputLabel value="Longitud: " />
-	            <p:inputText id="longitud" value="#{bnVistaABMPoi.longitud}"  />
-	            
-	            <p:outputLabel value="Latitud: " />
-	            <p:inputText id="latitud" value="#{bnVistaABMPoi.latitud}"  />
-	            
-	            
-	            <h:panelGroup rendered="#{bnVistaABMPoi.tipoPOI == 'Banco'}">
-	            	<p:outputLabel value="#{bnVistaABMPoi.datoPOILabel}" />
-	            	<p:inputText value="#{bnVistaABMPoi.datoPOIText}"  />
-	            </h:panelGroup>
-	            
-	            <h:panelGroup rendered="#{bnVistaABMPoi.tipoPOI == 'CGP'}">
-	            	<p:outputLabel value="#{bnVistaABMPoi.datoPOILabel}" />
-	            	<p:inputText value="#{bnVistaABMPoi.datoPOIText}"  />
-	            </h:panelGroup>
-	            		            
-	            <p:commandButton value="Agregar" actionListener="#{bnVistaABMPoi.insertarPOI}" >
-				    <p:confirm header="Confirmacion" message="¿Está seguro que desea guardar los cambios?" icon="ui-icon-alert" />
-				    <p:confirmDialog global="true"  showEffect="fade" hideEffect="fade">
-						<p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-						<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-					</p:confirmDialog>
-				</p:commandButton>
-	            
-			</h:panelGrid>
-		
-		</p:panel>
-	 -->
+		<i id="customheader" class="fa fa-fw fa-car" style="display:none" ></i>
+		<h:form id="formModPOI">
+			<p:panel id="panel" header="#{bnVistaMSGDialog.datoPOI}" style="margin-bottom:10px;">
+				<h:panelGrid columns="2" cellpadding="2">
+							
+					<p:outputLabel value="ID" />
+					<p:outputLabel id="vid_poi" value="#{bnVistaMSGDialog.id}" />
+					
+					<p:outputLabel value="Tipo de POI: " />
+					<p:inputText id="vtipo_poi" value="#{bnVistaMSGDialog.tipoPOI}" disabled="true" />
+					
+					<p:outputLabel value="Nombre" />
+					<p:inputText id="vnombre" value="#{bnVistaMSGDialog.nombrePOI}" />
+					
+					<p:outputLabel value="Longitud" />
+					<p:inputText id="vlongitud" value="#{bnVistaMSGDialog.longitudPOI}" />
+					
+					<p:outputLabel value="Latitud" />
+					<p:inputText id="vlatitud" value="#{bnVistaMSGDialog.latitudPOI}" />
+					
+				</h:panelGrid>
+				
+				<p:commandButton value="Aceptar" actionListener="#{bnVistaMSGDialog.actualizarPOI}" /> 
+				<p:commandButton value="Cancelar" actionListener="#{bnVistaMSGDialog.cerrarVentanaPOI}" /> 
+							
+			</p:panel>
+		</h:form>
 	 
 	</h:body>
 

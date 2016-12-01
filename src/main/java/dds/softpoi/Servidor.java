@@ -37,7 +37,7 @@ public class Servidor {
 	DBMySQL base = new DBMySQL();
 	
 	public Servidor(){
-		this.colPOIs.addAll(base.obtenerTodaLaBBDD());
+		this.colPOIs.addAll(base.buscarPOIs(null,null,false));
 		
 		// Codigo utilizado por Alex.
 		//this.actualizoDesdeDatosExternos();
@@ -67,7 +67,7 @@ public class Servidor {
 //		unPOI.setIdpoi(this.proximoIdPOI());
 //		this.getRepositorio().pois().persistir(unPOI);
 		unPOI.setIdpoi(this.proximoIdPOI());
-		this.base.persistirPOI(unPOI);
+		this.base.altaPOI(unPOI);
 		this.colPOIs.add(unPOI);
 	}
 	
@@ -166,7 +166,7 @@ public class Servidor {
 				break;
 			}
 		}
-		base.eliminarPOI(idpoi);
+		base.bajaPOI("" + idpoi);
 	}	
 	
 	public void modificarPOI(POI poimodificado) throws IllegalArgumentException, IllegalAccessException {

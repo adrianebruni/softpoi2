@@ -11,8 +11,8 @@
 		<ui:define name="content">
 					
 			<h:form id="formALTA">
-				<p:panel header="ALTA POIs" style="margin-bottom:10px;">
-					<h:panelGrid id="panelAlta" columns="2" cellpadding="5" border="1">
+				<p:panel id="panel" header="ALTA POIs" style="margin-bottom:10px;">
+					<h:panelGrid id="panelAlta" columns="2" cellpadding="5" border="0">
 			                        
 			            <p:outputLabel value="Tipo de POI: " />
 			            <p:selectOneMenu id="tipoPOI"  value="#{bnVistaABMPoi.tipoPOI}" style="width:190px">
@@ -30,14 +30,14 @@
 			            <p:outputLabel value="Latitud: " />
 			            <p:inputText id="latitud" value="#{bnVistaABMPoi.latitud}"  />
 			            
-			         			            		            
 			            <p:commandButton value="Agregar" actionListener="#{bnVistaABMPoi.insertarPOI}" >
 						    <p:confirm header="Confirmacion" message="¿Está seguro que desea insertar en POI?" icon="ui-icon-alert" />
-						    <p:confirmDialog global="true"  showEffect="fade" hideEffect="fade">
-								<p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" update=":formBAJAMOD:panelBAJAMOD" icon="ui-icon-check" />
-								<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-							</p:confirmDialog>
 						</p:commandButton>
+
+					    <p:confirmDialog global="true"  showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":formBAJAMOD:panelPOI" />
+							<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
 			            
 					</h:panelGrid>
 					
@@ -46,8 +46,8 @@
 			</h:form>
 							
 			<h:form id="formBAJAMOD">
-				<p:panel id="panelBAJAMOD" header="POIs" style="margin-bottom:10px;">
-					<p:dataTable var="unPOI" value="#{bnVistaABMPoi.listapois}">
+				<p:panel id="panelPOI" header="POIs" style="margin-bottom:10px;">
+					<p:dataTable var="unPOI" value="#{bnVistaABMPoi.listaPois}"> 
 						
 						<p:column headerText="Id">
 							<h:outputText value="#{unPOI.idpoi}" />
@@ -58,58 +58,18 @@
 						</p:column>
 	
 						<p:column headerText="Tipo">
-							<h:outputText value="TipoPOI --> {unPOI.tipoPOI}" />
+							<h:outputText value="#{unPOI.tipoPOI}" />
 						</p:column>
 	
 						<p:column headerText="Acción">
-							<p:splitButton value="Acción" icon="ui-icon-disk">
-								<p:menuitem value="Editar" update=":formBAJAMOD:propiedadesPOI" oncomplete="PF('poiDialog').show()" icon="ui-icon-arrowrefresh-1-w">
-									<f:setPropertyActionListener value="#{unPOI}" target="#{bnVistaABMPoi.POISeleccionado}" />
-								</p:menuitem>								
+							<p:splitButton value="Acción"  icon="ui-icon-disk">
+								<p:menuitem value="Editar" icon="ui-icon-arrowrefresh-1-w" actionListener="#{bnVistaABMPoi.editarPOI(unPOI.idpoi)}" />
+								<p:menuitem value="Eliminar" icon="ui-icon-close" actionListener="#{bnVistaABMPoi.eliminarPOI(unPOI.idpoi)}" ajax="true" update=":formBAJAMOD:panelPOI" />
 							</p:splitButton>
 						</p:column>
-						
+
 					</p:dataTable>
 				</p:panel>
-				
-			    <p:dialog header="Propiedades POI" widgetVar="poiDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-			    	<p:outputPanel id="propiedadesPOI" style="text-align:center;">
-	                	
-	                	
-				        	<p:panelGrid value="#{bnVistaABMPoi.POISeleccionado}" var="unPOI" columns="2" columnClasses="label,value" style="width:500px">
-				         		<f:facet name="header">
-									<p:graphicImage url="#{unPOI.imagenIcon}" style="width:120px"/>
-				             	</f:facet>
-							
-								<p:dataTable value="#{bnVistaABMPoi.POISeleccionado}" var="unPOI">
-							    	<p:column>
-							    		<p:row><p:outputLabel value="Nombre POI:" /></p:row>		    		
-							    		<p:row><p:outputLabel value="Longitud:" /></p:row>
-							    		<p:row><p:outputLabel value="Latitud:" /></p:row>
-							    	</p:column>
-							    	<p:column>
-							    		<p:row><p:inputText value="#{unPOI.nombre}" /></p:row>
-							    		<p:row><p:inputText value="#{unPOI.longitud}" /></p:row>
-							    		<p:row><p:inputText value="#{unPOI.latitud}" /></p:row>
-							    	</p:column>
-							    	<p:column>
-								    	<p:row></p:row>
-								    	<p:row></p:row>
-								    	<p:row>
-								    		<h:form id="formMODPOI">
-								    			<p:commandButton value="Guardar" type="submit" actionListener="#{bnVistaABMPoi.modificarPOI}" oncomplete="PF('poiDialog').hide()" />
-												<p:commandButton value="Cancelar" oncomplete="PF('poiDialog').hide()" />
-								    		</h:form>
-								    	</p:row>	    		
-							    	</p:column>
-							    </p:dataTable>
-				           </p:panelGrid>
-		            	
-			            
-			            
-	                </p:outputPanel>
-			    </p:dialog>
-
 			</h:form>
 			
 		</ui:define>

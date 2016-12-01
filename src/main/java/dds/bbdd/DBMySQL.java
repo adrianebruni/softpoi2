@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.validation.constraints.Null;
+
 import com.mysql.jdbc.PreparedStatement;
 
 import dds.softpoi.Administrador;
@@ -137,7 +139,7 @@ public class DBMySQL {
 			stmt = connection.createStatement();
 			rs = stmt.executeQuery(Query);
 		} catch (Exception e) {
-			System.out.println("ERROR: BBDD.java - buscarAdministradores >> No se pudo crear Statement o ResultSet");
+			System.out.println("ERROR: BBDD.java - buscarAdministrador >> No se pudo crear Statement o ResultSet");
 			return unAdmin;
 		} 
 		
@@ -161,6 +163,50 @@ public class DBMySQL {
 		return unAdmin;
 		
 	}	
+	
+	// Devuelve el administrador que se encuentran en la base de datos segun el ID solicitado.
+	public Administrador buscarAdministrador(String nombre, String clave){
+		
+		Administrador unAdmin = null;
+				
+		String Query = "SELECT * FROM DDS.ADMINISTRADOR WHERE nombre = '" + nombre + "' AND clave = '" + clave + "'";
+				
+		ResultSet rs = null;
+		
+		// Verificamos que exista la conexion con la BBDD
+		if (this.getConexion() == null){
+			this.crearConexionBBDD();
+		}
+		
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(Query);
+		} catch (Exception e) {
+			System.out.println("ERROR: BBDD.java - buscarAdministrador(nombre,clave) >> No se pudo crear Statement o ResultSet");
+			return unAdmin;
+		} 
+		
+		// Obtenemos los datos de la base en MySQL
+		try {
+			while (rs.next()) {
+				unAdmin = new Administrador();
+				unAdmin.setId_usuario(rs.getInt("id_usuario"));
+				unAdmin.setClave(rs.getString("clave"));
+				unAdmin.setNombre(rs.getString("nombre"));
+				unAdmin.setEmail(rs.getString("email"));
+				unAdmin.setFlagAuditoriaBusqueda(rs.getBoolean("flagAuditoriaBusqueda"));
+				unAdmin.setFlagNotificaciones(rs.getBoolean("flagNotificaciones"));
+			}
+		} catch (SQLException e) {
+			System.out.println("ERROR: BBDD.java - buscarAdministradores >> No se pudo obtener los datos");
+			e.printStackTrace();
+		}
+		
+		// retornamos los administrador
+		return unAdmin;
+		
+	}
 	
 	// Devuelve todas las terminales que se encuentran en la base de datos
 	public ArrayList<DispositivoConsulta> buscarTerminales(){
@@ -266,73 +312,141 @@ public class DBMySQL {
 	
 	
 	
-	// Devuelve todos los POIs que se encuentran en la base de datos, segun el 'valorBuscado' por el campo 'key'
-	// si 'busquedaExacta' es falso, entonces hace 'like %%'
-	public ArrayList<POI> buscarPOIs(String key, String valorBuscado, boolean busquedaExacta){
-		String Query = "SELECT * FROM DDS.POI WHERE " + key;
+	public DispositivoConsulta buscarTerminal(String nombre, String clave){
 		
-		ArrayList<POI> colPois = new ArrayList<POI>();
+		DispositivoConsulta unaTerminal = null;
+		
+		String Query = "SELECT * FROM DDS.TERMINAL WHERE nombre = '" + nombre + "' AND clave = '" + clave + "'";
+				
 		ResultSet rs = null;
-		
-		// Verificamos que el valor buscado no este vacio o null
-		if (valorBuscado.trim().isEmpty() || valorBuscado == null){
-			return colPois;
-		}
-			
 		
 		// Verificamos que exista la conexion con la BBDD
 		if (this.getConexion() == null){
 			this.crearConexionBBDD();
 		}
 		
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(Query);
+		} catch (Exception e) {
+			System.out.println("ERROR: BBDD.java - buscarTerminal(nombre,clave) >> No se pudo crear Statement o ResultSet");
+			e.printStackTrace();
+			return unaTerminal;
+		} 
+		
+		// Obtenemos los datos de la base en MySQL
+		try {
+			while (rs.next()) {
+				unaTerminal = new DispositivoConsulta();
+				
+				unaTerminal.setId_usuario(rs.getInt("id_usuario"));
+				unaTerminal.setClave(rs.getString("clave"));
+				unaTerminal.setNombre(rs.getString("nombre"));
+				//unaTerminal.setZona(rs.getString("zona"));
+				unaTerminal.setLongitud(rs.getDouble("longitud"));
+				unaTerminal.setLatitud(rs.getDouble("latitud"));
+				unaTerminal.setFlagAuditoriaBusqueda(rs.getBoolean("flagAuditoriaBusqueda"));
+				unaTerminal.setFlagNotificaciones(rs.getBoolean("flagNotificaciones"));
+			}
+		} catch (SQLException e) {
+			System.out.println("ERROR: BBDD.java - buscarTerminal >> No se pudo obtener los datos");
+			e.printStackTrace();
+		}	
+		
+		// retornamos los administradores
+		return unaTerminal;
+		
+	}	
+	
+	
+	
 
-		if (busquedaExacta){
-			Query = Query + " = '" + valorBuscado + "'";
-		}else{
-			Query = Query + " like '%" + valorBuscado + "%'";
-		}
+	// Devuelve todos los POIs que se encuentran en la base de datos, segun el 'valorBuscado' por el campo 'key'
+	// si 'busquedaExacta' es falso, entonces hace 'like %%'
+	// Si ambos parametros KEY & VALORBUSCADO son null o vacios, devuelve todos los pois de la base de datos
+	public ArrayList<POI> buscarPOIs(String key, String valorBuscado, boolean busquedaExacta){
+
+		String Query = "SELECT * FROM DDS.POI WHERE " + key;
+		ArrayList<POI> colPois = new ArrayList<POI>();
+		ResultSet rs = null;
 		
 		
 		try {
-			Statement stmt = connection.createStatement();
+			if (key == null){ key = "";	}
+		} catch (Exception e) {
+			key = "";
+		}
+
+		
+		try {
+			if (valorBuscado == null){ valorBuscado = ""; }
+		} catch (Exception e) {
+			valorBuscado = "";
+		}
+		
+		
+		if ((key.trim().isEmpty()) && (valorBuscado.trim().isEmpty())){
+			Query = "SELECT * FROM DDS.POI";
+		}else{
+			// Verificamos que el valor buscado no este vacio o null
+			if ((key.trim().isEmpty()) || (valorBuscado.trim().isEmpty())){
+				return colPois;
+			}else{
+				if (busquedaExacta){
+					Query = Query + " = '" + valorBuscado + "'";
+				}else{
+					Query = Query + " like '%" + valorBuscado + "%'";
+				}
+			}
+		}
+		
+		// Verificamos que exista la conexion con la BBDD
+		if (this.getConexion() == null){
+			this.crearConexionBBDD();
+		}
+		
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
 			rs = stmt.executeQuery(Query);
 		} catch (Exception e) {
 			System.out.println("ERROR: BBDD.java - buscarPOIs >> No se pudo crear Statement o ResultSet");
 			return colPois;
 		}
 		
-		POI unPoi;
+		POI unPOI;
 		try {
 			while (rs.next()) {
 				
 				switch (rs.getString("TIPOPOI")){		
 					case "Banco":
-						unPoi = new Banco();
+						unPOI = new Banco();
 						break;
 					
 					case "CGP":
-						unPoi = new CGP();
+						unPOI = new CGP();
 						break;
 						
 					case "Comercio":
-						unPoi = new Comercio();
+						unPOI = new Comercio();
 						break;
 						
 					case "ParadaColectivo":
-						unPoi = new ParadaColectivo();
+						unPOI = new ParadaColectivo();
 						break;
 					default:
 						return null;
 				}
 				
 				// Obtenemos los datos de la base
-				unPoi.setIdpoi(Integer.parseInt(rs.getString("IDPOI")));
-				unPoi.setNombre(rs.getString("NOMBRE"));
-				unPoi.setLatitud(Double.parseDouble(rs.getString("LATITUD")));
-				unPoi.setLongitud(Double.parseDouble(rs.getString("LONGITUD")));
-
+				unPOI.setIdpoi(rs.getInt("IDPOI"));
+				unPOI.setNombre(rs.getString("NOMBRE"));
+				unPOI.setLatitud(rs.getDouble("LATITUD"));
+				unPOI.setLongitud(rs.getDouble("LONGITUD"));
+				
 				// Agrego el poi a la coleccion
-				colPois.add(unPoi);	
+				colPois.add(unPOI);	
 				
 			}
 			
@@ -342,14 +456,118 @@ public class DBMySQL {
 
 		return colPois;			
 	}
+
+
+	public POI buscarPOI(String id_poi){
+
+		String Query = "SELECT * FROM DDS.POI WHERE idpoi = " + id_poi;
+		
+		ResultSet rs = null;
+		
+		try {
+			if (id_poi == null){ 
+				return null;
+			}
+		} catch (Exception e) {
+			
+		}
+			
+		// Verificamos que exista la conexion con la BBDD
+		if (this.getConexion() == null){
+			this.crearConexionBBDD();
+		}
+		
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(Query);
+		} catch (Exception e) {
+			System.out.println("ERROR: BBDD.java - buscarPOIs >> No se pudo crear Statement o ResultSet");
+			return null;
+		}
+		
+		POI unPOI;
+		try {
+			while (rs.next()) {
+				
+				switch (rs.getString("TIPOPOI")){		
+					case "Banco":
+						unPOI = new Banco();
+						break;
+					
+					case "CGP":
+						unPOI = new CGP();
+						break;
+						
+					case "Comercio":
+						unPOI = new Comercio();
+						break;
+						
+					case "ParadaColectivo":
+						unPOI = new ParadaColectivo();
+						break;
+					default:
+						return null;
+				}
+				
+				// Obtenemos los datos de la base
+				unPOI.setIdpoi(rs.getInt("IDPOI"));
+				unPOI.setNombre(rs.getString("NOMBRE"));
+				unPOI.setLatitud(rs.getDouble("LATITUD"));
+				unPOI.setLongitud(rs.getDouble("LONGITUD"));
+				
+				return unPOI;
+				
+			}
+			
+			return null;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+			
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public int obtenerProximoIdBBDD(){
 		int proximoId=0;
 		if (this.getConexion() == null){
 			this.crearConexionBBDD();
 		}
+		
 		try {
-			Statement stmt = connection.createStatement();
+			Statement stmt;
+			stmt = connection.createStatement();
 			String Query = "SELECT MAX(IDPOI) AS IDPOI FROM DDS.POI";
 			ResultSet rs = stmt.executeQuery(Query);
 			while (rs.next()) {
@@ -367,6 +585,7 @@ public class DBMySQL {
 		return proximoId;
 	}
 	
+	/*
 	public ArrayList<POI> obtenerTodaLaBBDD(){
 		
 		ArrayList<POI> coleccionPois = new ArrayList<POI>();
@@ -420,6 +639,7 @@ public class DBMySQL {
 		}
 		return coleccionPois;			
 	}
+	*/
 	
 	/************************************************************************************************************ 
 	 * 
@@ -496,17 +716,13 @@ public class DBMySQL {
 	}	
 	
 	
-	public void persistirPOI(POI unPoi){
-		String tipopoi;
+	public void altaPOI(POI unPoi){
+		
 		if (this.getConexion() == null){
 			this.crearConexionBBDD();
 		}
-		//if(unPoi.getClass().getSimpleName() == "Banco"){
-		//	tipopoi = unPoi.getClass().getSimpleName();
-		//}
-		
-		tipopoi = unPoi.getClass().getSimpleName();
-	
+				
+		String tipopoi = unPoi.getTipoPOI();
 		int idpoi = unPoi.getIdpoi();
 		String nombre = unPoi.getNombre();
 		double latitud = unPoi.getLatitud();
@@ -581,15 +797,14 @@ public class DBMySQL {
 
 	}
 	
-	public void eliminarPOI(int idPoi){
+	public void bajaPOI(String idPoi){
 		
 		if (this.connection == null){
 			this.crearConexionBBDD();
 		}
 		
-		String query;
-	
-		query = "DELETE FROM DDS.POI WHERE IDPOI = " + idPoi;
+		String query = "DELETE FROM DDS.POI WHERE IDPOI = " + idPoi;
+		System.out.println("QUERY: " + query);
 		Statement stmt;
 		try {
 			stmt = connection.createStatement();
@@ -677,6 +892,39 @@ public class DBMySQL {
 			
 			// Condicion
 			PStmt.setInt(7, id_usuario);
+			
+			PStmt.execute();
+			PStmt.close();
+			
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+	}
+	
+	public void modificarPOI(POI unPOI){
+		
+		if (this.connection == null){
+			this.crearConexionBBDD();
+		}
+		
+		int idpoi = unPOI.getIdpoi();
+		String nombre =  unPOI.getNombre();
+		double longitud = unPOI.getLongitud();
+		double latitud = unPOI.getLatitud();
+		
+		String Query = "UPDATE DDS.POI SET nombre = ?, longitud = ?, latitud = ? WHERE idpoi = ?"; 
+		
+		try {
+			PreparedStatement PStmt = (PreparedStatement) connection.prepareStatement(Query);
+			
+			// Valores
+			PStmt.setString(1, nombre);
+			PStmt.setDouble(2, longitud);
+			PStmt.setDouble(3, latitud);
+			
+			// Condicion
+			PStmt.setInt(4, idpoi);
 			
 			PStmt.execute();
 			PStmt.close();

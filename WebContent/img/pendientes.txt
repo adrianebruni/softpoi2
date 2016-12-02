@@ -1,0 +1,4 @@
++ Al modificar un POI: No se refrescan los datos en la tabla de POIs.
++ Al modificar un Administrador: No se refrescan los datos en la tabla de Administradores.
++ Al modificar una Terminal: No se refrescan los datos en la tabla de Terminales.
++ En la pantalla de busquedaPOI, al ver los datos de un poi, no se muestra la imagen.

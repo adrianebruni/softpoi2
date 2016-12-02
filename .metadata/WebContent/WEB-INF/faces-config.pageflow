@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14769179892380" configfile="/softpoi2/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" id="pf14803555659760" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" outlinks="pf14803555659771 pf14803555659772" inlinks="pf14803555659773" path="/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="principal.xhtml" id="pf14803555659774" referenceLink="//@navigationRule.6/@fromViewId|" outlinks="pf14803555659775 pf14803555659776 pf14803555659777 pf14803555659778" inlinks="pf14803555659771" path="/principal.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="AccAnteBusqueda.xhtml" id="pf14803555659779" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf14803555659775" path="/AccAnteBusqueda.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="busqueda.xhtml" id="pf148035556597810" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf14803555659776" path="/busqueda.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="historialBusqueda.xhtml" id="pf148035556597811" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf14803555659777" path="/historialBusqueda.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="busquedaUsuario.xhtml" id="pf148035556597812" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf14803555659772" path="/busquedaUsuario.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" id="pf148035556597813" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf14803555659773" path="/index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="ABMPoi.xhtml" id="pf148035556597814" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" inlinks="pf14803555659778" path="/ABMPoi.xhtml"/>
-  <links id="pf14803555659771" target="pf14803555659774" source="pf14803555659760" outcome="admin"/>
-  <links id="pf14803555659775" target="pf14803555659779" source="pf14803555659774" outcome="accionBusqueda"/>
-  <links id="pf14803555659776" target="pf148035556597810" source="pf14803555659774" outcome="buscar"/>
-  <links id="pf14803555659777" target="pf148035556597811" source="pf14803555659774" outcome="historico"/>
-  <links id="pf14803555659772" target="pf148035556597812" source="pf14803555659760" outcome="user"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="132" y="216" id="pf14803555659760" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" outlinks="pf14803555659771 pf14803555659772" inlinks="pf14803555659773" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="principal.xhtml" x="283" y="96" id="pf14803555659774" referenceLink="//@navigationRule.6/@fromViewId|" outlinks="pf14803555659775 pf14803555659776 pf14803555659777 pf14803555659778 pf14806476476370 pf14806476476371" inlinks="pf14803555659771" path="/principal.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="AccAnteBusqueda.xhtml" x="752" y="216" id="pf14803555659779" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf14803555659775" path="/AccAnteBusqueda.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="busqueda.xhtml" x="780" y="288" id="pf148035556597810" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf14803555659776" path="/busqueda.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="historialBusqueda.xhtml" x="752" y="132" id="pf148035556597811" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf14803555659777" path="/historialBusqueda.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="busquedaUsuario.xhtml" x="253" y="398" id="pf148035556597812" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf14803555659772" path="/busquedaUsuario.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="12" y="216" id="pf148035556597813" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf14803555659773" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="ABMPoi.xhtml" x="786" y="60" id="pf148035556597814" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" inlinks="pf14803555659778" path="/ABMPoi.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="ABMAdministrador.xhtml" x="748" y="360" id="pf14806476476372" inlinks="pf14806476476370" path="/ABMAdministrador.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="ABMTerminal.xhtml" x="768" y="432" id="pf14806476476373" inlinks="pf14806476476371" path="/ABMTerminal.xhtml"/>
+  <links id="pf14803555659771" target="pf14803555659774" source="pf14803555659760" outcome="admin">
+    <bendPoints d1Width="-1" d1Height="-121" d2Width="-165" d2Height="-1"/>
+  </links>
+  <links id="pf14803555659775" target="pf14803555659779" source="pf14803555659774" outcome="accionBusqueda">
+    <bendPoints d1Width="453" d1Height="121" d2Width="-47" d2Height="1"/>
+  </links>
+  <links id="pf14803555659776" target="pf148035556597810" source="pf14803555659774" outcome="buscar">
+    <bendPoints d1Width="449" d1Height="192" d2Width="-51"/>
+  </links>
+  <links id="pf14803555659777" target="pf148035556597811" source="pf14803555659774" outcome="historico">
+    <bendPoints d1Width="392" d1Height="36" d2Width="-108"/>
+  </links>
+  <links id="pf14803555659772" target="pf148035556597812" source="pf14803555659760" outcome="user">
+    <bendPoints d1Height="181" d2Width="-163" d2Height="-1"/>
+  </links>
   <links id="pf14803555659773" target="pf14803555659760" source="pf148035556597813" redirect="true"/>
-  <links id="pf14803555659778" target="pf148035556597814" source="pf14803555659774" outcome="abmPoi"/>
+  <links id="pf14803555659778" target="pf148035556597814" source="pf14803555659774" outcome="abmPoi">
+    <bendPoints d1Width="283" d1Height="-36" d2Width="-217"/>
+  </links>
+  <links id="pf14806476476370" target="pf14806476476372" source="pf14803555659774" outcome="abmAdministrador">
+    <bendPoints d1Width="375" d1Height="263" d2Width="-125" d2Height="-1"/>
+  </links>
+  <links id="pf14806476476371" target="pf14806476476373" source="pf14803555659774" outcome="abmTerminal">
+    <bendPoints d1Width="232" d1Height="333" d2Width="-268" d2Height="-3"/>
+  </links>
 </pageflow:Pageflow>

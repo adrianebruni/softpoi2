@@ -73,5 +73,21 @@
 			<to-view-id>/ABMPoi.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<display-name>principal.xhtml</display-name>
+		<from-view-id>/principal.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>abmAdministrador</from-outcome>
+			<to-view-id>/ABMAdministrador.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>principal.xhtml</display-name>
+		<from-view-id>/principal.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>abmTerminal</from-outcome>
+			<to-view-id>/ABMTerminal.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 
 </faces-config>

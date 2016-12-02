@@ -6,17 +6,21 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:form>
-    <p:menubar>
-        <p:submenu label="Menu" icon="ui-icon-document">
-            <p:menuitem value="Buscador" action="buscar" outcome="busqueda"  />
-            <p:menuitem value="Historial de Busqueda" action="historico" outcome="historialBusqueda" />
-          	<p:menuitem value="Acciones ante la busqueda" action="AccAnteBusqueda" outcome="AccAnteBusqueda"/>
-          	<p:menuitem value="ABM POIs" action="abmPoi" outcome="ABMPoi"/>
-     	</p:submenu>
- 
-    <p:menuitem value="Inicio" outcome="index"  icon="ui-icon-arrowreturnthick-1-e" />
-    </p:menubar>
-    <br/><br/><br/>
-</h:form>
+	<h:form>
+	    <p:menubar>
+	        <p:submenu label="Menu" >
+	        	<p:menuitem value="Menu Principal" action="principal" outcome="principal" icon="ui-icon-home"  />
+	            <p:separator/>
+	            <p:menuitem value="Buscador" action="buscar" outcome="busqueda" icon="ui-icon-search"  />
+	            <p:menuitem value="Historial de Busquedas" action="historico" outcome="historialBusqueda" icon="ui-icon-note" />
+	          	<p:separator/>
+	          	<p:menuitem value="ABM POIs" action="abmPoi" outcome="ABMPoi" icon="ui-icon-pin-s" />
+	          	<p:menuitem value="ABM Administradores" action="abmAdministrador" outcome="ABMAdministrador" icon="ui-icon-person" />
+	          	<p:menuitem value="ABM Terminales" action="abmTerminal" outcome="ABMTerminal" icon="ui-icon-lightbulb"/>
+	     	</p:submenu>
+	 
+	    <p:menuitem value="Cerrar Sesion" outcome="index"  icon="ui-icon-close" />
+	    </p:menubar>
+	    <br/><br/><br/>
+	</h:form>
 </html>

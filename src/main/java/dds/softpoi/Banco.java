@@ -144,6 +144,7 @@ public class Banco extends POI {
 		List<String> listaInfo = new ArrayList<String>();
 		listaInfo.add("Direccion: " + this.getDireccion());
 		listaInfo.add("Zona: " + this.getZona());
+		listaInfo.add("Gerente: " + this.getGerente());
 		for(Servicio unServicioDisponible : servicios){
 			listaInfo.add("Servicio: " + unServicioDisponible.getServicio());
 		}	

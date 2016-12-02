@@ -68,13 +68,18 @@ public class VistaLogin extends VistaPadre  {
 		
 		if (super.getUnUsuarioLogueado() != null) {
 			msg = "Usuario Autorizado!";
-			if ( super.getUnUsuarioLogueado().getClass().getName().substring(12).equals("DispositivoConsulta") ){
+			
+			// Le seteamos al usuario logeado el servidor
+			super.getUnUsuarioLogueado().setServidor(super.getServidor());
+			
+			if ( super.getUnUsuarioLogueado().getClass().getSimpleName().equals("DispositivoConsulta") ){
 				// es una terminal
 				retorno = "user"; //Navegation Rule
 			}else{
 				// es un administrador
 				retorno = "admin"; //Navegation Rule
 			}
+			
 		}else{
 			msg = "Usuario No Autorizado!";
 			severity = FacesMessage.SEVERITY_ERROR;

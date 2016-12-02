@@ -101,7 +101,7 @@ public class VistaBusqueda extends VistaPadre implements Serializable {
 			return auxPOIs;
 		}
 					
-		// Obtenemos los parametros enviados desde el bean VistaLogin    	
+		// Obtenemos los parametros enviados desde el bean VistaLogin
     	super.setServidor(bnVistaLogin.getServidor());
     	super.setUnUsuarioLogueado(bnVistaLogin.getUnUsuarioLogueado());    	
     	   	   	

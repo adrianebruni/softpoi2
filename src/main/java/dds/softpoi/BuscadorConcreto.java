@@ -15,14 +15,12 @@ public class BuscadorConcreto implements BuscadorAbstracto {
 	public ArrayList<POI> consultar(String query, Servidor unServidor){
 		
 		Set<POI> auxPOIs = new HashSet<POI>();
-		//ArrayList<POI> colAux = null;
-		
+		ArrayList<POI> colAux = new ArrayList<POI>();
 	
 		// Buscamos en MySQL
 		DBMySQL objBBDD = new DBMySQL();
 		objBBDD.getConexion();
-		auxPOIs.addAll(objBBDD.buscarPOIs("nombre", query, false));
-		
+		auxPOIs.addAll(objBBDD.buscarPOIs("nombre", query, false));	
 		
 		// Buscamos en MongoDB
 		MongoDB objMongo = new MongoDB();
@@ -35,7 +33,9 @@ public class BuscadorConcreto implements BuscadorAbstracto {
 			System.out.println(cursor.next());			
 		}
 		
-		return null;
+		colAux.addAll(auxPOIs);
+		
+		return colAux;
 	}
 	
 	

@@ -13,7 +13,7 @@ public class Auditoria {
 	//un metodo por cada accion a auditar
 	public ArrayList<POI> auditarBusquedaPOI(String query, Usuario unUsuario){
 		
-		if(unUsuario.getFlagAuditoriaBusqueda()){
+		if(unUsuario.getFlagAuditoriaBusqueda()){			
 			return unUsuario.getServidor().getHistoricoConsulta().consultar(query, unUsuario);
 		}else{
 			return unBuscadorConcreto.consultar(query, unUsuario.getServidor());

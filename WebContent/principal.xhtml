@@ -1,27 +1,77 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-
-	<ui:composition template="/WEB-INF/template/BasicTemplate.xhtml">
-		<ui:define name="content">
-			<h:form>
-				<h:panelGroup >
-					<p:commandButton value="Realizar Busqueda" action="buscar"/>
-					<br></br>
-					<p:commandButton value="Historico de Busqueda" action="historico"/>
-					<br></br>						
-					<p:commandButton value="ABM POIs" action="abmPoi"/>
-					<br></br>
-					<p:commandButton value="ABM Administrador" action="abmAdministrador"/>
-					<br></br>
-					<p:commandButton value="ABM Terminal" action="abmTerminal"/>
-				</h:panelGroup>
-			</h:form>
-		</ui:define>
-	</ui:composition>
+	
+	
+		<h:head>
+			<title>
+				<ui:insert name="title">SOFTPOI | MENU PRINCIPAL </ui:insert>
+			</title>
+			<meta content="text/html; charset=UTF-8" http-equiv="Content-type" />
+			<link rel="stylesheet" type="text/css" href="/softpoi2/css/principal/style3.css" ></link>
+		</h:head>
+	    
+	    <body style="font-family: 'Times New Roman'; background: #0ca3d2;">
+	        
+	        <div id="content">
+                <ul class="ca-menu">
+                
+					<li>
+						<p:link outcome="busqueda">
+					         <span class="ca-icon">&#76;</span>
+					         <div class="ca-content">
+					             <h2 class="ca-main">Busqueda de POIs</h2>
+					             <h3 class="ca-sub">Buscador de POIs</h3>
+					         </div>
+					    </p:link>
+					</li>
+                    
+                   	<li>
+                   		<p:link outcome="historialBusqueda">
+                        	<span class="ca-icon">&#80;</span>
+                            <div class="ca-content">
+                                <h2 class="ca-main">Historial de Consultas</h2>
+                                <h3 class="ca-sub">Ver historico de consultas realizadas</h3>
+                            </div>
+                           </p:link>
+                   	</li>
+                   
+                   	<li>
+                   		<p:link outcome="ABMPoi">
+                            <span class="ca-icon">&#63;</span>
+                            <div class="ca-content">
+                                <h2 class="ca-main">Gestion de POIs</h2>
+                                <h3 class="ca-sub">Alta, Baja y Modificacion de POIs</h3>
+                            </div>
+                           </p:link>
+                   	</li>
+                   
+                   	<li>
+                    	<p:link outcome="ABMAdministrador">
+                            <span class="ca-icon">&#85;</span>
+                            <div class="ca-content">
+                                <h2 class="ca-main">Gestion de Administradores</h2>
+                                <h3 class="ca-sub">Alta, Baja y Modificacion de Administradores</h3>
+                            </div>
+                           </p:link>
+                   	</li>
+				
+                   	<li>
+                    	<p:link outcome="ABMTerminal">
+                            <span class="ca-icon">&#81;</span>
+                            <div class="ca-content">
+                                <h2 class="ca-main">Gestion de Terminales</h2>
+                                <h3 class="ca-sub">Alta, Baja y Modificacion de Terminales</h3>
+                            </div>
+                    	</p:link>
+                   	</li>
+				
+				</ul>
+			</div>			
+        	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+		</body>
+	
 </html>

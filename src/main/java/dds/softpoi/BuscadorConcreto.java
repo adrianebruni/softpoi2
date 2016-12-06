@@ -14,7 +14,7 @@ public class BuscadorConcreto implements BuscadorAbstracto {
 	
 	private static Parametros objParam = new Parametros();
 	
-	@SuppressWarnings("deprecation")
+
 	public ArrayList<POI> consultar(String query, Servidor unServidor){
 		
 		Set<POI> auxPOIs = new HashSet<POI>();
@@ -31,7 +31,7 @@ public class BuscadorConcreto implements BuscadorAbstracto {
 		objMongo.crearConexion(objParam.getBaseMongoDB(), objParam.getTablaMongoPOIsExternos());
 		cursor = objMongo.buscarDato("nombre", query, false);
 		
-		System.out.println("Hay que ver como pasar de objMongo a POI (con morphia)");			
+		//System.out.println("Hay que ver como pasar de objMongo a POI (con morphia)");			
 		
 		BasicDBObject unDBObj;
 		while(cursor.hasNext()){

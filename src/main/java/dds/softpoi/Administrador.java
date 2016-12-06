@@ -77,6 +77,24 @@ public class Administrador extends Usuario{
 
 		ArrayList<ElementoDeConsulta> poiEncontradosHist = new ArrayList<ElementoDeConsulta>();
 		
+		try {
+			if (unUsuario == ""){
+				unUsuario = null;
+			}
+		} catch (Exception e) {	}
+
+		try {
+			if (fechaInicial == ""){
+				fechaInicial = null;
+			}
+		} catch (Exception e) {	}
+		
+		try {
+			if (fechaFinal == ""){
+				fechaFinal = null;
+			}
+		} catch (Exception e) {	}
+		
 		poiEncontradosHist.addAll(this.getServidor().historialBusquedaPantalla(unUsuario,fechaInicial,fechaFinal));
 		return poiEncontradosHist;
 	}

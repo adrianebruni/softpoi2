@@ -125,17 +125,17 @@ public class ElementoDeConsulta {
 	@SuppressWarnings("null")
 	public String fechaFormateada(String formatoElegido){
 		if(formatoElegido != null || formatoElegido.isEmpty()){
-		String DATE_FORMAT = formatoElegido;
-		SimpleDateFormat fechaConformato = new SimpleDateFormat(DATE_FORMAT);
-		return fechaConformato.format(fechaConsulta);
+			String DATE_FORMAT = formatoElegido;
+			SimpleDateFormat fechaConformato = new SimpleDateFormat(DATE_FORMAT);
+			return fechaConformato.format(fechaConsulta);
+		}else{
+			String DATE_FORMAT = "yyyy/MM/dd";
+			SimpleDateFormat fechaConformato = new SimpleDateFormat(DATE_FORMAT);
+			return fechaConformato.format(fechaConsulta);
+		}
 	}
-		else{
-		String DATE_FORMAT = "yyyy/MM/dd";
-		SimpleDateFormat fechaConformato = new SimpleDateFormat(DATE_FORMAT);
-		return fechaConformato.format(fechaConsulta);
-	}
-		
-		}//fin metodo fechaFormateada
+	
+
 	
 	
 }

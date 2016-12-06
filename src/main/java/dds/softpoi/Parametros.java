@@ -33,10 +33,8 @@ public class Parametros {
 	private static String servidorMongoDB = "localhost";
 	private static int puertoMongoDB = 27017;
 	private static String baseMongoDB = "db_mongo_softpoi";
-	//static String tablaMongoPOIsExternosBancos = "pois_extero_banco";
-	//static String tablaMongoPOIsExternosCentros = "pois_extero_centro";
 	private static String tablaMongoPOIsExternos = "pois_externos";
-	private static String tablaMongoHistoricoConsultas = "historico";
+	private static String tablaMongoHistoricoConsultas = "registro";
 	
 	// Parametros de configuracion para MySQL
 	private static final String MySQL_JDBC_DRIVER = "com.mysql.jdbc.Driver";

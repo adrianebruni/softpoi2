@@ -3,20 +3,33 @@ package dds.softpoi;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
+
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+
+import dds.mongodb.MongoDB;
 import dds.mongodb.MongoDBConnection;
 
 import java.util.HashSet;
+import java.util.Locale;
 
 public class HistoricoConsulta implements BuscadorAbstracto{
 
 
     protected ArrayList<ElementoDeConsulta> elementosDeConsulta = new ArrayList<ElementoDeConsulta>();
-    
+	private Parametros objParam = new Parametros();
+	private MongoDB objMongo = new MongoDB();
 
 	public void setelementosDeConsulta(ElementoDeConsulta unElementoDeConsulta) {
 		this.elementosDeConsulta.add(unElementoDeConsulta);
@@ -32,7 +45,7 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		
 		Timer unTimer = new Timer();
 		ArrayList<POI> poisEncontrados =  unTimer.consultar(query, unUsuario.getServidor(), unUsuario);
-		ElementoDeConsulta unaConsulta = new ElementoDeConsulta(new Date(), query, unTimer.duracionConsulta(), unUsuario.getNombre() , poisEncontrados.size(), poisEncontrados);
+		ElementoDeConsulta unaConsulta = new ElementoDeConsulta(new Date(), query.toUpperCase(), unTimer.duracionConsulta(), unUsuario.getNombre().toUpperCase() , poisEncontrados.size(), poisEncontrados);
 		elementosDeConsulta.add(unaConsulta);
 		MongoDBConnection.persistirElementoDeConsulta(unaConsulta);
 		
@@ -124,47 +137,205 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 	}
 	
 	public ArrayList<ElementoDeConsulta> coleccItemsHistorialBusqPantalla(String unUsuario, String fechaInicial, String fechaFinal){
-		ArrayList<ElementoDeConsulta> colItemBusqHist = new ArrayList<ElementoDeConsulta>();	
-		ArrayList<ElementoDeConsulta> colItemBusqHist2 = new ArrayList<ElementoDeConsulta>();
-		ArrayList<ElementoDeConsulta> colItemBusqHist3 = new ArrayList<ElementoDeConsulta>();
-		
-		//voy guardando en la lista los elementos segun filtro de usuario
-		if(unUsuario == null){
-			colItemBusqHist.addAll(elementosDeConsulta);
-		}else{
-			for(ElementoDeConsulta elem: elementosDeConsulta) {
-				if(unUsuario == elem.getTipoUsuario()){
-					colItemBusqHist.add(elem);
-				}
-			}
-		}
-		
-		//voy quitando en la lista los elementos segun filtro fecha inicial
-		if(fechaInicial == null){
-			colItemBusqHist2.addAll(colItemBusqHist);
-		}else{
-			for(ElementoDeConsulta elem: colItemBusqHist) {
-				if(fechaStringAdate(fechaInicial).compareTo(elem.getFechaConsulta())<=0){
-					colItemBusqHist2.add(elem);
-				}
-			}
-		}
-	
-		//voy guardando en la lista los elementos segun filtro fecha final
-		if(fechaFinal == null){
-			colItemBusqHist3.addAll(colItemBusqHist2);
-		}else{
-			for(ElementoDeConsulta elem: colItemBusqHist2) {
-				if(fechaStringAdate(fechaFinal).compareTo(elem.getFechaConsulta())>=0){
-					colItemBusqHist3.add(elem);
-				}
-			}
-		}	
 
-		return colItemBusqHist3;
+		ArrayList<ElementoDeConsulta> colElemHist = new ArrayList<ElementoDeConsulta>();
+		
+		if(unUsuario != null){
+			if (fechaInicial != null){
+				if (fechaFinal != null){
+					// Buscamos por nombre, fecha ini, fecha fin
+				}else{
+					// buscamos por nombre y fecha ini
+				}
+			}else{
+				if (fechaFinal != null){
+					// Buscamos por nombre y fecha fin
+				}else{
+					// buscamos por nombre
+					colElemHist.addAll(busquedaHistoricoPorUsuario(unUsuario));
+				}
+			}
+		}else{
+			if (fechaInicial != null){
+				if (fechaFinal != null){
+					// Buscamos por fecha ini, fecha fin
+				}else{
+					// buscamos por fecha ini
+					colElemHist.addAll(busquedaHistoricoPorFechaInicio(fechaInicial));
+				}
+			}else{
+				if (fechaFinal != null){
+					// Buscamos por fecha fin
+					
+				}
+			}
+			
+			
+		}
+
+		return colElemHist;
 	}
 
+	public ArrayList<ElementoDeConsulta> busquedaHistoricoPorUsuario(String nombreUsuario){
+		
+		ElementoDeConsulta unElemConsulta;
+		ArrayList<ElementoDeConsulta> colElemHistPorUsuario = new ArrayList<ElementoDeConsulta>();
+		
+		objMongo.crearConexion(objParam.getBaseMongoDB(), objParam.getTablaMongoHistoricoConsultas());
+		DBCursor cursor = null;
+		cursor = objMongo.buscarDato("tipoUsuario", nombreUsuario, true);	
+		
+		BasicDBObject unDBObj;
+		BasicDBList lstPOI;
+		BasicDBObject unDBObjPOI;
+		ArrayList<POI> colPOIHist;
+		
+		while(cursor.hasNext()){
 
+			unDBObj = (BasicDBObject) cursor.next();
+			
+			unElemConsulta = new ElementoDeConsulta();
+			unElemConsulta.setFechaConsulta(unDBObj.getDate("fechaConsulta"));	
+			unElemConsulta.setConsultaUsuario(unDBObj.getString("consultaUsuario"));
+			unElemConsulta.setTiempoRespuesta(unDBObj.getLong("tiempoRespuesta"));
+			unElemConsulta.setTipoUsuario(unDBObj.getString("tipoUsuario"));
+			unElemConsulta.setTotalResultados(unDBObj.getInt("totalResultados"));
+			
+			lstPOI = (BasicDBList) unDBObj.get("colPOIs");
+			System.out.println(lstPOI);
+			colPOIHist = new ArrayList<POI>();
+			
+			for (Object objPOI : lstPOI) {
+				System.out.println(objPOI);
+				
+				try {
+					unDBObjPOI = (BasicDBObject) objPOI;
+					
+					String TipoPoi = unDBObjPOI.get("className").toString().substring(12);
+					
+					switch (TipoPoi) {
+						case "Banco":
+							Banco unBanco = new Banco();
+							unBanco.setAltura(unDBObjPOI.getInt("altura"));
+							unBanco.setPiso(unDBObjPOI.getInt("piso"));
+							unBanco.setGerente(unDBObjPOI.getString("gerente"));
+							unBanco.setZona(unDBObjPOI.getString("zona"));
+							unBanco.setIdpoi(unDBObjPOI.getInt("idpoi"));
+							unBanco.setNombre(unDBObjPOI.getString("nombre"));
+							unBanco.setLatitud(unDBObjPOI.getDouble("latitud"));
+							unBanco.setLongitud(unDBObjPOI.getDouble("longitud"));
+							colPOIHist.add(unBanco);
+							break;
+							
+						case "CGP":
+							CGP unCGP = new CGP();	
+							System.out.println("PENDIENTE CGP: " + this.getClass().getSimpleName() + " --> busquedaHistoricoPorUsuario() ");
+							break;
+
+						case "Comercio":
+							Comercio unComercio = new Comercio();
+							System.out.println("PENDIENTE Comercio: " + this.getClass().getSimpleName() + " --> busquedaHistoricoPorUsuario() ");
+							break;	
+							
+						case "ParadaColectivo":
+							ParadaColectivo unaParadaColectivo = new ParadaColectivo();
+							System.out.println("PENDIENTE ParadaColectivo: " + this.getClass().getSimpleName() + " --> busquedaHistoricoPorUsuario() ");
+							break;							
+					}
+					
+					
+				} catch (Exception e) {
+					System.out.println("ERROR: " + this.getClass().getSimpleName() + " --> busquedaHistoricoPorUsuario() ");
+					e.printStackTrace();
+				}
+				
+			}
+			
+			// Agrego los pois a la coleccion del elementoConsulta
+			unElemConsulta.setColPOIs(colPOIHist);
+			
+			// Agrego el elementoConsulta a la coleccion para retornarla
+			colElemHistPorUsuario.add(unElemConsulta);			
+			
+		}
+		objMongo.cerrarConexion();
+		return colElemHistPorUsuario;
+	}
+
+	
+	
+	public ArrayList<ElementoDeConsulta> busquedaHistoricoPorFechaInicio(String FechaInicio){
+		
+		ElementoDeConsulta unElemConsulta;
+		ArrayList<ElementoDeConsulta> colElemHistPorUsuario = new ArrayList<ElementoDeConsulta>();
+		
+		
+		DBCollection dbCol;
+		
+		objMongo.crearConexion(objParam.getBaseMongoDB(), objParam.getTablaMongoHistoricoConsultas());
+		dbCol = objMongo.dameColeccion();
+		
+		System.out.println(fechaStringAdate(FechaInicio));
+		
+		// Calendar objCalendar;
+		// objCalendar.
+		
+		Date fecha = new Date();
+		
+		
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
+		df.setTimeZone(TimeZone.getTimeZone("UTC"));
+		System.out.println("FECHA: " + df.format(fecha));
+		
+		
+		
+		
+		@SuppressWarnings("deprecation")
+		BasicDBObject query = new BasicDBObject("fechaConsulta", //
+							  new BasicDBObject("$gte", new Date("11/01/2016")).append("$lt", new Date("12/05/2016"))	);
+		
+		//dbCol.findOne("{'fechaConsulta' : { $gte : new ISODate('2016-12-04T20:21:37')}}");
+		System.out.println(query);
+		
+		DBCursor unCursor;
+		
+		unCursor = dbCol.find(query);
+		
+		
+		//DBCursor cursor = null;
+		//cursor = objMongo.buscarDato("fechaConsulta", "", false);	
+		
+		BasicDBObject unDBObj;
+		BasicDBList lstPOI;
+		BasicDBObject unDBObjPOI;
+		ArrayList<POI> colPOIHist;
+		
+		while(unCursor.hasNext()){
+			System.out.println(unCursor.next());
+		}
+		
+		return colElemHistPorUsuario;
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public Date fechaStringAdate(String unaFecha){
 		DateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 		Date fecha = null;

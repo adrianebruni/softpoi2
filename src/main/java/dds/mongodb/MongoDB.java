@@ -103,7 +103,9 @@ public class MongoDB {
 		return cursor;
 	}
 	
-	
+	public DBCollection dameColeccion(){
+		return this.mongoCollection;
+	}
 	
 	public void insertarDato(JsonArray arrayConsulta){
 		// Intentamos insertar los datos de JSON a MongoDB

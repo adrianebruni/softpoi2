@@ -2,6 +2,8 @@ package dds.mongodb;
 
 import com.mongodb.MongoClient;
 import dds.softpoi.ElementoDeConsulta;
+import dds.softpoi.Parametros;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.mongodb.morphia.Datastore;
@@ -12,7 +14,8 @@ public class MongoDBConnection {
 
     private static MongoDBConnection instance = null;
     private final Datastore datastore;
-
+    private static Parametros objParam = new Parametros();
+    
     public static MongoDBConnection getInstance() {
         if (instance == null) {
             instance = new MongoDBConnection();
@@ -26,9 +29,9 @@ public class MongoDBConnection {
         // tell Morphia where to find your classes
         // can be called multiple times with different packages or classes
         morphia.mapPackage("org.mongodb.morphia.example");
-
+        
         // create the Datastore connecting to the default port on the local host
-        this.datastore = morphia.createDatastore(new MongoClient(), "morphia_example");
+        this.datastore = morphia.createDatastore(new MongoClient(), objParam.getBaseMongoDB());
         datastore.ensureIndexes();
     }
 

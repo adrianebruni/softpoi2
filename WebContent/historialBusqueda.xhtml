@@ -36,7 +36,7 @@
 			<br/><br/>
 			
 			<h:form id="formBusqueda">
-				<p:dataTable id="mostrarBusqueda" var="unaBusqueda" value="#{bnHistorialBusqueda.elementosBuscados}" type="ordered">
+				<p:dataTable id="mostrarBusqueda" var="unaBusqueda" value="#{bnHistorialBusqueda.elementosBuscados}" >
 					
 					<f:facet name="header">Resultados</f:facet>
 					
@@ -56,43 +56,29 @@
 						<h:outputText value="#{unaBusqueda.totalResultados}" />
 					</p:column>
 
-<!-- 
-					<p:column style="width:32px;text-align: center">
-						<p:commandButton id="cmbDetalle" update=":formBusqueda:detallePOI" oncomplete="PF('poiDialog').show()" icon="ui-icon-search" title="ver">
-							<f:setPropertyActionListener value="#{unaBusqueda}"	target="#{bnHistorialBusqueda.elemSeleccionado}" />
+					<p:column headerText="Acción">
+						<p:commandButton id="cmbBuscar" value="Ver" icon="ui-icon-search" update=":formBusqueda:propiedadesPOI" oncomplete="PF('dlgPOIs').show();" >
+							<f:setPropertyActionListener value="#{unaBusqueda.colPOIs}"	target="#{bnHistorialBusqueda.colPOIsSeleccionado}" />
 						</p:commandButton>
 					</p:column>
-	 -->
+					
 				</p:dataTable>
-				
-				<!-- 
-			    <p:dialog header="Detalle de POIs" widgetVar="poiDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-			    	<p:outputPanel id="detallePOI" style="text-align:center;">
-	                	
-	                	<ui:repeat value="#{bnHistorialBusqueda.detallesPOIs}" var="unPOI">
-	                	
-	                		<p:panelGrid  columns="2" columnClasses="label,value" style="width:500px">
-								
-								<p:dataTable>
-									<p:column>
-										<p:graphicImage url="#{unPOI.imagenIcon}" style="width:32px"/>
-									</p:column>
-								    <p:column>
-								        <h:outputText value="#{unPOI.nombre}" />
-								    </p:column>
-							    </p:dataTable>
-				               			                
-				            </p:panelGrid>
-				            
-			            </ui:repeat>
-	                	
-	                </p:outputPanel>
-			    </p:dialog>
-    -->
-			</h:form>
-			
-		</ui:define>
-	
-	</ui:composition>
+			    
+			    <p:dialog header="Datos POIs" widgetVar="dlgPOIs" modal="true" showEffect="fade" hideEffect="fade" height="400" width="600" resizable="false">
+			    	<p:outputPanel id="propiedadesPOI" style="text-align:center;">
+						<h:outputText value="prueba" />
+						
+						<p:dataTable var="datoPOI" value="#{bnHistorialBusqueda.colPOIsSeleccionado}">
+							<p:column>
+								<h:outputText value="#{datoPOI}" />
+							</p:column>
+						</p:dataTable>
 
+
+					</p:outputPanel>
+			    </p:dialog>	
+			    
+			</h:form>
+		</ui:define>
+	</ui:composition>
 </html>

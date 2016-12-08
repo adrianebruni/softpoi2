@@ -178,7 +178,7 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 			unDBObj = (BasicDBObject) cursor.next();
 			
 			unElemConsulta = new ElementoDeConsulta();
-			unElemConsulta.setFechaConsulta(unDBObj.getDate("fechaConsulta"));	
+			unElemConsulta.setFechaConsulta(unDBObj.getString("fechaConsulta"));	
 			unElemConsulta.setConsultaUsuario(unDBObj.getString("consultaUsuario"));
 			unElemConsulta.setTiempoRespuesta(unDBObj.getLong("tiempoRespuesta"));
 			unElemConsulta.setTipoUsuario(unDBObj.getString("tipoUsuario"));

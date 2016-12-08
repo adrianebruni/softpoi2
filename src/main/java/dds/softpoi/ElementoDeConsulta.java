@@ -77,6 +77,9 @@ public class ElementoDeConsulta {
 	public void setFechaConsulta(Date fechaConsulta) {
 		this.fechaConsulta = fechaFormato(fechaConsulta);
 	}
+	public void setFechaConsulta(String fechaConsulta) {
+		this.fechaConsulta = fechaConsulta;
+	}
     public void setConsultaUsuario(String consultaUsuario) {
 		this.consultaUsuario = consultaUsuario;
 	}

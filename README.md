@@ -27,3 +27,6 @@ CREATE TABLE `DDS`.`TERMINAL` (
   latitud FLOAT NULL,
   flagAuditoriaBusqueda TINYINT(1) NULL,
   flagNotificaciones TINYINT(1) NULL);
+
+INSERT INTO DDS.ADMINISTRADOR
+VALUES (1,"root","root","root@softpoi.com.ar",1,0);

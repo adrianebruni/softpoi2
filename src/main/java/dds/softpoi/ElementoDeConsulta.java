@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
-
 //import javax.persistence.CascadeType;
 //import javax.persistence.Entity;
 //import javax.persistence.GeneratedValue;
@@ -37,7 +35,7 @@ public class ElementoDeConsulta {
 	@Id
 	private ObjectId mongoId;
 	//private int idconsulta;
-	private Date fechaConsulta;
+	private String fechaConsulta;
 	private String consultaUsuario;
 	private double tiempoRespuesta;
 	private String tipoUsuario;
@@ -58,8 +56,13 @@ public class ElementoDeConsulta {
  	// ***************************************************************************
 	public ElementoDeConsulta(){}
 	
-    public ElementoDeConsulta(Date fechaConsulta,String consultaUsuario,double tiempoRespuesta,String tipoUsuario,int totalResultados,ArrayList<POI> colPOIs) {
-    	this.fechaConsulta = fechaConsulta;
+	public ElementoDeConsulta(Date fechaConsulta,String consultaUsuario,double tiempoRespuesta,String tipoUsuario,int totalResultados,ArrayList<POI> colPOIs) {
+    	
+    	
+    	//this.fechaConsulta = fechaConsulta.getYear() + "/" + fechaConsulta.getMonth() + "/" + fechaConsulta.getDate();
+    	this.fechaConsulta = fechaFormato(fechaConsulta);
+    	
+    	
     	this.consultaUsuario = consultaUsuario;
     	this.tiempoRespuesta = tiempoRespuesta;
     	this.tipoUsuario = tipoUsuario;
@@ -71,8 +74,8 @@ public class ElementoDeConsulta {
  	// Setters
  	// ***************************************************************************
   
-    public void setFechaConsulta(Date fechaConsulta) {
-		this.fechaConsulta = fechaConsulta;
+	public void setFechaConsulta(Date fechaConsulta) {
+		this.fechaConsulta = fechaFormato(fechaConsulta);
 	}
     public void setConsultaUsuario(String consultaUsuario) {
 		this.consultaUsuario = consultaUsuario;
@@ -97,7 +100,7 @@ public class ElementoDeConsulta {
 	// Getters
 	// ***************************************************************************
 
-	public Date getFechaConsulta() {
+	public String getFechaConsulta() {
 		return fechaConsulta;
 	}
 	public String getConsultaUsuario() {
@@ -135,7 +138,11 @@ public class ElementoDeConsulta {
 		}
 	}
 	
-
+	public String fechaFormato(Date fechastr){
+		String DATE_FORMAT = "yyyy/MM/dd";
+		SimpleDateFormat fechaConformato = new SimpleDateFormat(DATE_FORMAT);
+		return fechaConformato.format(fechastr);
+	}
 	
 	
 }

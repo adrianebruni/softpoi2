@@ -66,9 +66,22 @@ public class MongoDB {
 			e.printStackTrace();
 			System.out.println("ERROR Throwable Message: " + e.getMessage());
 		}
+	}	
+	
+	public DBCursor buscarDatos(BasicDBObject Query){
+		
+		DBCursor cursor = null;
+		
+		try {
+			cursor = mongoCollection.find(Query);
+			System.out.println("cursor.count() = " + cursor.count() + " | cursor.size() = " + cursor.size());	
+		}catch (Exception e) {
+			System.out.println("Se produjo un error al intentar buscar datos en MongoDB.");
+			e.printStackTrace();
+		}
+		
+		return cursor;
 	}
-	
-	
 	
 	public DBCursor buscarDato(String key, String valorBuscado, boolean busquedaExacta){
 		

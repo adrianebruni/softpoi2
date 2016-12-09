@@ -13,7 +13,7 @@
 
 			<h:form id="form">
 				<p:panel id="panel" header="Criterio de Busqueda" style="margin-bottom:10px;">
-					<h:panelGrid columns="6" cellpadding="2" border="1">
+					<h:panelGrid columns="6" cellpadding="2" border="0">
 						
 						<p:outputLabel value="Usuario"  />
 						<p:outputLabel value=""  />
@@ -57,26 +57,25 @@
 					</p:column>
 
 					<p:column headerText="Acción">
-						<p:commandButton id="cmbBuscar" value="Ver" icon="ui-icon-search" update=":formBusqueda:propiedadesPOI" oncomplete="PF('dlgPOIs').show();" >
-							<f:setPropertyActionListener value="#{unaBusqueda.colPOIs}"	target="#{bnHistorialBusqueda.colPOIsSeleccionado}" />
+						<p:commandButton id="cmbBuscar" title="Ver" icon="ui-icon-search" update=":formBusqueda:propiedadesPOI" oncomplete="PF('dlgPOIs').show();" >
+							<f:setPropertyActionListener value="#{unaBusqueda.colPOIs}" target="#{bnHistorialBusqueda.colPOISeleccionados}" />
 						</p:commandButton>
 					</p:column>
 					
 				</p:dataTable>
-			    
+				
 			    <p:dialog header="Datos POIs" widgetVar="dlgPOIs" modal="true" showEffect="fade" hideEffect="fade" height="400" width="600" resizable="false">
 			    	<p:outputPanel id="propiedadesPOI" style="text-align:center;">
-						<h:outputText value="prueba" />
+						<h:outputText value="sarlanga" />
 						
-						<p:dataTable var="datoPOI" value="#{bnHistorialBusqueda.colPOIsSeleccionado}">
+						<p:dataTable var="unPOI" value="#{bnHistorialBusqueda.colPOISeleccionados}">
 							<p:column>
-								<h:outputText value="#{datoPOI}" />
+								<h:outputText value="#{unPOI.nombre}" />
 							</p:column>
 						</p:dataTable>
 
-
 					</p:outputPanel>
-			    </p:dialog>	
+		    	</p:dialog>	
 			    
 			</h:form>
 		</ui:define>

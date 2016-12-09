@@ -1,28 +1,25 @@
 package dds.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-
-import org.primefaces.context.RequestContext;
-
+import javax.faces.bean.SessionScoped;
 import dds.softpoi.Administrador;
 import dds.softpoi.ElementoDeConsulta;
 import dds.softpoi.POI;
 
 @ManagedBean(name="bnHistorialBusqueda")
-@RequestScoped
+//@RequestScoped
+@SessionScoped
 public class HistorialBusqueda extends VistaPadre {
 	
 	private String usuario;
 	private String fechaDesde;
 	private String fechaHasta;
 	private List<ElementoDeConsulta> elementosBuscados;
-	
-	private List<POI> colPOIsSeleccionado;
+	private List<POI> colPOISeleccionados;
 	
 	@ManagedProperty("#{bnVistaLogin}")
 	private VistaLogin bnVistaLogin;
@@ -68,20 +65,13 @@ public class HistorialBusqueda extends VistaPadre {
 		this.elementosBuscados = elementosBuscados;
 	}
 
-	public void setColPOIsSeleccionado(List<POI> colPOI){
-		System.out.println("Pase por aca");
-		this.colPOIsSeleccionado = colPOI;
+	public void setColPOISeleccionados(List<POI> colPOISeleccionados) {
+		this.colPOISeleccionados = colPOISeleccionados;
 	}
 	
 	// ***************************************************************************
 	// Getters
 	// ***************************************************************************
-	
-	public List<POI> getColPOIsSeleccionado(){
-		System.out.println("Pase por aca --> getColPOIsSeleccionado");
-		System.out.println("getColPOIsSeleccionado: --> " + colPOIsSeleccionado);
-		return colPOIsSeleccionado;
-	}
 	
     public String getUsuario() {
 		return usuario;
@@ -98,21 +88,27 @@ public class HistorialBusqueda extends VistaPadre {
 	public List<ElementoDeConsulta> getElementosBuscados() {
 		return elementosBuscados;
 	}
+		
+	public List<POI> getColPOISeleccionados() {
+		if (colPOISeleccionados != null){
+			return colPOISeleccionados;
+		}else{
+			List<POI> lst = new ArrayList<POI>();
+			return lst;
+		}
+	}
 	
 	// ***************************************************************************
 	// Metodos
 	// ***************************************************************************
 
-	// Este atributo es del tipo List<  >
 	public void resultadoBusqueda(){
-		elementosBuscados = ((Administrador) super.getUnUsuarioLogueado()).historialBusquedaPantalla(this.usuario,this.fechaDesde,this.fechaHasta);
-		
+		if ( (this.usuario == null) && (this.fechaDesde == null) && (this.fechaHasta == null) ){
+			return ;
+		}else{
+			elementosBuscados = ((Administrador) super.getUnUsuarioLogueado()).historialBusquedaPantalla(this.usuario,this.fechaDesde,this.fechaHasta);
+		}
 	}
 
-    public void showMessage() {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "info del poi", "bla bla bla");
-         System.out.println("paseeeee");
-        RequestContext.getCurrentInstance().showMessageInDialog(message);
-    }
 	
 }

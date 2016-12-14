@@ -115,7 +115,7 @@ public class HistorialBusqueda extends VistaPadre {
 	// ***************************************************************************
 
 	public void resultadoBusqueda(){
-		if ( (this.usuario == null) && (this.fechaDesde == null) && (this.fechaHasta == null) ){
+		if ( (this.usuario == null || this.usuario.trim().isEmpty()) && (this.fechaDesde == null || this.fechaDesde.trim().isEmpty()) && (this.fechaHasta == null || this.fechaHasta.trim().isEmpty()) ){
 			return ;
 		}else{
 			elementosBuscados = ((Administrador) super.getUnUsuarioLogueado()).historialBusquedaPantalla(this.usuario,this.fechaDesde,this.fechaHasta);

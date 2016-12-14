@@ -1,6 +1,11 @@
 package dds.softpoi;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+
+//import org.hibernate.mapping.Set;
 
 public class Auditoria {
 
@@ -21,5 +26,24 @@ public class Auditoria {
 	
 	
 	}
+	//para las repeticiones usams sobrecarga
+	public ArrayList<POI> auditarBusquedaPOI(ArrayList<String> query, Usuario unUsuario){
+		
+		if(unUsuario.getFlagAuditoriaBusqueda()){			
+			return unUsuario.getServidor().getHistoricoConsulta().consultar(query, unUsuario);
+		}else{
+			ArrayList<POI> colAux = new ArrayList<POI>();
+			for(String unQuery : query){
+				colAux.addAll(unBuscadorConcreto.consultar(unQuery, unUsuario.getServidor()));
+			}
+			Set<POI> colPOIs = new HashSet<POI>();
+//			return unBuscadorConcreto.consultar(query, unUsuario.getServidor());
+			colPOIs.addAll(colAux);
+			return (ArrayList<POI>) colPOIs;
+		}
+	
+	
+	}
+	
 	
 }

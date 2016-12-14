@@ -93,7 +93,7 @@ public class VistaBusqueda extends VistaPadre implements Serializable {
         
     //@SuppressWarnings("unchecked")
 	public Set<POI> getPoisEncontrados() {
-		
+		System.out.println("|||||||||||||   getPoisEncontrados()   |||||||||||||||||||");
 		Set<POI> auxPOIs = new HashSet<POI>(); 
 		
 		if ( (colCriteriosBusqueda == null) || (colCriteriosBusqueda.isEmpty()) ) {
@@ -106,10 +106,13 @@ public class VistaBusqueda extends VistaPadre implements Serializable {
     	super.setUnUsuarioLogueado(bnVistaLogin.getUnUsuarioLogueado());    	
     	   	   	
     	// aca tiene que recorrer la coleccion colBusqueda y por cada uno de ellos buscar poi segun el criterio de busqueda.
-    	for(String unCriterio : colCriteriosBusqueda){    		
-    		// el resultado de cada busqueda se debe almacenar en una coleccion sin repetidos
-    		auxPOIs.addAll(super.getServidor().buscaPOI(unCriterio, super.getUnUsuarioLogueado()));
-    	}
+    	//for(String unCriterio : colCriteriosBusqueda){    		
+    	//	// el resultado de cada busqueda se debe almacenar en una coleccion sin repetidos
+    	//	auxPOIs.addAll(super.getServidor().buscaPOI(unCriterio, super.getUnUsuarioLogueado()));
+    	//}
+    	ArrayList<String> cadenasDeQuerys = new ArrayList<String>();
+    	cadenasDeQuerys.addAll(colCriteriosBusqueda);
+    	auxPOIs.addAll(super.getServidor().buscaPOI( cadenasDeQuerys, super.getUnUsuarioLogueado()));
     	
     	// Cargamos la variable privada de la clase con los POIs sin repetidos
     	POIs = auxPOIs;

@@ -198,7 +198,12 @@ public class Servidor {
 		return unaAuditoria.auditarBusquedaPOI(cadenadebusqueda, unUsuario);
 	}
 	
-
+	//para las repeticiones sobrecargamos el metodo
+	public ArrayList<POI> buscaPOI(ArrayList<String> cadenadebusqueda, Usuario unUsuario){
+		
+		return unaAuditoria.auditarBusquedaPOI(cadenadebusqueda, unUsuario);
+	}
+	
 	public void actualizoDesdeDatosExternos(String cadena) {
 		
 		colPOIsExternos.removeAll(colPOIsExternos);

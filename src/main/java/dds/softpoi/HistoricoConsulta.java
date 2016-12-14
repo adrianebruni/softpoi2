@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
+import java.util.Set;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
@@ -38,43 +39,36 @@ public class HistoricoConsulta implements BuscadorAbstracto{
     
 	
 	public ArrayList<POI> consultar(String query, Usuario unUsuario){
-		/*Timer unTimer = new Timer();
-		ArrayList<POI> poisEncontrados =  unTimer.consultar(query,unServidor, unUsuario);
-		ElementoDeConsulta unaConsulta = new ElementoDeConsulta(new Date(), query, unTimer.duracionConsulta(), unUsuario.getNombre() , poisEncontrados.size());
-		elementosDeConsulta.add(unaConsulta);
-		return poisEncontrados;*/
-		
 		Timer unTimer = new Timer();
 		ArrayList<POI> poisEncontrados =  unTimer.consultar(query, unUsuario.getServidor(), unUsuario);
 		ElementoDeConsulta unaConsulta = new ElementoDeConsulta(new Date(), query.toUpperCase(), unTimer.duracionConsulta(), unUsuario.getNombre().toUpperCase() , poisEncontrados.size(), poisEncontrados);
 		elementosDeConsulta.add(unaConsulta);
 		MongoDBConnection.persistirElementoDeConsulta(unaConsulta);
-		
-		//try {
-		//	// Insertamos en la base de datos (MySQL)
-		//	unUsuario.getServidor().getRepositorio().elementosDeConsulta().persistir(unaConsulta);
-		//} catch (Exception e) {
-		//	System.out.println("Error al persistir el ElementoDeConsulta");
-		//}
-		
-		//try {
-		//	// Insertamos en la base de datos (MongoDB)
-		//	MongoDB miMongo = new MongoDB();
-		//	miMongo.crearConexion("db_pois", "pois_consultas");
-		//	miMongo.insertarDato(unaConsulta);
-		//	
-		//	// Buscamos un valor insertado
-		//	miMongo.buscarDato("consultaUsuario", "banco");
-		//	
-		//	
-		//} catch (Exception e) {
-		//	System.out.println("Error al insertar el ElementoDeConsulta");
-		//}
-		
-		
 			
 		return poisEncontrados;
+	}
+	//para evitar repetidos sobrecargamos
+	public ArrayList<POI> consultar(ArrayList<String> query, Usuario unUsuario){
+		Timer unTimer = new Timer();
+		//ArrayList<POI> poisEncontrados =  unTimer.consultar(query, unUsuario.getServidor(), unUsuario);
 		
+		
+		String strBusqueda = "";
+		Set<POI> colPOIs = new HashSet<POI>();
+		ArrayList<POI> colAux = new ArrayList<POI>();
+		for(String unQuery : query){
+			colPOIs.addAll( unTimer.consultar(unQuery, unUsuario.getServidor(), unUsuario));
+			strBusqueda = strBusqueda + unQuery + " ; ";
+		}
+		
+		colAux.addAll(colPOIs);
+//		ElementoDeConsulta unaConsulta = new ElementoDeConsulta(new Date(), query.toUpperCase(), unTimer.duracionConsulta(), unUsuario.getNombre().toUpperCase() , poisEncontrados.size(), poisEncontrados);
+		ElementoDeConsulta unaConsulta = new ElementoDeConsulta(new Date(), strBusqueda.toUpperCase(), unTimer.duracionConsulta(), unUsuario.getNombre().toUpperCase() , colPOIs.size(), colAux);
+
+		elementosDeConsulta.add(unaConsulta);
+		MongoDBConnection.persistirElementoDeConsulta(unaConsulta);
+			
+		return colAux;
 	}
 	
 	public ArrayList<ItemReporteFecha> reportePorFecha(Usuario unUsuario){

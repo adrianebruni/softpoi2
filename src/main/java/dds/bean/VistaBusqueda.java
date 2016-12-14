@@ -90,15 +90,22 @@ public class VistaBusqueda extends VistaPadre implements Serializable {
 	// ***************************************************************************
 	// Metodos
 	// ***************************************************************************
-        
+    
+    public Set<POI> getPoisEncontrados() {
+    	if (this.POIs == null){
+    		POIs = new HashSet<POI>();
+    	}
+    	return POIs;
+    }
+    
     //@SuppressWarnings("unchecked")
-	public Set<POI> getPoisEncontrados() {
-		System.out.println("|||||||||||||   getPoisEncontrados()   |||||||||||||||||||");
+	public void buscarPois() {
+
+		System.out.println("<<---------------------------   buscarPois()   --------------------------->>");
 		Set<POI> auxPOIs = new HashSet<POI>(); 
 		
 		if ( (colCriteriosBusqueda == null) || (colCriteriosBusqueda.isEmpty()) ) {
-			System.out.println("Debug: Primer proceso");
-			return auxPOIs;
+			return ;
 		}
 					
 		// Obtenemos los parametros enviados desde el bean VistaLogin
@@ -116,9 +123,6 @@ public class VistaBusqueda extends VistaPadre implements Serializable {
     	
     	// Cargamos la variable privada de la clase con los POIs sin repetidos
     	POIs = auxPOIs;
-    	
-    	// Retornamos los la coleccion de POIs (sin repetidos) para mostrarlos por pantalla
-		return POIs;
     	
     }
 	

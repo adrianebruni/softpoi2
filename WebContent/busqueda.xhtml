@@ -7,8 +7,6 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-
-
 	<ui:composition template="/WEB-INF/template/BasicTemplate.xhtml">
 	
 		<ui:define name="content">
@@ -33,7 +31,7 @@
 							<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 						</p:confirmDialog>
 						
-						<p:commandButton id="cmb2" value="Buscar" update=":formBusqueda:mostrarBusqueda" />
+						<p:commandButton id="cmb2" value="Buscar" actionListener="#{bnVistaBusqueda.buscarPois}" update=":formBusqueda:mostrarBusqueda" />
 						
 				</h:panelGrid>
 				</p:panel>
@@ -42,7 +40,6 @@
 			<br/><br/>
 			
 			<h:form id="formBusqueda">
-				
 				
 				<p:dataTable id="mostrarBusqueda" var="unPOI" value="#{bnVistaBusqueda.poisEncontrados}" type="ordered">
 					
@@ -63,7 +60,7 @@
 					</p:column>
 					
 				</p:dataTable>
-				
+
 			    <p:dialog header="Propiedades POI" widgetVar="poiDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 			    	<p:outputPanel id="propiedadesPOI" style="text-align:center;">
 	                	
@@ -80,7 +77,6 @@
 								        <h:outputText value="#{datoPOI}" />
 								    </p:column>
 							    </p:dataTable>
-				               			                
 				                
 				            </p:panelGrid>
 				            
@@ -88,14 +84,10 @@
 	                	
 	                </p:outputPanel>
 			    </p:dialog>
-    
+ 
 			</h:form>
 			
-			
-			
-			
 		</ui:define>
-	
 	</ui:composition>
 
 </html>

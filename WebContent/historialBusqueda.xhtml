@@ -66,8 +66,7 @@
 				
 			    <p:dialog header="Datos POIs" widgetVar="dlgPOIs" modal="true" showEffect="fade" hideEffect="fade" height="400" width="600" resizable="false">
 			    	<p:outputPanel id="propiedadesPOI" style="text-align:center;">
-						<h:outputText value="sarlanga" />
-						
+
 						<p:dataTable var="unPOI" value="#{bnHistorialBusqueda.colPOISeleccionados}">
 							<p:column>
 								<h:outputText value="#{unPOI.nombre}" />

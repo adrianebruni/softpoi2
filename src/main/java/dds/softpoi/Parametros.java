@@ -45,6 +45,13 @@ public class Parametros {
 	private static final String MySQL_USER = "root";
 	private static final String MySQL_PASS = "";
 	
+	private static final String rutaArchivoLocalesComerciales = "/home/alexis/workspace/softpoi2/src/test/java/dds/softpoi/ComerciosPalabrasClave";
+	
+	
+	public static String getRutaarchivolocalescomerciales() {
+		return rutaArchivoLocalesComerciales;
+	}
+
 	public String getMysqlJdbcDriver() {
 		return MySQL_JDBC_DRIVER;
 	}

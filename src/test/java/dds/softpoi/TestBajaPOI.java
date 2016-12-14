@@ -7,7 +7,7 @@ import org.junit.Test;
 public class TestBajaPOI {
 
 	@Test
-	public void testAltaPOI() throws Exception {
+	public void testBajaPOI() throws Exception {
 		//crear Servidor
 		Servidor servidorPpal = new Servidor();
 		
@@ -49,7 +49,7 @@ public class TestBajaPOI {
 		unAdministrador.cargarPOI(cgpFlores);
 		
 		//System.out.println("CANT. POIs repositorio: " + servidorPpal.colPOIs.size());
-		
+		int cantAnterior = servidorPpal.colPOIs.size();
 		//pruebo que este asignando ids incrementales a los POIs agregados al repositorio
 		System.out.println("IDs y nombres de los POIs que fueron agregados al repositorio");
 				for(POI unpoi : servidorPpal.getColPOIs()){
@@ -59,9 +59,9 @@ public class TestBajaPOI {
 		//quiero eliminar del repositorio el POI de ParadaColectivo
 		
 		unAdministrador.eliminarPOI(parada1);
-		
+		int cantPosterior = 1 + servidorPpal.colPOIs.size();
 		//Verificamos que realmente se quito el POI de ParadaColectivo del repositorio
-		assertEquals("Verificamos que realmente se quito el POI de ParadaColectivo del repositorio", 2, servidorPpal.colPOIs.size());
+		assertEquals("Verificamos que realmente se quito el POI de ParadaColectivo del repositorio", cantAnterior, cantPosterior);
 		
 		
 	}

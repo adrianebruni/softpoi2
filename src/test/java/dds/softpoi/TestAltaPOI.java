@@ -43,13 +43,14 @@ public class TestAltaPOI {
 		CGP cgpFlores = new CGP("CGP Flores",0.36,0.70);
 		cgpFlores.setComuna(comunaFlores);
 		
+		int cantidadAnterior = servidorPpal.colPOIs.size();
 		//ejecutar cargarPOI(unPOI)
 		unAdministrador.cargarPOI(bancoFrances);
 		unAdministrador.cargarPOI(parada1);
 		unAdministrador.cargarPOI(cgpFlores);
 		
 		//System.out.println("CANT. POIs repositorio: " + servidorPpal.colPOIs.size());
-		
+		int cantidadPosterior = servidorPpal.colPOIs.size() - 3 ;
 		//pruebo que este asignando ids incrementales a los POIs agregados al repositorio
 		System.out.println("IDs y nombres de los POIs que fueron agregados al repositorio");
 				for(POI unpoi : servidorPpal.getColPOIs()){
@@ -57,7 +58,7 @@ public class TestAltaPOI {
 		};
 		
 		//Verificamos que realmente se agregaron 3 POIs al repositorio
-		assertEquals("Verificamos que realmente se agregaron 3 POIs al repositorio", 3, servidorPpal.colPOIs.size());
+		assertEquals("Verificamos que realmente se agregaron 3 POIs al repositorio", cantidadAnterior, cantidadPosterior);
 		
 	}
 

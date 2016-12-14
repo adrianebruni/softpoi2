@@ -41,6 +41,10 @@ public class HistorialBusqueda extends VistaPadre {
     	// Obtenemos los parametros enviados desde el bean VistaLogin    	
     	super.setServidor(bnVistaLogin.getServidor());
     	super.setUnUsuarioLogueado(bnVistaLogin.getUnUsuarioLogueado());
+    	this.fechaDesde = "";
+    	this.fechaHasta = "";
+    	this.usuario = "";
+    	
     }
 	
 	// ***************************************************************************
@@ -78,10 +82,18 @@ public class HistorialBusqueda extends VistaPadre {
 	}
 	
     public String getFechaDesde() {
+    	System.out.println("Fecha Desde:" + fechaDesde);
+    	if(this.fechaDesde.isEmpty()){
+    		return null;
+    	}
 		return fechaDesde;
 	}
 	
 	public String getFechaHasta() {
+		System.out.println("Fecha Hasta:" + fechaHasta);
+    	if(this.fechaHasta.isEmpty()){
+    		return null;
+    	}
 		return fechaHasta;
 	}
 	

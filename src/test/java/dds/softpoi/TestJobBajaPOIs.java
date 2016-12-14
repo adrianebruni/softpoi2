@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import dds.schedule.Job;
 import dds.schedule.JobBajaPOIs;
+import dds.softpoi.RepoPOI;
 
 public class TestJobBajaPOIs {
 	@Test

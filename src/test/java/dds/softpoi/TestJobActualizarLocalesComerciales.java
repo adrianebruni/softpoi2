@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import dds.schedule.Job;
 import dds.schedule.JobActualizarLocalesComerciales;
-
+import dds.softpoi.RepoPOI;
 
 public class TestJobActualizarLocalesComerciales {
 	@Test

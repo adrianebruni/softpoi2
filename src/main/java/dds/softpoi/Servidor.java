@@ -200,8 +200,14 @@ public class Servidor {
 	
 	//para las repeticiones sobrecargamos el metodo
 	public ArrayList<POI> buscaPOI(ArrayList<String> cadenadebusqueda, Usuario unUsuario){
+		ArrayList<POI> colADevolver = new ArrayList<POI>();
+		Set<POI> colPOIs = new HashSet<POI>();
+		colPOIs.addAll(unaAuditoria.auditarBusquedaPOI(cadenadebusqueda, unUsuario));
+		colADevolver.addAll(colPOIs);
+		System.out.println("**************************************buscaPOI() sobrecargado**************************************");
+		System.out.println(" colPOIs.size " + colPOIs.size() + " - colADevolver.size() " + colADevolver.size());
 		
-		return unaAuditoria.auditarBusquedaPOI(cadenadebusqueda, unUsuario);
+		return colADevolver;
 	}
 	
 	public void actualizoDesdeDatosExternos(String cadena) {

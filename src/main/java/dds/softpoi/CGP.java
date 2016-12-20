@@ -208,7 +208,8 @@ public class CGP extends POI{
 				
 			}*/
 			
-			listaInfo.add("Servicio: " + unServicioDisponible.getServicio() + "<< FALTA IMPLEMENTAR HORARIO >>");
+		//	listaInfo.add("Servicio: " + unServicioDisponible.getServicio() + "<< FALTA IMPLEMENTAR HORARIO >>");
+			listaInfo.add("Servicio: " + unServicioDisponible.getServicio());
 			
 		}	
 		return listaInfo;

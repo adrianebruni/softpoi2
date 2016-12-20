@@ -28,9 +28,17 @@ public class Auditoria {
 	}
 	//para las repeticiones usams sobrecarga
 	public ArrayList<POI> auditarBusquedaPOI(ArrayList<String> query, Usuario unUsuario){
-		
-		if(unUsuario.getFlagAuditoriaBusqueda()){			
-			return unUsuario.getServidor().getHistoricoConsulta().consultar(query, unUsuario);
+		System.out.println("PASA PR AUDITAR!!! " + unUsuario.getFlagAuditoriaBusqueda());
+		if(unUsuario.getFlagAuditoriaBusqueda()){	
+		//esto lo agrego para no repetir resultados
+			Set<POI> colPOIs = new HashSet<POI>();
+			ArrayList<POI> colAux = new ArrayList<POI>();
+			//for(String unQuery : query){
+				colPOIs.addAll(unUsuario.getServidor().getHistoricoConsulta().consultar(query, unUsuario));
+			//}
+			
+			colAux.addAll(colPOIs);
+			return colAux;
 		}else{
 			ArrayList<POI> colAux = new ArrayList<POI>();
 			for(String unQuery : query){

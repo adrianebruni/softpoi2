@@ -2,8 +2,10 @@ package dds.softpoi;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 
@@ -56,6 +58,21 @@ public class BuscadorConcreto implements BuscadorAbstracto {
 					
 					System.out.println("Gerente es : " + unDBObj.getString("gerente"));
 					
+					
+					Servicio unServicio = new Servicio();
+					unServicio.setServicio(null);
+					BasicDBList listaServicios = (BasicDBList) unDBObj.get("servicios");
+					BasicDBObject servicioCGPMongo;
+					
+					String strServicio = "";
+					for (int i = 0; i < listaServicios.size(); i++) {
+						servicioCGPMongo = (BasicDBObject) listaServicios.get(i);
+						strServicio = strServicio + servicioCGPMongo.getString("servicio") + "; ";
+					}
+					unServicio.setServicio(strServicio);
+					unBanco.setServicios(unServicio);
+					
+					
 					auxPOIs.add(unBanco);
 					
 				}
@@ -73,6 +90,19 @@ public class BuscadorConcreto implements BuscadorAbstracto {
 					
 					Comuna unaComuna = new Comuna();
 					unaComuna.setZonas(((BasicDBObject)unDBObj.get("comuna")).getString("zonas"));
+					
+					Servicio unServicio = new Servicio();
+					unServicio.setServicio(null);
+					BasicDBList listaServicios = (BasicDBList) unDBObj.get("servicios");
+					BasicDBObject servicioCGPMongo;
+					
+					String strServicio = "";
+					for (int i = 0; i < listaServicios.size(); i++) {
+						servicioCGPMongo = (BasicDBObject) listaServicios.get(i);
+						strServicio = strServicio + servicioCGPMongo.getString("servicio") + "; ";
+					}
+					unServicio.setServicio(strServicio);
+					unCGP.setServicios(unServicio);
 					unCGP.setComuna(unaComuna);
 					auxPOIs.add(unCGP);
 				}

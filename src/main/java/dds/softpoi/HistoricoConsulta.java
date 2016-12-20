@@ -151,7 +151,7 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 		}
 		
 		if (fechaFinal != null){
-			objConsulta.add(new BasicDBObject("fechaConsulta", new BasicDBObject("$lt",  fechaFormato(fechaFinal)  )));
+			objConsulta.add(new BasicDBObject("fechaConsulta", new BasicDBObject("$lte",  fechaFormato(fechaFinal)  )));
 		}
 			
 		dbQuery.put("$and", objConsulta);
@@ -178,58 +178,80 @@ public class HistoricoConsulta implements BuscadorAbstracto{
 			unElemConsulta.setTipoUsuario(unDBObj.getString("tipoUsuario"));
 			unElemConsulta.setTotalResultados(unDBObj.getInt("totalResultados"));
 			
-			lstPOI = (BasicDBList) unDBObj.get("colPOIs");
-			System.out.println(lstPOI);
-			colPOIHist = new ArrayList<POI>();
-			
-			for (Object objPOI : lstPOI) {
-				System.out.println(objPOI);
+			if(unElemConsulta.getTotalResultados() > 0){
 				
-				try {
-					unDBObjPOI = (BasicDBObject) objPOI;
+				lstPOI = (BasicDBList) unDBObj.get("colPOIs");
+			
+				System.out.println(" pincha aca" + lstPOI);
+				colPOIHist = new ArrayList<POI>();
+				
+				for (Object objPOI : lstPOI) {
+					System.out.println(objPOI);
 					
-					String TipoPoi = unDBObjPOI.get("className").toString().substring(12);
-					
-					switch (TipoPoi) {
-						case "Banco":
-							Banco unBanco = new Banco();
-							unBanco.setAltura(unDBObjPOI.getInt("altura"));
-							unBanco.setPiso(unDBObjPOI.getInt("piso"));
-							unBanco.setGerente(unDBObjPOI.getString("gerente"));
-							unBanco.setZona(unDBObjPOI.getString("zona"));
-							unBanco.setIdpoi(unDBObjPOI.getInt("idpoi"));
-							unBanco.setNombre(unDBObjPOI.getString("nombre"));
-							unBanco.setLatitud(unDBObjPOI.getDouble("latitud"));
-							unBanco.setLongitud(unDBObjPOI.getDouble("longitud"));
-							colPOIHist.add(unBanco);
-							break;
-							
-						case "CGP":
-							CGP unCGP = new CGP();	
-							System.out.println("PENDIENTE CGP: " + this.getClass().getSimpleName() + " --> busquedaHistoricoPorUsuario() ");
-							break;
-
-						case "Comercio":
-							Comercio unComercio = new Comercio();
-							System.out.println("PENDIENTE Comercio: " + this.getClass().getSimpleName() + " --> busquedaHistoricoPorUsuario() ");
-							break;	
-							
-						case "ParadaColectivo":
-							ParadaColectivo unaParadaColectivo = new ParadaColectivo();
-							System.out.println("PENDIENTE ParadaColectivo: " + this.getClass().getSimpleName() + " --> busquedaHistoricoPorUsuario() ");
-							break;							
+					try {
+						unDBObjPOI = (BasicDBObject) objPOI;
+						
+						String TipoPoi = unDBObjPOI.get("className").toString().substring(12);
+						
+						switch (TipoPoi) {
+							case "Banco":
+								Banco unBanco = new Banco();
+								unBanco.setAltura(unDBObjPOI.getInt("altura"));
+								unBanco.setPiso(unDBObjPOI.getInt("piso"));
+								unBanco.setGerente(unDBObjPOI.getString("gerente"));
+								unBanco.setZona(unDBObjPOI.getString("zona"));
+								unBanco.setIdpoi(unDBObjPOI.getInt("idpoi"));
+								unBanco.setNombre(unDBObjPOI.getString("nombre"));
+								unBanco.setLatitud(unDBObjPOI.getDouble("latitud"));
+								unBanco.setLongitud(unDBObjPOI.getDouble("longitud"));
+								colPOIHist.add(unBanco);
+								break;
+								
+							case "CGP":
+								CGP unCGP = new CGP();	
+								unCGP.setAltura(unDBObjPOI.getInt("altura"));
+								unCGP.setPiso(unDBObjPOI.getInt("piso"));
+								unCGP.setIdpoi(unDBObjPOI.getInt("idpoi"));
+								unCGP.setNombre(unDBObjPOI.getString("nombre"));
+								unCGP.setLatitud(unDBObjPOI.getDouble("latitud"));
+								unCGP.setLongitud(unDBObjPOI.getDouble("longitud"));
+								colPOIHist.add(unCGP);
+								break;
+	
+							case "Comercio":
+								Comercio unComercio = new Comercio();
+								unComercio.setAltura(unDBObjPOI.getInt("altura"));
+								unComercio.setPiso(unDBObjPOI.getInt("piso"));
+								unComercio.setIdpoi(unDBObjPOI.getInt("idpoi"));
+								unComercio.setNombre(unDBObjPOI.getString("nombre"));
+								unComercio.setLatitud(unDBObjPOI.getDouble("latitud"));
+								unComercio.setLongitud(unDBObjPOI.getDouble("longitud"));
+								colPOIHist.add(unComercio);
+								break;	
+								
+							case "ParadaColectivo":
+								ParadaColectivo unaParadaColectivo = new ParadaColectivo();
+								unaParadaColectivo.setIdpoi(unDBObjPOI.getInt("idpoi"));
+								unaParadaColectivo.setNombre(unDBObjPOI.getString("nombre"));
+								unaParadaColectivo.setLatitud(unDBObjPOI.getDouble("latitud"));
+								unaParadaColectivo.setLongitud(unDBObjPOI.getDouble("longitud"));
+								colPOIHist.add(unaParadaColectivo);
+								break;							
+						}
+						
+						
+					} catch (Exception e) {
+						System.out.println("ERROR: " + this.getClass().getSimpleName() + " --> busquedaHistoricoPorUsuario() ");
+						e.printStackTrace();
 					}
 					
-					
-				} catch (Exception e) {
-					System.out.println("ERROR: " + this.getClass().getSimpleName() + " --> busquedaHistoricoPorUsuario() ");
-					e.printStackTrace();
 				}
 				
+				// Agrego los pois a la coleccion del elementoConsulta
+				unElemConsulta.setColPOIs(colPOIHist);
 			}
 			
-			// Agrego los pois a la coleccion del elementoConsulta
-			unElemConsulta.setColPOIs(colPOIHist);
+
 			
 			// Agrego el elementoConsulta a la coleccion para retornarla
 			colElemHist.add(unElemConsulta);			
